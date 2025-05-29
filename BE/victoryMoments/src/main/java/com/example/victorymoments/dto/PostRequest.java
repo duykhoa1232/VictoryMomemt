@@ -9,20 +9,18 @@ import java.util.List;
 
 @Data
 public class PostRequest {
-    // userId, userEmail, userName không được gửi từ frontend,
-    // mà sẽ được lấy từ SecurityContextHolder ở backend.
 
     @NotBlank(message = "Content cannot be empty")
-    @Size(min = 1, max = 2000, message = "Content must be between 1 and 2000 characters")
+    @Size(min = 1, max = 5000, message = "Content must be between 1 and 5000 characters")
     private String content;
 
-    @Size(max = 5, message = "Maximum 5 images allowed") // Giới hạn số lượng file
+    @Size(max = 1000, message = "Maximum 1000 images allowed")
     private List<MultipartFile> images;
 
-    @Size(max = 1, message = "Maximum 1 video allowed")
+    @Size(max = 1000, message = "Maximum 1000 video allowed")
     private List<MultipartFile> videos;
 
-    @Size(max = 1, message = "Maximum 1 audio allowed")
+    @Size(max = 500, message = "Maximum 500 audio allowed")
     private List<MultipartFile> audios;
 
     private String location;

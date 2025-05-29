@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Value("${file.upload-dir}")
-    private String uploadDir; // Đọc từ application.properties
+    private String uploadDir;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/media/**") // URL Path mà frontend sẽ gọi (ví dụ: http://localhost:8080/media/images/ten_file.png)
-                .addResourceLocations("file:" + uploadDir + "/"); // Đường dẫn vật lý trên hệ thống file server
+        registry.addResourceHandler("/media/**")
+                .addResourceLocations("file:" + uploadDir + "/");
     }
 }

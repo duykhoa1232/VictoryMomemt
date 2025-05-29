@@ -21,21 +21,19 @@ public class Post {
     @Id
     private String id;
 
-    private String userId;      // ID của user tạo post (lấy từ auth context)
-    private String userEmail;   // Email của user (lấy từ auth context)
-    private String userName;    // Tên user (lấy từ auth context)
+    private String userId;
+    private String userEmail;
+    private String userName;
 
     private String content;
 
-    // Media files
     private List<String> imageUrls;
     private List<String> videoUrls;
     private List<String> audioUrls;
 
-    // Additional fields (giống Facebook)
-    private String location;    // Vị trí check-in
-    private String privacy;     // public, friends, private
-    private List<String> tags;  // Tag bạn bè
+    private String location;
+    private String privacy;
+    private List<String> tags;
 
     // Engagement
     private int likeCount = 0;
@@ -43,10 +41,10 @@ public class Post {
     private int shareCount = 0;
 
     // Timestamps
-    @CreatedDate // Sẽ tự động điền khi tạo mới
+    @CreatedDate
     private LocalDateTime createdAt;
 
-    @LastModifiedDate // Sẽ tự động cập nhật khi chỉnh sửa
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     // Status
