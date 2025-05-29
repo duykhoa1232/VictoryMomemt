@@ -1,0 +1,126 @@
+/* src/app/register/register.component.css */
+
+/* ==== 1. WRAPPER VÀ CARD CHUNG (Có thể trùng với login.component.css) ==== */
+.auth-wrapper {
+  min-height: calc(100vh - 64px); /* Trừ đi chiều cao của navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transform: translateY(-32px); /* Kéo thẻ lên một chút để căn giữa nhìn tốt hơn */
+}
+
+/* ==== 2. TIÊU ĐỀ FORM ==== */
+.auth-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #3f51b5;
+}
+
+/* ==== 3. STYLE CHO mat-form-field ==== */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* ==== 4. NÚT BẤM ==== */
+button.mat-raised-button,
+button.mat-flat-button,
+button.mat-button {
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0.75rem;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+button.mat-raised-button:hover,
+button.mat-flat-button:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+button.mat-raised-button:disabled,
+button.mat-flat-button:disabled,
+button.mat-button:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+/* ==== 5. THÔNG BÁO LỖI (NẾU CÓ TRONG FORM REGISTER) ==== */
+.error-message {
+  color: #d32f2f;
+  font-weight: 600;
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* ==== 6. THÔNG BÁO THÀNH CÔNG (NẾU CÓ TRONG FORM REGISTER) ==== */
+.success-message {
+  color: #388e3c;
+  font-weight: 600;
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* ==== 7. PHẦN FOOTER VỚI LINK CHUYỂN TRANG ==== */
+.auth-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: #3f51b5;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+  color: #303f9f;
+}
+
+/* RESPONSIVE CHO REGISTER CARD */
+@media (max-width: 600px) {
+  .auth-card {
+    padding: 1.5rem;
+    margin: 1rem;
+    transform: translateY(-16px);
+  }
+  .auth-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  button.mat-raised-button {
+    padding: 0.6rem;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .auth-card {
+    padding: 1rem;
+  }
+  .auth-title {
+    font-size: 1.3rem;
+  }
+}

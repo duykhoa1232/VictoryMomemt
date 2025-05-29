@@ -1,0 +1,186 @@
+<!--<div class="background">-->
+<!--</div>-->
+
+<!--<div class="register">-->
+<!--  <img src="logo.svg" />-->
+<!--  <h2>Đăng ký tài khoản mới</h2>-->
+<!--  <h3>Jolt - Lightning quick development!</h3>-->
+<!--  <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="form">-->
+<!--    <div class="textbox">-->
+<!--      <input type="text" formControlName="username" />-->
+<!--      <label>Tên đăng nhập</label>-->
+<!--      @if (f['username'].touched && f['username'].invalid) {-->
+<!--        <div class="error-message">-->
+<!--          @if (f['username'].errors?.['required']) {-->
+<!--            Tên đăng nhập là bắt buộc.-->
+<!--          }-->
+<!--          @if (f['username'].errors?.['minlength']) {-->
+<!--            Tên đăng nhập phải có ít nhất 3 ký tự.-->
+<!--          }-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    <div class="textbox">-->
+<!--      <input type="text" formControlName="name" />-->
+<!--      <label>Họ và tên</label>-->
+<!--      @if (f['name'].touched && f['name'].invalid) {-->
+<!--        <div class="error-message">-->
+<!--          @if (f['name'].errors?.['required']) {-->
+<!--            Họ và tên là bắt buộc.-->
+<!--          }-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    <div class="textbox">-->
+<!--      <input type="email" formControlName="email" />-->
+<!--      <label>Email</label>-->
+<!--      @if (f['email'].touched && f['email'].invalid) {-->
+<!--        <div class="error-message">-->
+<!--          @if (f['email'].errors?.['required']) {-->
+<!--            Email là bắt buộc.-->
+<!--          }-->
+<!--          @if (f['email'].errors?.['email']) {-->
+<!--            Email không hợp lệ.-->
+<!--          }-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    <div class="textbox">-->
+<!--      <input type="password" formControlName="password" />-->
+<!--      <label>Mật khẩu</label>-->
+<!--      @if (f['password'].touched && f['password'].invalid) {-->
+<!--        <div class="error-message">-->
+<!--          @if (f['password'].errors?.['required']) {-->
+<!--            Mật khẩu là bắt buộc.-->
+<!--          }-->
+<!--          @if (f['password'].errors?.['minlength']) {-->
+<!--            Mật khẩu phải có ít nhất 6 ký tự.-->
+<!--          }-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    <div class="textbox">-->
+<!--      <input type="password" formControlName="confirmPassword" />-->
+<!--      <label>Xác nhận mật khẩu</label>-->
+<!--      @if (f['confirmPassword'].touched && f['confirmPassword'].invalid) {-->
+<!--        <div class="error-message">-->
+<!--          @if (f['confirmPassword'].errors?.['required']) {-->
+<!--            Xác nhận mật khẩu là bắt buộc.-->
+<!--          }-->
+<!--        </div>-->
+<!--      }-->
+<!--      @if (registerForm.errors?.['mismatch'] && f['confirmPassword'].touched) {-->
+<!--        <div class="error-message">-->
+<!--          Mật khẩu xác nhận không khớp.-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    <div class="textbox">-->
+<!--      <input type="text" formControlName="phoneNumber" />-->
+<!--      <label>Số điện thoại</label>-->
+<!--      @if (f['phoneNumber'].touched && f['phoneNumber'].invalid) {-->
+<!--        <div class="error-message">-->
+<!--          @if (f['phoneNumber'].errors?.['required']) {-->
+<!--            Số điện thoại là bắt buộc.-->
+<!--          }-->
+<!--          @if (f['phoneNumber'].errors?.['pattern']) {-->
+<!--            Số điện thoại không hợp lệ (ví dụ: 10 chữ số).-->
+<!--          }-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    <button type="submit">-->
+<!--      <p>Đăng ký</p>-->
+<!--      <span class="material-symbols-outlined">arrow_forward</span>-->
+<!--    </button>-->
+<!--  </form>-->
+<!--  <p *ngIf="successMessage" style="color: green; margin-top: 10px;">{{ successMessage }}</p>-->
+<!--  <p *ngIf="errorMessage" style="color: red; margin-top: 10px;">{{ errorMessage }}</p>-->
+<!--  <p class="footer">Đã có tài khoản? <a [routerLink]="['/login']">Đăng nhập</a></p>-->
+<!--</div>-->
+
+
+
+<div class="auth-wrapper">
+  <mat-card class="auth-card register-card">
+    <mat-card-header>
+      <mat-card-title class="auth-title">Đăng ký tài khoản mới</mat-card-title>
+      <mat-card-subtitle>Jolt - Lightning quick development!</mat-card-subtitle>
+    </mat-card-header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tên đăng nhập</mat-label>
+        <input matInput type="text" formControlName="username" />
+        <mat-error *ngIf="f['username'].touched && f['username'].invalid">
+          <span *ngIf="f['username'].errors?.['required']">Tên đăng nhập là bắt buộc.</span>
+          <span *ngIf="f['username'].errors?.['minlength']">Tên đăng nhập phải có ít nhất 3 ký tự.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Họ và tên</mat-label>
+        <input matInput type="text" formControlName="name" />
+        <mat-error *ngIf="f['name'].touched && f['name'].invalid">
+          <span *ngIf="f['name'].errors?.['required']">Họ và tên là bắt buộc.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error *ngIf="f['email'].touched && f['email'].invalid">
+          <span *ngIf="f['email'].errors?.['required']">Email là bắt buộc.</span>
+          <span *ngIf="f['email'].errors?.['email']">Email không hợp lệ.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Số điện thoại</mat-label>
+        <input matInput type="text" formControlName="phoneNumber" />
+        <mat-error *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid">
+          <span *ngIf="f['phoneNumber'].errors?.['required']">Số điện thoại là bắt buộc.</span>
+          <span *ngIf="f['phoneNumber'].errors?.['pattern']">Số điện thoại không hợp lệ (10 chữ số).</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mật khẩu</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="f['password'].touched && f['password'].invalid">
+          <span *ngIf="f['password'].errors?.['required']">Mật khẩu là bắt buộc.</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Mật khẩu phải có ít nhất 6 ký tự.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Xác nhận mật khẩu</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" />
+        <mat-error *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">Xác nhận mật khẩu là bắt buộc.</span>
+        </mat-error>
+        <mat-error *ngIf="registerForm.errors?.['mismatch'] && f['confirmPassword'].touched">
+          Mật khẩu xác nhận không khớp.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        Đăng ký <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </form>
+
+<!--    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>-->
+<!--    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>-->
+
+    <p class="auth-footer">
+      Đã có tài khoản? <a [routerLink]="['/login']">Đăng nhập</a>
+    </p>
+  </mat-card>
+</div>
