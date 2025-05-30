@@ -1,0 +1,31 @@
+<div class="post-list-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Đang tải bài đăng...</p>
+  </div>
+
+  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">
+    <mat-icon>info</mat-icon>
+    <p>Chưa có bài đăng nào. Hãy là người đầu tiên tạo một bài!</p>
+  </div>
+
+  <mat-card *ngFor="let post of posts" class="post-card">
+    <mat-card-header class="post-header">
+      <img mat-card-avatar src="https://placehold.co/40x40/cccccc/ffffff?text=AV" alt="User Avatar">
+      <mat-card-title>{{ getUserName(post) }}</mat-card-title> <mat-card-subtitle>{{ post.createdAt | date:'medium' }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="post-content">
+      <p>{{ post.content }}</p>
+      <div *ngIf="post.location" class="post-location">
+        <mat-icon>location_on</mat-icon>
+        <span>{{ post.location }}</span>
+      </div>
+      <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-image">
+        <img [src]="'http://localhost:8080' + post.imageUrls[0]" alt="Post Image">
+
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+</div>

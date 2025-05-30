@@ -1,0 +1,65 @@
+<mat-card class="create-post-dialog">
+  <mat-card-header class="dialog-header">
+    <mat-card-title>Tạo bài đăng</mat-card-title>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content class="dialog-content">
+    <div class="user-info-section">
+      <img src="https://placehold.co/40x40/cccccc/ffffff?text=AV" alt="User Avatar" class="user-avatar">
+      <div class="user-details">
+        <span class="user-name">{{ currentUserName }}</span>
+      </div>
+    </div>
+
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" class="full-width post-content-field">
+        <mat-label>Bạn đang nghĩ gì, {{ currentUserName }}?</mat-label>
+        <textarea matInput formControlName="content" rows="5" cols="100"></textarea>
+      </mat-form-field>
+
+      <div *ngIf="selectedImages.length > 0" class="file-list-preview">
+        <span class="file-item">
+          {{ selectedImages[0].name }}
+          <button mat-icon-button (click)="removeSelectedFile(0, 'images')" color="warn" type="button">
+            <mat-icon>close</mat-icon>
+          </button>
+        </span>
+      </div>
+
+      <div class="add-to-post-section">
+        <span>Thêm vào bài đăng của bạn</span>
+        <div class="media-upload-buttons">
+          <input
+            type="file"
+            #imageInput
+            hidden
+            accept="image/*"
+            (change)="onFileSelected($event, 'images')"
+            (keydown.enter)="$event.preventDefault()"  (keydown.space)="$event.preventDefault()"  >
+          <button mat-icon-button (click)="imageInput.click()" class="media-button photo-button" type="button">
+            <mat-icon>photo_library</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Vị Trí</mat-label>
+        <input matInput formControlName="location">
+      </mat-form-field>
+
+      <mat-card-actions align="end">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="postForm.invalid || (selectedImages.length === 0 && !f['content'].value)"
+          formnovalidate  >
+          Đăng
+        </button>
+      </mat-card-actions>
+
+    </form>
+  </mat-card-content>
+</mat-card>

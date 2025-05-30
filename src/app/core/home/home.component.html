@@ -1,39 +1,44 @@
 <div class="content-wrapper">
   <div class="content-area">
-    <button mat-button class="back-to-tips-button">
-      <mat-icon>arrow_back</mat-icon> Back to all Tips
-    </button>
+<!--    <button mat-button class="back-to-tips-button">-->
+<!--      <mat-icon>arrow_back</mat-icon> Back to all Tips-->
+<!--    </button>-->
 
     <div class="article-and-sidebar-wrapper">
       <mat-card class="article-card">
-        <span class="article-date">JANUARY 23, 2024</span>
-        <h1 class="article-title">The Victory In The Moment</h1>
-        <span class="article-category">Persuasive</span>
+        <app-create-post (postCreated)="onPostCreated()"></app-create-post>
+        <app-post-list></app-post-list>
+        <!--        <span class="article-date">JANUARY 23, 2024</span>-->
+<!--        <h1 class="article-title">The Victory In The Moment</h1>-->
+<!--        <span class="article-category">Persuasive</span>-->
 
-        <div class="listen-now-section">
-          <span class="listen-now-label">Listen Now:</span>
-          <mat-slider class="listen-now-slider" min="0" max="100" step="1" value="40" thumbLabel showTickMarks [displayWith]="formatLabel"></mat-slider>
-          <span class="listen-now-time">00:00 / 00:00</span>
-        </div>
-
-        <p>We all encounter difficult moments throughout the day. Times when our patience is being put to the test. Times when we get not so great news that we need to respond to. Times when we just don't feel like doing it but we know deep down we should. No one is immune to feeling this way as they all come from very human emotions, but some people have a better way of dealing with it than others.</p>
-        <p>My friend David Williamson gave me what is perhaps the best way to think about it. He said that in those times when we're feeling angry, tired, frustrated, disappointed, or unmotivated, we need to ask ourselves "what is the victory in the moment?"</p>
-        <p>It's brilliant for a few reasons. One is it disrupts your current state of thinking. Our thoughts are simply the questions we ask ourselves and our answers to them. We do that back and forth as a conversation in our mind. What this does it is it causes us to ask a new, different, intentional question. But not only that, it's a question that guides us to bring to mind a high-quality output.</p>
-        <p>What this also does is leverages the powerful associations we have with the word "victory". Our entire lives when we think about victories we think about hard-work, dedication, consistency.</p>
+<!--        <div class="listen-now-section">-->
+<!--          <span class="listen-now-label">Listen Now:</span>-->
+<!--          <mat-slider class="listen-now-slider" min="0" max="100" step="1" value="40" thumbLabel showTickMarks [displayWith]="formatLabel"></mat-slider>-->
+<!--          <span class="listen-now-time">00:00 / 00:00</span>-->
+<!--        </div>-->
+<!--        <p>We all encounter difficult moments throughout the day. Times when our patience is being put to the test. Times when we get not so great news that we need to respond to. Times when we just don't feel like doing it but we know deep down we should. No one is immune to feeling this way as they all come from very human emotions, but some people have a better way of dealing with it than others.</p>-->
+<!--        <p>My friend David Williamson gave me what is perhaps the best way to think about it. He said that in those times when we're feeling angry, tired, frustrated, disappointed, or unmotivated, we need to ask ourselves "what is the victory in the moment?"</p>-->
+<!--        <p>It's brilliant for a few reasons. One is it disrupts your current state of thinking. Our thoughts are simply the questions we ask ourselves and our answers to them. We do that back and forth as a conversation in our mind. What this does it is it causes us to ask a new, different, intentional question. But not only that, it's a question that guides us to bring to mind a high-quality output.</p>-->
+<!--        <p>What this also does is leverages the powerful associations we have with the word "victory". Our entire lives when we think about victories we think about hard-work, dedication, consistency.</p>-->
       </mat-card>
 
       <mat-card class="sidebar-card">
-        <img src="assets/super_habits_system.png" alt="The Super Habits System" class="sidebar-image" />
-        <h2 class="sidebar-title">The Super Habits System</h2>
-        <h3 class="sidebar-subtitle">21 Day Challenge</h3>
-        <div class="color-bands">
-          <div class="band red"></div>
-          <div class="band yellow"></div>
-          <div class="band green"></div>
-        </div>
-        <p class="sidebar-description">Want to put yourself on the path to a life-time of exceptional health and energy, ridiculous productivity, next level consistency, and fast daily growth? In 5 minutes a day for 21 days, you will fully install the life-system and infrastructure you need to revolutionize your lifestyle and excel in every area of your life.</p>
-        <button mat-raised-button color="primary" class="learn-more-button">Learn More!</button>
+<!--        <img src="assets/super_habits_system.png" alt="The Super Habits System" class="sidebar-image" />-->
+<!--        <h2 class="sidebar-title">The Super Habits System</h2>-->
+<!--        <h3 class="sidebar-subtitle">21 Day Challenge</h3>-->
+<!--        <div class="color-bands">-->
+<!--          <div class="band red"></div>-->
+<!--          <div class="band yellow"></div>-->
+<!--          <div class="band green"></div>-->
+<!--        </div>-->
+<!--        <p class="sidebar-description">Want to put yourself on the path to a life-time of exceptional health and energy, ridiculous productivity, next level consistency, and fast daily growth? In 5 minutes a day for 21 days, you will fully install the life-system and infrastructure you need to revolutionize your lifestyle and excel in every area of your life.</p>-->
+<!--        <button mat-raised-button color="primary" class="learn-more-button">Learn More!</button>-->
       </mat-card>
+
+
     </div>
+
+
   </div>
 </div>
