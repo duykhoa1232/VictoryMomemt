@@ -90,6 +90,7 @@
 /* Auth Buttons Section */
 .auth-buttons-section {
   display: flex;
+  align-items: center; /* Đảm bảo căn giữa theo chiều dọc */
   gap: 10px;
   margin-left: 20px;
 }
@@ -121,16 +122,57 @@
   color: white;
 }
 
-/* RESPONSIVE ADJUSTMENTS CHO HEADER */
+/* Styles for Profile Dropdown Trigger */
+.profile-dropdown-wrapper {
+  /* Có thể thêm display: flex nếu muốn căn chỉnh nội dung bên trong wrapper */
+  display: flex;
+  align-items: center;
+}
+
+.profile-menu-trigger {
+  width: 48px; /* Kích thước nút mat-icon-button */
+  height: 48px;
+  border-radius: 50%;
+  padding: 0; /* Đảm bảo không có padding thừa */
+  display: flex; /* Để căn giữa ảnh đại diện */
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1); /* Nền mờ để nổi bật */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.profile-menu-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.toolbar-profile-picture {
+  width: 32px; /* Kích thước ảnh đại diện bên trong nút */
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FFC107; /* Viền màu nhấn */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for the new profile dropdown */
 @media (max-width: 992px) {
   .nav-links-section {
-    display: none; /* Ẩn các link nav chính trên màn hình nhỏ */
+    display: none;
   }
   .auth-buttons-section {
-    gap: 8px; /* Giảm khoảng cách giữa các nút */
+    gap: 8px;
   }
   .auth-buttons-section button {
     padding: 0 14px;
+  }
+  /* Profile dropdown trigger on smaller screens */
+  .profile-menu-trigger {
+    width: 40px; /* Nhỏ hơn một chút */
+    height: 40px;
+  }
+  .toolbar-profile-picture {
+    width: 28px; /* Nhỏ hơn một chút */
+    height: 28px;
   }
 }
 
@@ -169,6 +211,14 @@
   .app-title {
     font-size: 1.3rem;
   }
+  .profile-menu-trigger {
+    width: 36px; /* Nhỏ hơn nữa trên mobile */
+    height: 36px;
+  }
+  .toolbar-profile-picture {
+    width: 24px; /* Nhỏ hơn nữa */
+    height: 24px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -183,5 +233,14 @@
   .auth-buttons-section button {
     width: 90%;
     max-width: 200px;
+  }
+  /* Profile dropdown trigger trên màn hình rất nhỏ */
+  .profile-menu-trigger {
+    width: 40px; /* Có thể tăng lại một chút để dễ chạm */
+    height: 40px;
+  }
+  .toolbar-profile-picture {
+    width: 28px;
+    height: 28px;
   }
 }

@@ -1,0 +1,69 @@
+.dialog-content {
+  padding: 20px;
+  min-width: 400px;
+  max-height: 60vh; /* Giới hạn chiều cao để có scroll */
+  overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+}
+
+.full-width {
+  width: 100%;
+}
+
+.search-field {
+  margin-bottom: 15px;
+}
+
+.selected-users-chips {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Khoảng cách giữa các chip */
+}
+
+.selected-users-chips mat-chip {
+  background-color: #e0f2f7; /* Light blue background for selected chips */
+  color: #01579b;
+  font-weight: 500;
+}
+
+.selected-users-chips mat-chip button {
+  color: #01579b;
+}
+
+.user-list {
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  max-height: 40vh; /* Giới hạn chiều cao của danh sách người dùng */
+  overflow-y: auto;
+}
+
+.user-list mat-list-option {
+  padding: 8px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-list mat-list-option:last-child {
+  border-bottom: none;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px; /* Khoảng cách từ checkbox */
+}
+
+.user-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.user-email {
+  font-size: 0.85em;
+  color: #777;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #eee;
+}

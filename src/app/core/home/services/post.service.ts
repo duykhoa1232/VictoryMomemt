@@ -1,47 +1,46 @@
 // src/app/core/home/services/post.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs'; // THÊM throwError
+import { delay, map, catchError } from 'rxjs/operators'; // THÊM catchError
 
-// Định nghĩa Interface cho một bài đăng (Post)
-// Cập nhật để phù hợp với PostResponse DTO từ backend
-export interface Post {
-  id: string;      // Đổi từ _id sang id để khớp với backend DTO (PostResponse)
-  userId: string;
-  userEmail: string; // Thêm trường này nếu backend gửi về
-  userName: string;  // Thêm trường này vì backend đã gửi về userName
-  content: string;
-  location?: string; // Địa điểm (tùy chọn)
-  imageUrls?: string[]; // Đổi từ 'images' sang 'imageUrls' để khớp với backend DTO
-  videoUrls?: string[]; // Thêm nếu backend gửi về
-  audioUrls?: string[]; // Thêm nếu backend gửi về
-
-  createdAt: string; // Thời gian tạo bài đăng (backend gửi LocalDateTime, Angular xử lý string và pipe date)
-  updatedAt: string; // Thời gian cập nhật bài đăng
-
-  // Các trường này cần phải khớp với cách backend trả về
-  // Nếu backend chỉ trả về likeCount và commentCount (số nguyên), thì interface phải là số nguyên
-  // Nếu backend trả về mảng các ID người dùng đã like, thì vẫn giữ string[]
-  // Dựa trên PostResponse của bạn, backend chỉ gửi likeCount và commentCount là số nguyên.
-  // Tuy nhiên, vì `PostListComponent` của bạn không dùng `likes.length` hay `comments.length` nữa
-  // (mà đã comment các nút like/comment), chúng ta có thể giữ interface này đơn giản hơn.
-  // Nhưng để khớp với PostResponse, hãy sửa lại:
-  likeCount: number; // Đổi từ 'likes: string[]' sang 'likeCount: number'
-  commentCount: number; // Đổi từ 'comments: Comment[]' sang 'commentCount: number'
-  shareCount: number; // Thêm trường này nếu backend gửi về
-  isActive: boolean; // Thêm trường này nếu backend gửi về
+// THÊM: Định nghĩa User interface ngay trong PostService
+export interface User {
+  id: string;
+  name: string;
+  email?: string; // Tùy chọn
+  avatarUrl?: string; // THÊM: Nếu bạn có avatarUrl cho User
 }
 
-// Định nghĩa Interface cho Comment (chỉ cần nếu backend trả về chi tiết comment object)
-// Hiện tại PostResponse chỉ có commentCount, không có mảng Comment objects.
-// Nếu bạn muốn hiển thị chi tiết comment, backend cần trả về mảng này.
-// Tạm thời có thể giữ lại hoặc đơn giản hóa nó.
+// Định nghĩa Post interface ngay trong PostService
+export interface Post {
+  id: string;
+  userId: string;
+  userEmail: string;
+  userName: string;
+  content: string;
+  location?: string;
+  imageUrls?: string[];
+  videoUrls?: string[];
+  audioUrls?: string[];
+  privacy: 'PUBLIC' | 'PRIVATE'; // ĐÃ SỬA: Chỉ còn PUBLIC và PRIVATE (PRIVATE bao gồm chia sẻ)
+  allowedUserIds?: string[]; // Danh sách userId được phép xem (khi privacy = PRIVATE)
+  createdAt: string;
+  updatedAt: string;
+
+  likeCount: number;
+  commentCount: number;
+  shareCount: number;
+  isActive: boolean;
+}
+
+// Giữ lại Comment interface để hoàn chỉnh, mặc dù không trực tiếp dùng trong PostList để hiển thị comments.
 export interface Comment {
-  _id: string; // ID của comment (nếu có từ backend)
+  _id: string;
   userId: string;
   text: string;
   createdAt: string;
-  userName?: string; // Tên người dùng bình luận (có thể lấy từ userId hoặc backend gửi trực tiếp)
+  userName?: string;
 }
 
 
@@ -49,23 +48,101 @@ export interface Comment {
   providedIn: 'root',
 })
 export class PostService {
-  private apiUrl = 'http://localhost:8080/api/posts';
+  private baseUrl = 'http://localhost:8080/api/posts'; // Base URL cho Post API
+  private userApiUrl = 'http://localhost:8080/api/users'; // Base URL cho User API (sẽ dùng để tìm kiếm người dùng)
 
   constructor(private http: HttpClient) {}
 
-  createPost(postData: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl, postData);
+  // Hàm trợ giúp để lấy các header xác thực (giả định JWT hoặc token tương tự)
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('jwt_token'); // Lấy token từ localStorage
+    if (token) {
+      return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    }
+    return new HttpHeaders();
   }
 
-  // Kiểu dữ liệu trả về từ getAllPosts() sẽ được Angular tự động map
-  // Đảm bảo kiểu Post[] đã được cập nhật ở trên.
+  // Phương thức tạo bài đăng mới
+  createPost(formData: FormData): Observable<Post> {
+    return this.http.post<Post>(this.baseUrl, formData, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Phương thức lấy tất cả bài đăng
+  // LƯU Ý: Backend sẽ cần logic để lọc bài đăng dựa trên quyền riêng tư và người dùng hiện tại
   getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.apiUrl);
+    return this.http.get<Post[]>(this.baseUrl, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  likePost(postId: string): Observable<Post> {
-    // Sau khi thay đổi `Post` interface, bạn cần đảm bảo backend trả về đúng Post object khi like
-    // (tức là có 'id' thay vì '_id', 'imageUrls' thay vì 'images', v.v.)
-    return this.http.put<Post>(`${this.apiUrl}/${postId}/like`, {});
+  // Phương thức cập nhật bài đăng
+  updatePost(postId: string, formData: FormData): Observable<Post> {
+    return this.http.put<Post>(`${this.baseUrl}/${postId}`, formData, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Phương thức xóa bài đăng
+  deletePost(postId: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${postId}`, {
+      headers: this.getAuthHeaders(),
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Phương thức lấy URL có thể chia sẻ của bài đăng (ví dụ)
+  getShareablePostUrl(postId: string): string {
+    // Trong ứng dụng thực tế, đây có thể là một URL công khai đến bài đăng
+    // mà backend có thể xử lý để hiển thị bài đăng nếu người dùng có quyền.
+    return `${window.location.origin}/posts/${postId}`;
+  }
+
+  // ĐÃ CẬP NHẬT: Phương thức tìm kiếm người dùng (sẽ gọi API backend)
+  // Trả về một đối tượng có 'users' (mảng User) và 'total' (tổng số kết quả)
+  searchUsers(query: string, pageIndex: number = 0, pageSize: number = 10): Observable<{ users: User[], total: number }> {
+    const params = new HttpParams()
+      .set('query', query)
+      .set('page', pageIndex.toString())
+      .set('size', pageSize.toString());
+
+    return this.http.get<{ users: User[], total: number }>(`${this.userApiUrl}/search`, {
+      params: params,
+      headers: this.getAuthHeaders()
+    }).pipe(
+      // delay(500), // Giữ delay để mô phỏng API nếu cần
+      catchError(this.handleError)
+    );
+  }
+
+  // ĐÃ CẬP NHẬT: Phương thức lấy thông tin người dùng từ một danh sách ID (sẽ gọi API backend)
+  getUsersByIds(userIds: string[]): Observable<User[]> {
+    if (!userIds || userIds.length === 0) {
+      return of([]); // Trả về Observable rỗng nếu không có ID
+    }
+    // Bạn có thể dùng POST nếu danh sách ID quá dài cho GET request (URL length limits)
+    return this.http.post<User[]>(`${this.userApiUrl}/by-ids`, { userIds }, { headers: this.getAuthHeaders() }).pipe(
+      // delay(200), // Giữ delay để mô phỏng API nếu cần
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    // Bạn có thể phân tích lỗi chi tiết hơn ở đây
+    let errorMessage = 'Đã xảy ra lỗi không xác định.';
+    if (error.error instanceof ErrorEvent) {
+      // Lỗi phía client-side hoặc lỗi mạng
+      errorMessage = `Lỗi: ${error.error.message}`;
+    } else {
+      // Lỗi phía backend
+      errorMessage = `Mã lỗi: ${error.status}\nThông báo: ${error.message}`;
+      if (error.error && error.error.message) {
+        errorMessage = error.error.message; // Lấy thông báo lỗi từ backend
+      }
+    }
+    return throwError(() => new Error(errorMessage));
   }
 }

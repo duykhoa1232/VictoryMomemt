@@ -1,11 +1,146 @@
-<mat-card class="create-post-dialog">
-  <mat-card-header class="dialog-header">
-    <mat-card-title>Tạo bài đăng</mat-card-title>
+<!--<mat-card class="create-post-card">-->
+<!--  <mat-card-header class="card-header">-->
+<!--    <mat-card-title>Tạo bài đăng mới</mat-card-title>-->
+<!--  </mat-card-header>-->
+
+<!--  <mat-divider></mat-divider>-->
+
+<!--  <mat-card-content class="card-content">-->
+<!--    <div class="user-info-section">-->
+<!--      <img src="https://placehold.co/40x40/cccccc/ffffff?text=AV" alt="User Avatar" class="user-avatar">-->
+<!--      <div class="user-details">-->
+<!--        <span class="user-name">{{ currentUserName }}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">-->
+<!--      <mat-form-field appearance="fill" class="full-width post-content-field">-->
+<!--        <mat-label>Bạn đang nghĩ gì, {{ currentUserName }}?</mat-label>-->
+<!--        <textarea matInput formControlName="content" rows="5" cols="100"></textarea>-->
+<!--        <mat-error *ngIf="postForm.get('content')?.hasError('required') && postForm.get('content')?.touched">-->
+<!--          Nội dung bài viết là bắt buộc.-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      &lt;!&ndash; Lựa chọn quyền riêng tư (Privacy) &ndash;&gt;-->
+<!--      <mat-form-field appearance="fill" class="full-width">-->
+<!--        <mat-label>Quyền riêng tư</mat-label>-->
+<!--        <mat-select formControlName="privacy">-->
+<!--          <mat-option value="PUBLIC">Công khai</mat-option>-->
+<!--          <mat-option value="PRIVATE">Chỉ mình tôi (có thể chia sẻ)</mat-option>-->
+<!--        </mat-select>-->
+<!--        <mat-error *ngIf="postForm.get('privacy')?.hasError('required') && postForm.get('privacy')?.touched">-->
+<!--          Vui lòng chọn quyền riêng tư.-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      &lt;!&ndash; ĐÃ CẬP NHẬT: Trường nhập liệu cho người dùng được phép xem (chỉ hiển thị khi privacy là PRIVATE) &ndash;&gt;-->
+<!--      <div *ngIf="postForm.get('privacy')?.value === 'PRIVATE'" class="form-group">-->
+<!--        <mat-form-field appearance="fill" class="full-width">-->
+<!--          <mat-label>Người dùng được phép xem (nhập ID, cách nhau bởi dấu phẩy)</mat-label>-->
+<!--          <textarea matInput formControlName="allowedUserIdsInput" rows="3" placeholder="user123, user456, ..."></textarea>-->
+<!--          <mat-error *ngIf="postForm.get('allowedUserIdsInput')?.hasError('required') && postForm.get('allowedUserIdsInput')?.touched">-->
+<!--            Vui lòng nhập ít nhất một ID người dùng khi chọn "Chỉ mình tôi".-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+
+<!--      <mat-form-field appearance="fill" class="full-width">-->
+<!--        <mat-label>Địa điểm</mat-label>-->
+<!--        <input matInput formControlName="location">-->
+<!--      </mat-form-field>-->
+
+<!--      <div class="add-to-post-section">-->
+<!--        <span>Thêm vào bài viết của bạn</span>-->
+<!--        <div class="media-upload-buttons">-->
+<!--          <input-->
+<!--            type="file"-->
+<!--            #imageInput-->
+<!--            hidden-->
+<!--            accept="image/*"-->
+<!--            multiple-->
+<!--            (change)="onFileSelected($event, 'images')"-->
+<!--            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"-->
+<!--          >-->
+<!--          <button mat-icon-button (click)="imageInput.click()" class="media-button photo-button" type="button">-->
+<!--            <mat-icon>photo_library</mat-icon>-->
+<!--          </button>-->
+
+<!--          <input-->
+<!--            type="file"-->
+<!--            #videoInput-->
+<!--            hidden-->
+<!--            accept="video/*"-->
+<!--            multiple-->
+<!--            (change)="onFileSelected($event, 'videos')"-->
+<!--            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"-->
+<!--          >-->
+<!--          <button mat-icon-button (click)="videoInput.click()" class="media-button video-button" type="button">-->
+<!--            <mat-icon>videocam</mat-icon>-->
+<!--          </button>-->
+
+<!--          <input-->
+<!--            type="file"-->
+<!--            #audioInput-->
+<!--            hidden-->
+<!--            accept="audio/*"-->
+<!--            multiple-->
+<!--            (change)="onFileSelected($event, 'audios')"-->
+<!--            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"-->
+<!--          >-->
+<!--          <button mat-icon-button (click)="audioInput.click()" class="media-button audio-button" type="button">-->
+<!--            <mat-icon>audiotrack</mat-icon>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div *ngIf="selectedImages.length > 0 || selectedVideos.length > 0 || selectedAudios.length > 0" class="file-list-preview">-->
+<!--        <h3>Media đã chọn:</h3>-->
+<!--        <div *ngFor="let file of selectedImages; let i = index" class="file-item">-->
+<!--          <mat-icon>image</mat-icon> {{ file.name }}-->
+<!--          <button mat-icon-button (click)="removeSelectedFile(i, 'images')" color="warn" type="button">-->
+<!--            <mat-icon>close</mat-icon>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div *ngFor="let file of selectedVideos; let i = index" class="file-item">-->
+<!--          <mat-icon>videocam</mat-icon> {{ file.name }}-->
+<!--          <button mat-icon-button (click)="removeSelectedFile(i, 'videos')" color="warn" type="button">-->
+<!--            <mat-icon>close</mat-icon>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div *ngFor="let file of selectedAudios; let i = index" class="file-item">-->
+<!--          <mat-icon>mic</mat-icon> {{ file.name }}-->
+<!--          <button mat-icon-button (click)="removeSelectedFile(i, 'audios')" color="warn" type="button">-->
+<!--            <mat-icon>close</mat-icon>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <mat-card-actions align="end">-->
+<!--        <button mat-button (click)="onCancel()" type="button">Hủy</button>-->
+<!--        <button-->
+<!--          mat-flat-button-->
+<!--          color="primary"-->
+<!--          type="submit"-->
+<!--          [disabled]="postForm.invalid || (!f['content'].value?.trim() && selectedImages.length === 0 && selectedVideos.length === 0 && selectedAudios.length === 0)">-->
+<!--          Đăng bài-->
+<!--        </button>-->
+<!--      </mat-card-actions>-->
+<!--    </form>-->
+<!--  </mat-card-content>-->
+<!--</mat-card>-->
+
+
+
+
+<mat-card class="create-post-card">
+  <mat-card-header class="card-header">
+    <mat-card-title>Tạo bài đăng mới</mat-card-title>
   </mat-card-header>
 
   <mat-divider></mat-divider>
 
-  <mat-card-content class="dialog-content">
+  <mat-card-content class="card-content">
     <div class="user-info-section">
       <img src="https://placehold.co/40x40/cccccc/ffffff?text=AV" alt="User Avatar" class="user-avatar">
       <div class="user-details">
@@ -17,49 +152,124 @@
       <mat-form-field appearance="fill" class="full-width post-content-field">
         <mat-label>Bạn đang nghĩ gì, {{ currentUserName }}?</mat-label>
         <textarea matInput formControlName="content" rows="5" cols="100"></textarea>
+        <mat-error *ngIf="postForm.get('content')?.hasError('required') && postForm.get('content')?.touched">
+          Nội dung bài viết là bắt buộc.
+        </mat-error>
       </mat-form-field>
 
-      <div *ngIf="selectedImages.length > 0" class="file-list-preview">
-        <span class="file-item">
-          {{ selectedImages[0].name }}
-          <button mat-icon-button (click)="removeSelectedFile(0, 'images')" color="warn" type="button">
-            <mat-icon>close</mat-icon>
-          </button>
-        </span>
+      <!-- Lựa chọn quyền riêng tư (Privacy) -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Quyền riêng tư</mat-label>
+        <mat-select formControlName="privacy">
+          <mat-option value="PUBLIC">Công khai</mat-option>
+          <mat-option value="PRIVATE">Chỉ mình tôi (có thể chia sẻ)</mat-option>
+        </mat-select>
+        <mat-error *ngIf="postForm.get('privacy')?.hasError('required') && postForm.get('privacy')?.touched">
+          Vui lòng chọn quyền riêng tư.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- ĐÃ CẬP NHẬT: Khu vực chọn người dùng khi privacy là PRIVATE -->
+      <div *ngIf="postForm.get('privacy')?.value === 'PRIVATE'" class="form-group">
+        <mat-label>Chia sẻ với:</mat-label>
+        <mat-chip-listbox aria-label="Người dùng được phép xem" class="mb-2">
+          <mat-chip *ngFor="let user of selectedAllowedUsers" (removed)="removeAllowedUser(user)">
+            {{user.name}}
+            <button matChipRemove [attr.aria-label]="'remove ' + user.name">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-listbox>
+        <button mat-stroked-button color="primary" type="button" (click)="openUserSelectionDialog()">
+          <mat-icon>person_add</mat-icon> Chọn người dùng
+        </button>
+        <mat-error *ngIf="postForm.get('allowedUserIds')?.hasError('required') && postForm.get('allowedUserIds')?.touched">
+          Vui lòng chọn ít nhất một người dùng khi chọn "Chỉ mình tôi".
+        </mat-error>
       </div>
 
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Địa điểm</mat-label>
+        <input matInput formControlName="location">
+      </mat-form-field>
+
       <div class="add-to-post-section">
-        <span>Thêm vào bài đăng của bạn</span>
+        <span>Thêm vào bài viết của bạn</span>
         <div class="media-upload-buttons">
           <input
             type="file"
             #imageInput
             hidden
             accept="image/*"
+            multiple
             (change)="onFileSelected($event, 'images')"
-            (keydown.enter)="$event.preventDefault()"  (keydown.space)="$event.preventDefault()"  >
+            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"
+          >
           <button mat-icon-button (click)="imageInput.click()" class="media-button photo-button" type="button">
             <mat-icon>photo_library</mat-icon>
+          </button>
+
+          <input
+            type="file"
+            #videoInput
+            hidden
+            accept="video/*"
+            multiple
+            (change)="onFileSelected($event, 'videos')"
+            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"
+          >
+          <button mat-icon-button (click)="videoInput.click()" class="media-button video-button" type="button">
+            <mat-icon>videocam</mat-icon>
+          </button>
+
+          <input
+            type="file"
+            #audioInput
+            hidden
+            accept="audio/*"
+            multiple
+            (change)="onFileSelected($event, 'audios')"
+            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"
+          >
+          <button mat-icon-button (click)="audioInput.click()" class="media-button audio-button" type="button">
+            <mat-icon>audiotrack</mat-icon>
           </button>
         </div>
       </div>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Vị Trí</mat-label>
-        <input matInput formControlName="location">
-      </mat-form-field>
+      <div *ngIf="selectedImages.length > 0 || selectedVideos.length > 0 || selectedAudios.length > 0" class="file-list-preview">
+        <h3>Media đã chọn:</h3>
+        <div *ngFor="let file of selectedImages; let i = index" class="file-item">
+          <mat-icon>image</mat-icon> {{ file.name }}
+          <button mat-icon-button (click)="removeSelectedFile(i, 'images')" color="warn" type="button">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div *ngFor="let file of selectedVideos; let i = index" class="file-item">
+          <mat-icon>videocam</mat-icon> {{ file.name }}
+          <button mat-icon-button (click)="removeSelectedFile(i, 'videos')" color="warn" type="button">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div *ngFor="let file of selectedAudios; let i = index" class="file-item">
+          <mat-icon>mic</mat-icon> {{ file.name }}
+          <button mat-icon-button (click)="removeSelectedFile(i, 'audios')" color="warn" type="button">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
 
       <mat-card-actions align="end">
+        <button mat-button (click)="onCancel()" type="button">Hủy</button>
         <button
           mat-flat-button
           color="primary"
           type="submit"
-          [disabled]="postForm.invalid || (selectedImages.length === 0 && !f['content'].value)"
-          formnovalidate  >
-          Đăng
+          [disabled]="postForm.invalid || (!f['content'].value?.trim() && selectedImages.length === 0 && selectedVideos.length === 0 && selectedAudios.length === 0)">
+          Đăng bài
         </button>
       </mat-card-actions>
-
     </form>
   </mat-card-content>
 </mat-card>
+

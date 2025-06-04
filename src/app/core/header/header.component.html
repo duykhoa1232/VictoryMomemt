@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" class="app-toolbar">
   <div class="logo-section">
-    <img src="assets/pexels_logo.png"  class="pexels-logo" />
+<!--    <img src="assets/pexels_logo.png" alt="Pexels Logo" class="pexels-logo" />-->
+<!--    <span class="app-title">Pexels</span>-->
   </div>
 
   <span class="spacer"></span>
@@ -30,9 +31,33 @@
   <span class="spacer"></span>
 
   <div class="auth-buttons-section">
-    <button mat-flat-button color="accent" type="button" routerLink="/change-your-life">Change Your Life</button>
-    <button mat-button type="button">Join</button>
+    <!-- ĐÃ CẬP NHẬT: DROPDOWN MENU CHO TRANG CÁ NHÂN VÀ ĐĂNG XUẤT -->
+    <div class="profile-dropdown-wrapper" *ngIf="authService.isUserLoggedIn()">
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-menu-trigger">
+        <img
+          src="https://placehold.co/32x32/FFC107/212121?text=Me"
+          alt="Ảnh đại diện"
+          class="toolbar-profile-picture"
+          onerror="this.onerror=null; this.src='https://placehold.co/32x32/cccccc/ffffff?text=AV';"
+        />
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <a mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>Trang cá nhân</span>
+        </a>
+        <a mat-menu-item routerLink="/profile/edit">
+          <mat-icon>edit</mat-icon>
+          <span>Chỉnh sửa hồ sơ</span>
+        </a>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Đăng xuất</span>
+        </button>
+      </mat-menu>
+    </div>
+
     <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login">Login</button>
-    <button mat-button *ngIf="authService.isUserLoggedIn()" (click)="logout()" type="button">Logout</button>
   </div>
 </mat-toolbar>

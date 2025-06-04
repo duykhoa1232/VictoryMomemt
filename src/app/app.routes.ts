@@ -4,11 +4,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LogoutComponent } from './auth/logout/logout.component'; // Nếu có logout component riêng
 import { HomeComponent } from './core/home/home.component';
-import {AuthGuard} from './auth/guards/AuthGuard.service';
-import {MainComponent} from './core/layout/main/main.component'; // Import HomeComponent
+import { AuthGuard } from './auth/guards/AuthGuard.service';
+import { MainComponent } from './core/layout/main/main.component';
+import {ProfileComponent} from './auth/profile/profile/profile.component';
+// import {EditProfileComponent} from './auth/profile/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }, // Ví dụ với Guard
@@ -17,6 +19,7 @@ export const routes: Routes = [
   {
     path: '', // Route rỗng, có thể là base path của ứng dụng
     component: MainComponent, // Component layout chính
+    canActivate: [AuthGuard], // Bảo vệ tất cả các route con trong MainComponent
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Chuyển hướng đến home mặc định
       { path: 'home', component: HomeComponent }, // Trang chủ hiển thị nội dung
@@ -24,6 +27,10 @@ export const routes: Routes = [
       { path: 'expert-interviews', component: HomeComponent }, // Hoặc component riêng
       { path: 'brian-ford', component: HomeComponent }, // Hoặc component riêng
       { path: 'change-your-life', component: HomeComponent }, // Hoặc component riêng
+
+      // CÁC ROUTE MỚI CHO HỒ SƠ
+      { path: 'profile', component: ProfileComponent }, // Trang hồ sơ
+      // { path: 'profile/edit', component: EditProfileComponent }, // Trang chỉnh sửa hồ sơ
 
       // Các route khác yêu cầu đăng nhập sẽ nằm ở đây và được bảo vệ bởi AuthGuard
       // ... thêm các route khác của ứng dụng bạn

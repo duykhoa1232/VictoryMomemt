@@ -1,7 +1,7 @@
 
 <div class="auth-wrapper">
   <mat-card class="auth-card">
-    <h2 class="auth-title">Đăng nhập</h2>
+    <h2 class="auth-title">Login</h2>
     <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -13,21 +13,21 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Mật khẩu</mat-label>
+        <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password" required />
         <mat-error *ngIf="f['password'].touched && f['password'].invalid">
-          <span *ngIf="f['password'].errors?.['required']">Mật khẩu là bắt buộc.</span>
+          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>
         </mat-error>
       </mat-form-field>
 
       <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid">
-        Đăng nhập
+     Login
       </button>
 
     </form>
 
     <p class="auth-footer">
-      Chưa có tài khoản? <a [routerLink]="['/register']">Đăng ký</a>
+      Don't have an account? <a [routerLink]="['/register']">Register</a>
     </p>
   </mat-card>
 </div>

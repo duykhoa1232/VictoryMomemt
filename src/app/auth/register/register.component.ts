@@ -1,9 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService, RegisterRequest } from '../services/auth.service';
+import emailjs from '@emailjs/browser';
 
 // Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'; // Import MatSnackBar
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -25,9 +25,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'; // I
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatSnackBarModule // <<< THÊM DÒNG NÀY
-
-    // MatSnackBarModule // Chỉ cần nếu là standalone component và chưa import ở app.config.ts
+    MatSnackBarModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
@@ -35,18 +33,31 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar'; // I
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
+  // Đảm bảo các giá trị này là chính xác từ tài khoản EmailJS của bạn
+  // RẤT QUAN TRỌNG: CẬP NHẬT emailJsTemplateId BẰNG ID CỦA TEMPLATE "Welcome" MỚI CỦA BẠN
+  // Lấy ID này từ EmailJS Dashboard sau khi tạo template "Welcome"
+  private emailJsPublicKey: string = 'Ydy4qa1Dxag9ftXZZ'; // Public Key của bạn
+  private emailJsServiceId: string = 'service_15paijq';   // Service ID của bạn
+  private emailJsTemplateId: string = 'template_fcvi7u7'; // <<< THAY ĐỔI Ở ĐÂY BẰNG ID CỦA TEMPLATE "Welcome" MỚI CỦA BẠN
+
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar // Inject MatSnackBar
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
     this.registerForm = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(passwordPattern) // <<< THÊM DÒNG NÀY
+      ]),
       confirmPassword: new FormControl('', Validators.required)
     }, { validators: RegisterComponent.passwordMatchValidator });
   }
@@ -63,7 +74,6 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onRegister(): void {
-
     if (this.registerForm.invalid) {
       this.snackBar.open('Vui lòng điền đầy đủ và đúng thông tin.', 'Đóng', {
         duration: 3000,
@@ -82,11 +92,27 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(request).subscribe({
       next: () => {
-        this.snackBar.open('Đăng ký thành công! Vui lòng đăng nhập.', 'Đóng', {
+        this.snackBar.open('Đăng ký thành công! Đang gửi email chào mừng...', 'Đóng', {
           duration: 3000,
           panelClass: ['snackbar-success']
         });
-        this.router.navigate(['/login']);
+
+        this.sendWelcomeEmail(request.name, request.email)
+          .then(() => {
+            this.snackBar.open('Email chào mừng đã được gửi thành công. Vui lòng đăng nhập.', 'Đóng', {
+              duration: 5000,
+              panelClass: ['snackbar-success']
+            });
+            this.router.navigate(['/login']);
+          })
+          .catch((emailError) => {
+            console.error('Gửi email thất bại:', emailError);
+            this.snackBar.open('Đăng ký thành công nhưng không thể gửi email chào mừng. Vui lòng đăng nhập.', 'Đóng', {
+              duration: 7000,
+              panelClass: ['snackbar-warning']
+            });
+            this.router.navigate(['/login']);
+          });
       },
       error: (error: any) => {
         const message = error?.error?.message || 'Đăng ký thất bại. Vui lòng thử lại.';
@@ -97,5 +123,30 @@ export class RegisterComponent implements OnInit {
         console.error('Lỗi đăng ký:', error);
       }
     });
+  }
+
+  sendWelcomeEmail(name: string, email: string): Promise<void> {
+    console.log('Sending email with these parameters to EmailJS:');
+    console.log('Service ID:', this.emailJsServiceId);
+    console.log('Template ID:', this.emailJsTemplateId);
+    console.log('Public Key:', this.emailJsPublicKey);
+    console.log('Data:', {
+      from_name: name,
+      email: email, // <<< THAY ĐỔI TỪ 'user_email' SANG 'email' ĐỂ KHỚP VỚI TEMPLATE
+      message: 'Cảm ơn bạn đã đăng ký tài khoản tại hệ thống của chúng tôi!'
+    });
+
+    return emailjs.send(this.emailJsServiceId, this.emailJsTemplateId, {
+      from_name: name,
+      email: email, // <<< THAY ĐỔI TỪ 'user_email' SANG 'email'
+      message: 'Cảm ơn bạn đã đăng ký tài khoản tại hệ thống của chúng tôi!'
+    }, this.emailJsPublicKey)
+      .then((response) => {
+        console.log('Email chào mừng đã được gửi thành công!', response.status, response.text);
+      })
+      .catch((err) => {
+        console.error('Gửi email thất bại:', err);
+        throw err;
+      });
   }
 }
