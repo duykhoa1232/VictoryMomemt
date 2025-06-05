@@ -1,0 +1,63 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <div class="logo-section">
+<!--    <img src="assets/pexels_logo.png" alt="Pexels Logo" class="pexels-logo" />-->
+<!--    <span class="app-title">Pexels</span>-->
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="nav-links-section">
+    <a mat-button routerLink="/home">Home</a>
+    <a mat-button routerLink="/daily-podcast">Daily Podcast</a>
+    <a mat-button routerLink="/expert-interviews">Expert Interviews</a>
+    <a mat-button routerLink="/brian-ford">Brian Ford</a>
+
+    <div class="dropdown-wrapper">
+      <button mat-button [matMenuTriggerFor]="exploreMenu">
+        Explore
+        <mat-icon class="dropdown-icon">expand_more</mat-icon>
+      </button>
+      <mat-menu #exploreMenu="matMenu">
+        <a mat-menu-item routerLink="/todos" *ngIf="authService.isUserLoggedIn()">Discover Photos</a>
+        <a mat-menu-item>Popular Searches</a>
+        <a mat-menu-item>Leaderboard</a>
+        <a mat-menu-item>Challenges</a>
+        <a mat-menu-item>Free Videos</a>
+        <a mat-menu-item>Pexels Blog</a>
+      </mat-menu>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="auth-buttons-section">
+    <!-- ĐÃ CẬP NHẬT: DROPDOWN MENU CHO TRANG CÁ NHÂN VÀ ĐĂNG XUẤT -->
+    <div class="profile-dropdown-wrapper" *ngIf="authService.isUserLoggedIn()">
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-menu-trigger">
+        <img
+          src="https://placehold.co/32x32/FFC107/212121?text=Me"
+          alt="Ảnh đại diện"
+          class="toolbar-profile-picture"
+          onerror="this.onerror=null; this.src='https://placehold.co/32x32/cccccc/ffffff?text=AV';"
+        />
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <a mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>Trang cá nhân</span>
+        </a>
+        <a mat-menu-item routerLink="/profile/edit">
+          <mat-icon>edit</mat-icon>
+          <span>Chỉnh sửa hồ sơ</span>
+        </a>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Đăng xuất</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login">Login</button>
+  </div>
+</mat-toolbar>

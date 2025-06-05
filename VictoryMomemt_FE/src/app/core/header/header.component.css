@@ -1,0 +1,246 @@
+/* src/app/core/header/header.component.css */
+
+.app-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 0 24px; /* Tăng padding ngang để phù hợp với giao diện */
+  height: 64px;
+  background-color: #2c3e50; /* Màu nền tối */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+  /* VỊ TRÍ CỐ ĐỊNH VÀ Z-INDEX */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.pexels-logo {
+  height: 40px; /* Kích thước logo */
+  margin-right: 10px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-transform: uppercase; /* Chữ hoa như trong hình */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links-section {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links-section a.mat-button {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.nav-links-section a.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Styles cho dropdown (Explore) */
+.dropdown-wrapper {
+  position: relative;
+}
+
+.dropdown-wrapper button.mat-button {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.dropdown-wrapper button.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dropdown-icon {
+  font-size: 1.2rem;
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* Auth Buttons Section */
+.auth-buttons-section {
+  display: flex;
+  align-items: center; /* Đảm bảo căn giữa theo chiều dọc */
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.auth-buttons-section button.mat-flat-button,
+.auth-buttons-section button.mat-raised-button,
+.auth-buttons-section button.mat-button {
+  padding: 0 18px;
+  height: 38px;
+  font-weight: 600;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.auth-buttons-section button.mat-flat-button[color="accent"] {
+  background-color: #e67e22; /* Màu cam đậm hơn cho Change Your Life */
+  color: white;
+}
+.auth-buttons-section button.mat-flat-button[color="accent"]:hover {
+  background-color: #d35400;
+}
+
+.auth-buttons-section button.mat-button {
+  color: rgba(255, 255, 255, 0.85);
+}
+.auth-buttons-section button.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Styles for Profile Dropdown Trigger */
+.profile-dropdown-wrapper {
+  /* Có thể thêm display: flex nếu muốn căn chỉnh nội dung bên trong wrapper */
+  display: flex;
+  align-items: center;
+}
+
+.profile-menu-trigger {
+  width: 48px; /* Kích thước nút mat-icon-button */
+  height: 48px;
+  border-radius: 50%;
+  padding: 0; /* Đảm bảo không có padding thừa */
+  display: flex; /* Để căn giữa ảnh đại diện */
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1); /* Nền mờ để nổi bật */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.profile-menu-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.toolbar-profile-picture {
+  width: 32px; /* Kích thước ảnh đại diện bên trong nút */
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FFC107; /* Viền màu nhấn */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for the new profile dropdown */
+@media (max-width: 992px) {
+  .nav-links-section {
+    display: none;
+  }
+  .auth-buttons-section {
+    gap: 8px;
+  }
+  .auth-buttons-section button {
+    padding: 0 14px;
+  }
+  /* Profile dropdown trigger on smaller screens */
+  .profile-menu-trigger {
+    width: 40px; /* Nhỏ hơn một chút */
+    height: 40px;
+  }
+  .toolbar-profile-picture {
+    width: 28px; /* Nhỏ hơn một chút */
+    height: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-toolbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .logo-section {
+    flex-basis: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .auth-buttons-section {
+    flex-basis: 100%;
+    justify-content: center;
+    gap: 8px;
+    margin-left: 0;
+  }
+
+  .auth-buttons-section button {
+    flex-grow: 1;
+    min-width: 90px;
+    font-size: 0.85rem;
+    padding: 0 10px;
+  }
+
+  .pexels-logo {
+    height: 35px;
+  }
+  .app-title {
+    font-size: 1.3rem;
+  }
+  .profile-menu-trigger {
+    width: 36px; /* Nhỏ hơn nữa trên mobile */
+    height: 36px;
+  }
+  .toolbar-profile-picture {
+    width: 24px; /* Nhỏ hơn nữa */
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-toolbar {
+    padding: 8px;
+  }
+  .auth-buttons-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .auth-buttons-section button {
+    width: 90%;
+    max-width: 200px;
+  }
+  /* Profile dropdown trigger trên màn hình rất nhỏ */
+  .profile-menu-trigger {
+    width: 40px; /* Có thể tăng lại một chút để dễ chạm */
+    height: 40px;
+  }
+  .toolbar-profile-picture {
+    width: 28px;
+    height: 28px;
+  }
+}

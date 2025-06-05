@@ -1,0 +1,243 @@
+/* src/app/auth/profile/profile.component.css */
+
+.profile-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f0f2f5; /* Light gray background for the page */
+  box-sizing: border-box;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 20px; /* More rounded corners for M3 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* Deeper shadow for elevation */
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Profile Picture Section */
+.profile-header {
+  margin-bottom: 30px;
+}
+
+.profile-picture {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #673AB7; /* Material Design purple */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-picture:hover {
+  transform: scale(1.05);
+}
+
+/* User Info */
+.user-name {
+  font-size: 2.5em; /* Larger font size */
+  font-weight: 800; /* Extra bold */
+  color: #212121;
+  margin-bottom: 8px;
+}
+
+.user-username {
+  font-size: 1.2em;
+  color: #616161;
+  margin-bottom: 20px;
+}
+
+.user-bio {
+  font-size: 1.1em;
+  color: #424242;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+/* Stats Section */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 30px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.stat-value {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #424242;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: #757575;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Additional Details */
+.details-section {
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  margin-bottom: 40px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 1em;
+  color: #424242;
+}
+
+.detail-item mat-icon {
+  margin-right: 15px;
+  color: #757575;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.detail-item a {
+  color: #673AB7; /* Material Design purple for links */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.detail-item a:hover {
+  color: #512DA8; /* Darker purple on hover */
+  text-decoration: underline;
+}
+
+/* Action Button */
+.edit-profile-button {
+  background-color: #673AB7; /* Material Design purple */
+  color: #ffffff;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px; /* Pill shape for M3 buttons */
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.edit-profile-button:hover {
+  background-color: #512DA8; /* Darker purple on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 30px;
+  }
+
+  .user-name {
+    font-size: 2em;
+  }
+
+  .user-username {
+    font-size: 1.1em;
+  }
+
+  .user-bio {
+    font-size: 1em;
+  }
+
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+  }
+
+  .stats-section {
+    flex-direction: column; /* Stack stats vertically */
+    align-items: center;
+    gap: 15px; /* Space between stacked items */
+  }
+
+  .stat-item {
+    padding: 0; /* Remove horizontal padding */
+  }
+
+  .details-section {
+    padding: 0 10px;
+  }
+
+  .edit-profile-button {
+    padding: 12px 25px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .user-name {
+    font-size: 1.8em;
+  }
+
+  .user-username {
+    font-size: 1em;
+  }
+
+  .user-bio {
+    font-size: 0.9em;
+  }
+
+  .stats-section {
+    padding: 15px 0;
+  }
+
+  .stat-value {
+    font-size: 1.5em;
+  }
+
+  .stat-label {
+    font-size: 0.8em;
+  }
+
+  .details-section {
+    font-size: 0.9em;
+  }
+
+  .detail-item mat-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}
