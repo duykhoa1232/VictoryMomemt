@@ -1,0 +1,45 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.qr-canvas {
+  width: 256px; /* Kích thước cố định cho mã QR */
+  height: 256px;
+  margin-bottom: 15px;
+  background-color: white; /* Đảm bảo nền trắng cho QR */
+  border-radius: 4px;
+}
+
+.share-url {
+  word-break: break-all; /* Ngắt dòng URL dài */
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+mat-dialog-actions {
+  padding-top: 0;
+  padding-bottom: 16px;
+  padding-right: 24px;
+  justify-content: flex-end; /* Căn nút sang phải */
+}
+
+mat-dialog-actions button {
+  margin-left: 8px;
+}

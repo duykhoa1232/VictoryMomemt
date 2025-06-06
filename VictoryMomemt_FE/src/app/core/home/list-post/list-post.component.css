@@ -1,0 +1,242 @@
+/* src/app/core/home/list-post/list-post.component.css */
+
+/* Container cho toàn bộ danh sách bài đăng */
+.post-list-container {
+  width: 100%;
+  max-width: 600px; /* Chiều rộng tối đa tương tự CreatePostComponent */
+  margin: 24px auto; /* Căn giữa và tạo khoảng cách */
+  padding: 0 16px; /* Padding ngang */
+}
+
+/* Spinner và thông báo khi tải hoặc không có bài đăng */
+.loading-spinner,
+.no-posts-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #606060;
+  text-align: center;
+}
+
+.no-posts-message mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #90a4ae;
+}
+
+/* Thẻ bài đăng */
+.post-card {
+  margin-bottom: 24px; /* Khoảng cách giữa các bài đăng */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Header của bài đăng (avatar, tên, thời gian, nút tùy chọn) */
+.post-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Đẩy nút tùy chọn sang phải */
+}
+
+.mat-card-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  background-color: #e0e0e0; /* Placeholder background */
+  flex-shrink: 0; /* Đảm bảo avatar không bị co lại */
+}
+
+.mat-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  flex-grow: 1; /* Cho phép tiêu đề chiếm không gian còn lại */
+}
+
+.mat-card-subtitle {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Styles cho nút '...' (more_vert) */
+.post-actions {
+  margin-left: auto; /* Đẩy nút menu sang phải */
+  flex-shrink: 0; /* Đảm bảo nút không bị co lại */
+}
+
+.post-actions button.mat-icon-button {
+  width: 36px; /* Kích thước nút */
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%; /* Làm tròn nút */
+  color: #666; /* Màu mặc định cho icon */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  padding: 0;
+  min-width: 0;
+}
+
+.post-actions button.mat-icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.08); /* Màu nền khi hover */
+  color: #333; /* Icon đậm hơn khi hover */
+}
+
+.post-actions button.mat-icon-button mat-icon {
+  font-size: 20px; /* Kích thước icon bên trong */
+  width: 20px;
+  height: 20px;
+}
+
+.post-actions button.mat-icon-button:focus {
+  outline: none; /* Loại bỏ viền focus mặc định */
+}
+
+/* Nội dung bài đăng */
+.post-content {
+  padding: 0 20px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.post-content p {
+  margin-top: 0;
+  margin-bottom: 8px;
+  word-wrap: break-word; /* Đảm bảo văn bản dài không tràn ra ngoài */
+}
+
+.post-location {
+  display: flex;
+  align-items: center;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.post-location mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+/* Styles cho gallery media (nhiều ảnh/video/audio) */
+.post-media-gallery {
+  display: flex;
+  flex-wrap: wrap; /* Cho phép các mục xuống dòng */
+  gap: 8px; /* Khoảng cách giữa các mục media */
+  margin-top: 10px;
+  justify-content: center; /* Căn giữa các mục media */
+  background-color: #f0f2f5;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+/* Styles CHỈ DÀNH CHO ẢNH VÀ VIDEO */
+.post-media-gallery img,
+.post-media-gallery video {
+  max-width: 100%;
+  height: auto; /* Giữ tỷ lệ khung hình */
+  display: block;
+  border-radius: 4px;
+  object-fit: cover; /* Đảm bảo ảnh/video lấp đầy không gian */
+  flex: 1 1 auto; /* Cho phép co giãn trong flex container */
+  width: calc(50% - 4px); /* 2 cột với gap 8px */
+  max-width: calc(50% - 4px);
+}
+
+/* Styles CHỈ DÀNH CHO AUDIO */
+.post-media-gallery audio {
+  max-width: 100%; /* Đảm bảo không vượt quá container */
+  width: 100%; /* Cho phép nó chiếm toàn bộ chiều rộng có sẵn */
+  height: 50px; /* Đặt chiều cao cố định cho trình phát audio mặc định */
+  display: block; /* Đảm bảo nó là một khối */
+  border-radius: 4px; /* Bo góc */
+  /* Loại bỏ object-fit và flexbox properties không cần thiết cho audio */
+  /* object-fit: cover; */
+  /* flex: 1 1 auto; */
+  /* width: calc(50% - 4px); */
+  /* max-width: calc(50% - 4px); */
+}
+
+
+/* Footer bài đăng (số lượng like, comment, share) */
+.post-stats {
+  display: flex;
+  justify-content: space-around; /* Phân phối đều các item */
+  padding: 10px 16px;
+  border-top: 1px solid #eee; /* Đường phân cách */
+  color: #555;
+  font-size: 0.9em;
+  background-color: #fcfcfc; /* Nền nhẹ cho phần footer */
+  border-bottom-left-radius: 8px; /* Bo góc dưới cho footer */
+  border-bottom-right-radius: 8px; /* Bo góc dưới cho footer */
+}
+
+.post-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Khoảng cách giữa icon và text */
+}
+
+.post-stats .stat-item mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  color: #888; /* Màu icon mặc định */
+}
+
+
+/* Styles cho MatMenu items (Sửa, Xóa) */
+.mat-menu-item {
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.mat-menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-menu-item mat-icon {
+  margin-right: 8px;
+  color: #666;
+  transition: color 0.2s ease-in-out;
+}
+
+.mat-menu-item.delete-button {
+  color: #f44336; /* Màu đỏ cho nút xóa */
+}
+
+.mat-menu-item.delete-button mat-icon {
+  color: #f44336;
+}
+
+.mat-menu-item:hover.delete-button {
+  background-color: rgba(244, 67, 54, 0.08); /* Màu nền đỏ nhạt khi hover nút xóa */
+}
+
+/* Custom snackbar styles (vẫn nên định nghĩa ở styles.css hoặc styles.scss toàn cục) */
+/*
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+.snackbar-success {
+  background-color: #4CAF50;
+  color: white;
+}
+.snackbar-warning {
+  background-color: #ff9800;
+  color: white;
+}
+.mat-snack-bar-container .mat-simple-snackbar-action {
+  color: white !important;
+}
+*/

@@ -1,0 +1,69 @@
+
+<div class="auth-wrapper">
+  <mat-card class="auth-card register-card">
+    <mat-card-header>
+      <mat-card-title class="auth-title">Register new account</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Full name</mat-label>
+        <input matInput type="text" formControlName="name" />
+        <mat-error *ngIf="f['name'].touched && f['name'].invalid">
+          <span *ngIf="f['name'].errors?.['required']">Full name is required.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error *ngIf="f['email'].touched && f['email'].invalid">
+          <span *ngIf="f['email'].errors?.['required']">Email is required.</span>
+          <span *ngIf="f['email'].errors?.['email']">Invalid email.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput type="text" formControlName="phoneNumber" />
+        <mat-error *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid">
+          <span *ngIf="f['phoneNumber'].errors?.['required']">Phone number is required.</span>
+          <span *ngIf="f['phoneNumber'].errors?.['pattern']">Invalid phone number (10 numbers).</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="f['password'].touched && f['password'].invalid">
+          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters.</span>
+          <span *ngIf="f['password'].errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" />
+        <mat-error *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">Password confirmation is required.</span>
+        </mat-error>
+        <mat-error *ngIf="registerForm.errors?.['mismatch'] && f['confirmPassword'].touched">
+          Confirmation password does not match.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        Register <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </form>
+
+<!--    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>-->
+<!--    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>-->
+
+    <p class="auth-footer">
+      Already have an account? <a [routerLink]="['/login']">Login </a>
+    </p>
+  </mat-card>
+</div>
