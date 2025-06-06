@@ -1,0 +1,191 @@
+/*!* src/app/core/profile/edit-profile.component.css *!*/
+
+/*.edit-profile-page-container {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  min-height: 100vh;*/
+/*  padding: 20px;*/
+/*  background-color: #f0f2f5;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*.edit-profile-card {*/
+/*  background-color: #ffffff;*/
+/*  border-radius: 20px;*/
+/*  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);*/
+/*  padding: 40px;*/
+/*  width: 100%;*/
+/*  max-width: 700px; !* Slightly wider for forms *!*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*.edit-profile-title {*/
+/*  font-size: 2.2em;*/
+/*  font-weight: 800;*/
+/*  color: #212121;*/
+/*  text-align: center;*/
+/*  margin-bottom: 40px;*/
+/*}*/
+
+/*!* Profile Picture Upload Section *!*/
+/*.profile-picture-upload {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*  margin-bottom: 40px;*/
+/*}*/
+
+/*.profile-picture-preview {*/
+/*  width: 140px;*/
+/*  height: 140px;*/
+/*  border-radius: 50%;*/
+/*  object-fit: cover;*/
+/*  border: 4px solid #673AB7;*/
+/*  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.upload-button {*/
+/*  background-color: #E8EAF6; !* Light Material purple *!*/
+/*  color: #3F51B5; !* Material Design blue *!*/
+/*  padding: 10px 20px;*/
+/*  border: none;*/
+/*  border-radius: 50px;*/
+/*  font-size: 0.95em;*/
+/*  font-weight: 600;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;*/
+/*  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);*/
+/*  text-transform: uppercase;*/
+/*  letter-spacing: 0.5px;*/
+/*}*/
+
+/*.upload-button:hover {*/
+/*  background-color: #C5CAE9; !* Lighter on hover *!*/
+/*  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);*/
+/*}*/
+
+/*.upload-input {*/
+/*  display: none; !* Hide the default file input *!*/
+/*}*/
+
+/*!* Form Fields *!*/
+/*.form-group {*/
+/*  margin-bottom: 25px;*/
+/*}*/
+
+/*.form-group .full-width {*/
+/*  width: 100%;*/
+/*}*/
+
+/*.form-group mat-form-field {*/
+/*  width: 100%; !* Ensure Material form fields take full width *!*/
+/*}*/
+
+/*.form-group textarea.mat-input-element {*/
+/*  resize: vertical;*/
+/*  min-height: 100px;*/
+/*}*/
+
+/*!* Action Buttons *!*/
+/*.form-actions {*/
+/*  display: flex;*/
+/*  justify-content: flex-end; !* Align buttons to the right *!*/
+/*  gap: 15px; !* Space between buttons *!*/
+/*  margin-top: 40px;*/
+/*}*/
+
+/*.form-actions button {*/
+/*  padding: 12px 25px;*/
+/*  border-radius: 50px; !* Pill shape for M3 buttons *!*/
+/*  font-size: 1em;*/
+/*  font-weight: 600;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;*/
+/*  text-transform: uppercase;*/
+/*  letter-spacing: 0.5px;*/
+/*}*/
+
+/*.form-actions button.mat-button { !* Style for mat-button (Hủy) *!*/
+/*  background-color: #e0e0e0; !* Light gray *!*/
+/*  color: #424242;*/
+/*  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.form-actions button.mat-button:hover {*/
+/*  background-color: #bdbdbd; !* Darker gray on hover *!*/
+/*  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);*/
+/*}*/
+
+/*.form-actions button.mat-flat-button { !* Style for mat-flat-button (Lưu) *!*/
+/*  background-color: #673AB7; !* Material Design purple *!*/
+/*  color: #ffffff;*/
+/*  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);*/
+/*}*/
+
+/*.form-actions button.mat-flat-button:hover {*/
+/*  background-color: #512DA8; !* Darker purple on hover *!*/
+/*  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);*/
+/*}*/
+
+/*!* Responsive Adjustments *!*/
+/*@media (max-width: 768px) {*/
+/*  .edit-profile-card {*/
+/*    padding: 30px;*/
+/*  }*/
+
+/*  .edit-profile-title {*/
+/*    font-size: 1.8em;*/
+/*    margin-bottom: 30px;*/
+/*  }*/
+
+/*  .profile-picture-preview {*/
+/*    width: 120px;*/
+/*    height: 120px;*/
+/*  }*/
+
+/*  .upload-button {*/
+/*    padding: 8px 15px;*/
+/*    font-size: 0.9em;*/
+/*  }*/
+
+/*  .form-group {*/
+/*    margin-bottom: 20px;*/
+/*  }*/
+
+/*  .form-actions {*/
+/*    flex-direction: column; !* Stack buttons vertically *!*/
+/*    gap: 10px;*/
+/*  }*/
+
+/*  .form-actions button {*/
+/*    width: 100%; !* Full width for stacked buttons *!*/
+/*  }*/
+/*}*/
+
+/*@media (max-width: 480px) {*/
+/*  .edit-profile-card {*/
+/*    padding: 20px;*/
+/*    border-radius: 15px;*/
+/*  }*/
+
+/*  .edit-profile-title {*/
+/*    font-size: 1.5em;*/
+/*    margin-bottom: 20px;*/
+/*  }*/
+
+/*  .profile-picture-preview {*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*  }*/
+
+/*  .form-group label {*/
+/*    font-size: 0.85em;*/
+/*  }*/
+
+/*  .form-group input,*/
+/*  .form-group textarea {*/
+/*    font-size: 0.9em;*/
+/*  }*/
+/*}*/

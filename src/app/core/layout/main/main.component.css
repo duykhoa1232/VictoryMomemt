@@ -1,0 +1,19 @@
+/* src/app/layout/main/main.component.css */
+
+.main-layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+  /* margin-top: 64px; KHÔNG CẦN NẾU padding-top ĐƯỢC THÊM VÀO BODY TRONG styles.css */
+}
+
+.main-content-area {
+  flex-grow: 1; /* Đảm bảo phần nội dung chính chiếm hết không gian còn lại */
+  padding-top: 64px; /* KHOẢNG TRỐNG BÙ ĐẮP CHO HEADER CỐ ĐỊNH.
+                        Nếu bạn đã thêm padding-top vào `body` trong `styles.css`,
+                        thì bạn có thể BỎ DÒNG NÀY ĐI. */
+  display: flex;
+  flex-direction: column; /* Để nội dung bên trong có thể sắp xếp dọc */
+}
+
+/* Các responsive adjustments cho main-layout nếu cần thiết */

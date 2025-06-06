@@ -1,0 +1,77 @@
+<!--<div class="edit-profile-page-container">-->
+<!--  <mat-card class="edit-profile-card">-->
+<!--    <h1 class="edit-profile-title">Chỉnh sửa hồ sơ</h1>-->
+
+<!--    &lt;!&ndash; ĐÃ BỔ SUNG: [formGroup]="editForm" và (ngSubmit)="onSubmit()" &ndash;&gt;-->
+<!--    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">-->
+<!--      <div class="profile-picture-upload">-->
+<!--        &lt;!&ndash; ĐÃ BỔ SUNG: [src]="currentProfileImageUrl" &ndash;&gt;-->
+<!--        <img [src]="currentProfileImageUrl" alt="Ảnh đại diện" class="profile-picture-preview">-->
+<!--        <label for="profile-image-upload" class="upload-button">-->
+<!--          Thay đổi ảnh đại diện-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: (change)="onFileSelected($event)" &ndash;&gt;-->
+<!--          <input type="file" id="profile-image-upload" class="upload-input" accept="image/*" (change)="onFileSelected($event)">-->
+<!--        </label>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <mat-form-field appearance="fill" class="full-width">-->
+<!--          <mat-label>Tên</mat-label>-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: formControlName="name" &ndash;&gt;-->
+<!--          <input matInput formControlName="name">-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: Hiển thị lỗi validation &ndash;&gt;-->
+<!--          <mat-error *ngIf="editForm.get('name')?.hasError('required') && editForm.get('name')?.touched">-->
+<!--            Tên không được để trống.-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <mat-form-field appearance="fill" class="full-width">-->
+<!--          <mat-label>Tên người dùng</mat-label>-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: formControlName="username" &ndash;&gt;-->
+<!--          <input matInput formControlName="username">-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: Hiển thị lỗi validation &ndash;&gt;-->
+<!--          <mat-error *ngIf="editForm.get('username')?.hasError('required') && editForm.get('username')?.touched">-->
+<!--            Tên người dùng không được để trống.-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <mat-form-field appearance="fill" class="full-width">-->
+<!--          <mat-label>Tiểu sử</mat-label>-->
+<!--          &lt;!&ndash; formControlName="bio" đã có sẵn &ndash;&gt;-->
+<!--          <textarea matInput formControlName="bio" rows="4"></textarea>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <mat-form-field appearance="fill" class="full-width">-->
+<!--          <mat-label>Địa điểm</mat-label>-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: formControlName="location" &ndash;&gt;-->
+<!--          <input matInput formControlName="location">-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <mat-form-field appearance="fill" class="full-width">-->
+<!--          <mat-label>Trang web</mat-label>-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: formControlName="website" &ndash;&gt;-->
+<!--          <input matInput formControlName="website" type="url">-->
+<!--          &lt;!&ndash; ĐÃ BỔ SUNG: Hiển thị lỗi validation cho URL &ndash;&gt;-->
+<!--          <mat-error *ngIf="editForm.get('website')?.hasError('pattern') && editForm.get('website')?.touched">-->
+<!--            Định dạng URL không hợp lệ.-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </div>-->
+
+<!--      <div class="form-actions">-->
+<!--        &lt;!&ndash; ĐÃ BỔ SUNG: (click)="onCancel()" &ndash;&gt;-->
+<!--        <button mat-button (click)="onCancel()">Hủy</button>-->
+<!--        &lt;!&ndash; ĐÃ BỔ SUNG: [disabled]="editForm.invalid" &ndash;&gt;-->
+<!--        <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid">Lưu thay đổi</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </mat-card>-->
+<!--</div>-->

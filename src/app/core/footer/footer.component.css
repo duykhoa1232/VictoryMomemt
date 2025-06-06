@@ -1,0 +1,10 @@
+/* src/app/core/footer/footer.component.css */
+.app-footer {
+  background-color: #34495e; /* Màu nền footer */
+  color: #ecf0f1; /* Màu chữ */
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+  width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ ở trên */
+}
