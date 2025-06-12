@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Chọn người dùng để chia sẻ</h2>
+<h2 mat-dialog-title>Select users to share with</h2>
 <mat-dialog-content class="dialog-content">
   <mat-form-field appearance="outline" class="full-width search-field">
-    <mat-label>Tìm kiếm người dùng</mat-label>
-    <input matInput [formControl]="searchControl" placeholder="Nhập tên hoặc email">
+    <mat-label>Search for users</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Enter name or email">
     <mat-icon matSuffix>search</mat-icon>
     <mat-spinner *ngIf="isLoading" matSuffix diameter="20"></mat-spinner>
   </mat-form-field>
@@ -18,8 +18,7 @@
 
   <mat-selection-list #usersList class="user-list">
     <mat-list-option *ngIf="filteredUsers.length === 0 && !isLoading">
-      Không tìm thấy người dùng nào.
-    </mat-list-option>
+      No users found.    </mat-list-option>
     <mat-list-option *ngFor="let user of filteredUsers"
                      [value]="user"
                      (click)="onUserCheckboxChange(user, {checked: !isUserSelected(user)})"
@@ -35,6 +34,6 @@
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Hủy</button>
-  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="selectedUsers.length === 0">Lưu</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="selectedUsers.length === 0">Save</button>
 </mat-dialog-actions>

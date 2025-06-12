@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -24,32 +25,43 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIcon
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  fieldTextType?:boolean=false
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private snackBar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     });
+  }
+  toggleFieldTextType(){
+    this.fieldTextType=!this.fieldTextType;
+  }
+  ngOnInit(): void {
+    // Kiểm tra trạng thái đăng nhập khi vào trang
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigate(['/home']).then(() => {
+        console.log('Đã chuyển hướng về /home vì đã đăng nhập');
+      });
+    }
   }
 
   get f() { return this.loginForm.controls; }
 
   handleLogin(): void {
     if (this.loginForm.invalid) {
-      this.snackBar.open('Vui lòng nhập đầy đủ email và mật khẩu hợp lệ.', 'Đóng', {
+      this.snackBar.open('Please enter a valid email and password.', 'Đóng', {
         duration: 3000,
         panelClass: ['snackbar-error']
       });
@@ -64,8 +76,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(loginData).subscribe({
       next: (res: AuthResponse) => {
-        console.log('Đăng nhập thành công! Token:', res.token);
-        this.snackBar.open('Đăng nhập thành công!', 'Đóng', {
+        console.log('Login successful! Token:', res.token);
+        this.snackBar.open('Login successful!', 'Đóng', {
           duration: 3000,
           panelClass: ['snackbar-success']
         });
@@ -73,14 +85,14 @@ export class LoginComponent implements OnInit {
       },
       error: (err: any) => {
         const message = err.status === 401
-          ? 'Email hoặc mật khẩu không đúng.'
-          : err?.error?.message || 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.';
+          ? 'Incorrect email or password'
+          : err?.error?.message || 'An error occurred while logging in. Please try again.';
 
         this.snackBar.open(message, 'Đóng', {
           duration: 5000,
           panelClass: ['snackbar-error']
         });
-        console.error('Lỗi đăng nhập:', err);
+        console.error('Login error:', err);
       }
     });
   }

@@ -38,9 +38,9 @@ export class HeaderComponent {
 
   logout(): void {
     const dialogData: ConfirmDialogData = {
-      title: 'Xác nhận Đăng xuất',
-      message: 'Bạn có chắc chắn muốn đăng xuất khỏi ứng dụng không?',
-      confirmButtonText: 'Đăng xuất',
+      title: 'Confirm Logout',
+      message: 'Are you sure you want to log out of the application?',
+      confirmButtonText: 'Log out',
       cancelButtonText: 'Hủy'
     };
 
@@ -53,8 +53,12 @@ export class HeaderComponent {
       if (result === true) {
         this.authService.logout();
       } else {
-        console.log('Đăng xuất đã bị hủy.');
+        console.log('Logout has been canceled.');
       }
     });
   }
 }
+
+
+
+

@@ -33,7 +33,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-
+  fieldTextType?:boolean=false
   private emailJsPublicKey: string = 'Ydy4qa1Dxag9ftXZZ';
   private emailJsServiceId: string = 'service_15paijq';
   private emailJsTemplateId: string = 'template_fcvi7u7';
@@ -58,6 +58,10 @@ export class RegisterComponent implements OnInit {
       ]),
       confirmPassword: new FormControl('', Validators.required)
     }, { validators: RegisterComponent.passwordMatchValidator });
+
+  }
+  toggleFieldTextType(){
+    this.fieldTextType=!this.fieldTextType;
   }
 
   static passwordMatchValidator: ValidatorFn = (control: AbstractControl): { [key: string]: boolean } | null => {

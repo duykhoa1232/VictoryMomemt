@@ -14,7 +14,13 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required />
+        <input matInput [type]="fieldTextType ? 'text' : 'password'"   formControlName="password" required />
+        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">
+          <mat-icon [ngClass]="{
+            'bi-eye': fieldTextType,
+            'bi-eye-slash': !fieldTextType
+          }"></mat-icon>
+        </button>
         <mat-error *ngIf="f['password'].touched && f['password'].invalid">
           <span *ngIf="f['password'].errors?.['required']">Password is required.</span>
         </mat-error>

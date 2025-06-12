@@ -21,3 +21,6 @@ export class AppComponent {
   // app.component sẽ không cần biết về trạng thái đăng nhập nữa
   // vì MainComponent sẽ xử lý hiển thị header/footer
 }
+
+
+

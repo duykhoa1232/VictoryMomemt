@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="app-toolbar">
   <div class="logo-section">
-<!--    <img src="assets/pexels_logo.png" alt="Pexels Logo" class="pexels-logo" />-->
-<!--    <span class="app-title">Pexels</span>-->
+    <!--    <img src="assets/pexels_logo.png" alt="Pexels Logo" class="pexels-logo" />-->
+    <!--    <span class="app-title">Pexels</span>-->
   </div>
 
   <span class="spacer"></span>
@@ -44,16 +44,16 @@
       <mat-menu #profileMenu="matMenu">
         <a mat-menu-item routerLink="/profile">
           <mat-icon>person</mat-icon>
-          <span>Trang cá nhân</span>
+          <span>Personal page</span>
         </a>
         <a mat-menu-item routerLink="/profile/edit">
           <mat-icon>edit</mat-icon>
-          <span>Chỉnh sửa hồ sơ</span>
+          <span>Edit Profile</span>
         </a>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
-          <span>Đăng xuất</span>
+          <span>LogOut</span>
         </button>
       </mat-menu>
     </div>
@@ -61,3 +61,7 @@
     <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login">Login</button>
   </div>
 </mat-toolbar>
+
+
+
+

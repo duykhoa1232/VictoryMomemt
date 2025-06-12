@@ -1,79 +1,3 @@
-<div class="post-list-container">
-  <div *ngIf="isLoading" class="loading-spinner">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>Đang tải bài đăng...</p>
-  </div>
-
-  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">
-    <mat-icon>info</mat-icon>
-    <p>There are no posts yet. Be the first to create one!</p>
-  </div>
-
-  <mat-card *ngFor="let post of posts" class="post-card">
-    <mat-card-header class="post-header">
-      <img mat-card-avatar src="https://placehold.co/40x40/cccccc/ffffff?text=AV" alt="User Avatar">
-      <mat-card-title>{{ getUserName(post) }}</mat-card-title>
-      <mat-card-subtitle>{{ post.createdAt | date:'medium' }}</mat-card-subtitle>
-
-      <div class="post-actions">
-        <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #postMenu="matMenu">
-          <button mat-menu-item (click)="editPost(post)">
-            <mat-icon>edit</mat-icon>
-            <span>Sửa</span>
-          </button>
-          <button mat-menu-item (click)="deletePost(post)" class="delete-button">
-            <mat-icon>delete</mat-icon>
-            <span>Xóa</span>
-          </button>
-<!--          <button mat-menu-item (click)="openQrCodeDialog(post)">-->
-<!--            <mat-icon>qr_code</mat-icon>-->
-<!--            <span>Chia sẻ bằng QR</span>-->
-<!--          </button>-->
-        </mat-menu>
-      </div>
-    </mat-card-header>
-
-    <mat-card-content class="post-content">
-      <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>
-      <div *ngIf="post.location" class="post-location">
-        <mat-icon>location_on</mat-icon>
-        <span>{{ post.location }}</span>
-      </div>
-
-      <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">
-        <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">
-      </div>
-      <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">
-        <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">
-          Trình duyệt của bạn không hỗ trợ thẻ video.
-        </video>
-      </div>
-      <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">
-        <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">
-          Trình duyệt của bạn không hỗ trợ thẻ audio.
-        </audio>
-      </div>
-    </mat-card-content>
-
-    <mat-card-footer class="post-stats">
-      <div class="stat-item">
-        <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span> </div>
-      <div class="stat-item">
-        <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ post.commentCount }}</span> </div>
-      <div class="stat-item">
-        <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span> </div> <div class="stat-item">
-      <mat-icon class="share-send-icon" (click)="openQrCodeDialog(post)">send</mat-icon> <span>{{ post.shareCount }}</span> </div>
-    </mat-card-footer>
-  </mat-card>
-</div>
-
-
-
-
-
 <!--<div class="post-list-container">-->
 <!--  <div *ngIf="isLoading" class="loading-spinner">-->
 <!--    <mat-spinner diameter="50"></mat-spinner>-->
@@ -82,27 +6,37 @@
 
 <!--  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">-->
 <!--    <mat-icon>info</mat-icon>-->
-<!--    <p>Chưa có bài đăng nào. Hãy là người đầu tiên tạo một bài!</p>-->
+<!--    <p>There are no posts yet. Be the first to create one!</p>-->
 <!--  </div>-->
 
 <!--  <mat-card *ngFor="let post of posts" class="post-card">-->
 <!--    <mat-card-header class="post-header">-->
-<!--      <img mat-card-avatar src="https://placehold.co/40x40/cccccc/ffffff?text=AV" alt="User Avatar">-->
+<!--      <img mat-card-avatar src="https://placehold.co/40x40/cccccc/ffffff?text=#" alt="User Avatar">-->
 <!--      <mat-card-title>{{ getUserName(post) }}</mat-card-title>-->
 <!--      <mat-card-subtitle>{{ post.createdAt | date:'medium' }}</mat-card-subtitle>-->
+
+<!--      <div class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'private'">-->
+<!--        <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>-->
+<!--        <span>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'Công khai' : 'Riêng tư' }}</span>-->
+<!--      </div>-->
 
 <!--      <div class="post-actions">-->
 <!--        <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng">-->
 <!--          <mat-icon>more_vert</mat-icon>-->
 <!--        </button>-->
 <!--        <mat-menu #postMenu="matMenu">-->
-<!--          <button mat-menu-item (click)="editPost(post)"> <mat-icon>edit</mat-icon>-->
+<!--          <button mat-menu-item (click)="editPost(post)">-->
+<!--            <mat-icon>edit</mat-icon>-->
 <!--            <span>Sửa</span>-->
 <!--          </button>-->
 <!--          <button mat-menu-item (click)="deletePost(post)" class="delete-button">-->
 <!--            <mat-icon>delete</mat-icon>-->
 <!--            <span>Xóa</span>-->
 <!--          </button>-->
+<!--          &lt;!&ndash;          <button mat-menu-item (click)="openQrCodeDialog(post)">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <mat-icon>qr_code</mat-icon>&ndash;&gt;-->
+<!--          &lt;!&ndash;            <span>Chia sẻ bằng QR</span>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </button>&ndash;&gt;-->
 <!--        </mat-menu>-->
 <!--      </div>-->
 <!--    </mat-card-header>-->
@@ -131,17 +65,129 @@
 
 <!--    <mat-card-footer class="post-stats">-->
 <!--      <div class="stat-item">-->
-<!--        <mat-icon>thumb_up</mat-icon>-->
-<!--        <span>{{ post.likeCount }} Likes</span>-->
+<!--        <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>-->
 <!--      </div>-->
 <!--      <div class="stat-item">-->
-<!--        <mat-icon>comment</mat-icon>-->
-<!--        <span>{{ post.commentCount }} Comments</span>-->
+<!--        <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ post.commentCount }}</span>-->
 <!--      </div>-->
 <!--      <div class="stat-item">-->
-<!--        <mat-icon>share</mat-icon>-->
-<!--        <span>{{ post.shareCount }} Shares</span>-->
+<!--        <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>-->
+<!--      </div>-->
+<!--      <div class="stat-item">-->
+<!--        <mat-icon class="share-send-icon" (click)="openQrCodeDialog(post)">send</mat-icon> <span>{{ post.shareCount }}</span>-->
 <!--      </div>-->
 <!--    </mat-card-footer>-->
 <!--  </mat-card>-->
+
+<!--  <div *ngIf="!isLoading && posts.length > 0 && posts.length < totalPosts" class="load-more-container">-->
+<!--    <button mat-raised-button color="primary" (click)="loadMorePosts()">-->
+<!--      Load more posts-->
+<!--      <mat-icon *ngIf="isLoading">autorenew</mat-icon>-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Thay đổi điều kiện từ posts.length >= totalPosts thành posts.length === totalPosts &ndash;&gt;-->
+<!--  <div *ngIf="!isLoading && posts.length > 0 && posts.length === totalPosts" class="end-of-posts-message">-->
+<!--    <p>Bạn đã xem hết bài rồi.</p>-->
+<!--  </div>-->
 <!--</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="post-list-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Đang tải bài đăng...</p>
+  </div>
+
+  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">
+    <mat-icon>info</mat-icon>
+    <p>There are no posts yet. Be the first to create one!</p>
+  </div>
+
+  <mat-card *ngFor="let post of posts" class="post-card">
+    <mat-card-header class="post-header">
+      <img mat-card-avatar src="https://placehold.co/40x40/cccccc/ffffff?text=#" alt="User Avatar">
+      <mat-card-title>{{ getUserName(post) }}</mat-card-title>
+      <mat-card-subtitle>{{ post.createdAt | date:'medium' }}</mat-card-subtitle>
+
+      <div class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'private'">
+        <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>
+        <span>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'Public' : 'Private' }}</span>
+      </div>
+
+      <div class="post-actions">
+        <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #postMenu="matMenu">
+          <button mat-menu-item (click)="editPost(post)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deletePost(post)" class="delete-button">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="post-content">
+      <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>
+      <div *ngIf="post.location" class="post-location">
+        <mat-icon>location_on</mat-icon>
+        <span>{{ post.location }}</span>
+      </div>
+
+      <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">
+        <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">
+      </div>
+      <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">
+        <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">
+          Your browser does not support the video tag.        </video>
+      </div>
+      <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">
+        <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">
+          Your browser does not support the audio tag.        </audio>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="post-stats">
+      <div class="stat-item">
+        <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ post.commentCount }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon class="share-send-icon" (click)="openQrCodeDialog(post)">send</mat-icon> <span>{{ post.shareCount }}</span>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+
+  <div *ngIf="!isLoading && posts.length > 0 && posts.length < totalPosts" class="load-more-container">
+    <button mat-raised-button color="primary" (click)="loadMorePosts()">
+      Load more posts
+      <mat-icon *ngIf="isLoading">autorenew</mat-icon>
+    </button>
+  </div>
+
+  <!-- Hiển thị khi đã tải hết bài -->
+  <div *ngIf="!isLoading && posts.length > 0 && posts.length >= totalPosts" class="end-of-posts-message">
+    <p>You have read the whole article.</p>
+  </div>
+</div>

@@ -1,9 +1,7 @@
-// src/app/core/home/edit-post-dialog/edit-post-dialog.component.ts
+
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-
-// Angular Material Modules
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,16 +10,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips'; // Import MatChipsModule
-import { MatDialog } from '@angular/material/dialog'; // Import MatDialog
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialog } from '@angular/material/dialog';
+import { PostResponse, PostRequest } from '../../../shared/models/post.model';
+import { UserResponse } from '../../../shared/models/user.model';
+import { UserSelectionDialogComponent } from '../../../shared/user-selection-dialog/user-selection-dialog.component';
 
-import { PostResponse, PostRequest } from '../../../shared/models/post.model'; // Import PostResponse và PostRequest
-import { UserResponse } from '../../../shared/models/user.model'; // Import UserResponse
-import { UserSelectionDialogComponent } from '../../../shared/user-selection-dialog/user-selection-dialog.component'; // Import UserSelectionDialogComponent
-
-// Định nghĩa interface cho dữ liệu truyền vào dialog
 export interface EditPostDialogData {
-  post: PostResponse; // Bài đăng hiện tại cần chỉnh sửa
+  post: PostResponse;
 }
 
 @Component({
@@ -40,7 +36,7 @@ export interface EditPostDialogData {
     MatDialogContent,
     MatDialogActions,
     MatSelectModule,
-    MatChipsModule // Thêm MatChipsModule
+    MatChipsModule
   ],
   templateUrl: './edit-post-dialog.component.html',
   styleUrls: ['./edit-post-dialog.component.css']
@@ -50,47 +46,35 @@ export class EditPostDialogComponent implements OnInit {
   selectedNewImages: File[] = [];
   selectedNewVideos: File[] = [];
   selectedNewAudios: File[] = [];
-  selectedAllowedUsers: UserResponse[] = []; // Để lưu người dùng được phép xem
+  selectedAllowedUsers: UserResponse[] = [];
+  deletedImageUrls: string[] = [];
+  deletedVideoUrls: string[] = [];
+  deletedAudioUrls: string[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<EditPostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditPostDialogData,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog // Inject MatDialog
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    // Khởi tạo form với dữ liệu hiện có của bài đăng
     this.editForm = new FormGroup({
-      content: new FormControl(this.data.post.content || '', Validators.required),
+      content: new FormControl(this.data.post.content || ''),
       location: new FormControl(this.data.post.location || ''),
-      privacy: new FormControl(this.data.post.visibilityStatus, Validators.required), // Sửa từ visibility sang privacy
-      allowedUserIds: new FormControl(this.data.post.authorizedViewerIds || []), // Khởi tạo với IDs hiện có
+      privacy: new FormControl(this.data.post.visibilityStatus, Validators.required),
+      allowedUserIds: new FormControl(this.data.post.authorizedViewerIds || []),
     });
 
-    // Nếu có authorizedViewerIds, cần tải thông tin UserResponse của họ
     if (this.data.post.visibilityStatus === 'PRIVATE' && this.data.post.authorizedViewerIds && this.data.post.authorizedViewerIds.length > 0) {
-      // Logic này sẽ cần UserService hoặc PostService để lấy thông tin User từ ID
-      // Hiện tại, chúng ta chỉ có ID, nên có thể cần thêm một service method để lấy UserResponse[] từ ID
-      // Tạm thời, giả định bạn có thể có một cách để lấy chúng. Hoặc bạn có thể chỉ hiển thị ID.
-      // Để đơn giản, nếu PostResponse đã có đủ author, thì có thể dùng cách dưới
-      // Nếu bạn muốn hiển thị tên người dùng đã có sẵn trong PostResponse, hãy sử dụng nó:
-      if (this.data.post.authorizedViewerIds && this.data.post.author) {
-        // Đây là một giả định, vì PostResponse chỉ có một author.
-        // Nếu authorizedViewerIds là nhiều người, bạn cần gọi API để lấy thông tin của từng người.
-        // Để demo, giả định chỉ thêm author nếu author nằm trong authorizedViewerIds
-        const ownerId = this.data.post.author.id;
-        if (this.data.post.authorizedViewerIds.includes(ownerId)) {
-          this.selectedAllowedUsers.push(this.data.post.author);
-        }
-        // Nếu có nhiều người khác được chia sẻ, bạn sẽ cần gọi API để lấy chi tiết của họ
+      if (this.data.post.author && this.data.post.authorizedViewerIds.includes(this.data.post.author.id)) {
+        this.selectedAllowedUsers.push(this.data.post.author);
       }
     }
 
     this.editForm.get('privacy')?.valueChanges.subscribe(privacy => {
       const allowedUserIdsControl = this.editForm.get('allowedUserIds');
       if (privacy === 'PRIVATE') {
-        // KHÔNG ĐẶT Validators.required Ở ĐÂY NỮA
         allowedUserIdsControl?.markAsUntouched();
         allowedUserIdsControl?.markAsPristine();
       } else {
@@ -102,7 +86,6 @@ export class EditPostDialogComponent implements OnInit {
     });
   }
 
-  // Phương thức xử lý khi người dùng chọn file media mới
   onFileSelected(event: any, type: 'images' | 'videos' | 'audios'): void {
     const files: FileList = event.target.files;
     if (files && files.length > 0) {
@@ -156,7 +139,6 @@ export class EditPostDialogComponent implements OnInit {
     event.target.value = '';
   }
 
-  // Phương thức xóa file media mới đã chọn khỏi danh sách preview
   removeSelectedNewFile(index: number, type: 'images' | 'videos' | 'audios'): void {
     if (type === 'images') {
       this.selectedNewImages.splice(index, 1);
@@ -167,16 +149,22 @@ export class EditPostDialogComponent implements OnInit {
     }
   }
 
-  // Hàm để xóa URL media cũ (nếu muốn xóa ảnh cũ khỏi bài đăng)
-  // Bạn sẽ cần UI để cho phép người dùng chọn xóa ảnh/video/audio cũ
-  // và truyền các URL đó vào mảng deletedMediaUrls để gửi lên backend
   removeOldMediaUrl(url: string, type: 'images' | 'videos' | 'audios'): void {
-    // Logic để loại bỏ URL khỏi mảng this.data.post.imageUrls/videoUrls/audioUrls
-    // và thêm vào mảng deletedMediaUrls (cần tạo một mảng này trong component và gửi lên)
-    this.snackBar.open(`Chức năng xóa media cũ chưa được triển khai đầy đủ.`, 'Đóng', {duration: 2000});
+    if (type === 'images') {
+      this.data.post.imageUrls = this.data.post.imageUrls?.filter(u => u !== url) || [];
+      this.deletedImageUrls.push(url);
+    } else if (type === 'videos') {
+      this.data.post.videoUrls = this.data.post.videoUrls?.filter(u => u !== url) || [];
+      this.deletedVideoUrls.push(url);
+    } else if (type === 'audios') {
+      this.data.post.audioUrls = this.data.post.audioUrls?.filter(u => u !== url) || [];
+      this.deletedAudioUrls.push(url);
+    }
+    this.snackBar.open(`Đã đánh dấu ${type === 'images' ? 'ảnh' : type === 'videos' ? 'video' : 'audio'} để xóa.`, 'Đóng', {
+      duration: 2000,
+    });
   }
 
-  // THÊM: Logic cho phần chọn người dùng cho bài Private (giống create-post.component.ts)
   removeAllowedUser(userToRemove: UserResponse): void {
     this.selectedAllowedUsers = this.selectedAllowedUsers.filter(user => user.id !== userToRemove.id);
     this.editForm.get('allowedUserIds')?.setValue(this.selectedAllowedUsers.map(u => u.id));
@@ -199,14 +187,11 @@ export class EditPostDialogComponent implements OnInit {
       }
     });
   }
-  // KẾT THÚC THÊM LOGIC CHỌN NGƯỜI DÙNG
 
-  // Phương thức khi người dùng nhấp vào nút "Hủy"
   onCancel(): void {
-    this.dialogRef.close(null); // Đóng dialog và trả về null (không có thay đổi)
+    this.dialogRef.close(null);
   }
 
-  // Phương thức khi người dùng nhấp vào nút "Lưu"
   onSave(): void {
     this.editForm.markAllAsTouched();
 
@@ -220,23 +205,19 @@ export class EditPostDialogComponent implements OnInit {
 
     const updatedContent = this.editForm.get('content')?.value;
     const updatedLocation = this.editForm.get('location')?.value;
-    const updatedPrivacy = this.editForm.get('privacy')?.value; // Lấy giá trị privacy từ form
-    const updatedAllowedUserIds = this.editForm.get('allowedUserIds')?.value; // Lấy ID người dùng được phép xem
+    const updatedPrivacy = this.editForm.get('privacy')?.value;
+    const updatedAllowedUserIds = this.editForm.get('allowedUserIds')?.value;
 
-    // Tạo PostRequest DTO object
     const postData: PostRequest = {
       content: updatedContent || '',
       location: updatedLocation || '',
-      privacy: updatedPrivacy ? updatedPrivacy.toString() : '', // Đảm bảo là string
-      sharedWithUserIds: updatedAllowedUserIds // Gán mảng ID người dùng
-      // tags: [] // Thêm nếu bạn có trường tags và cần cập nhật
+      privacy: updatedPrivacy ? updatedPrivacy.toString() : '',
+      sharedWithUserIds: updatedAllowedUserIds
     };
 
     const formData = new FormData();
-    // Gửi postData dưới dạng JSON trong một part "request"
     formData.append('request', new Blob([JSON.stringify(postData)], { type: 'application/json' }));
 
-    // Thêm các file media MỚI được chọn vào FormData
     this.selectedNewImages.forEach(file => {
       formData.append('images', file, file.name);
     });
@@ -247,15 +228,16 @@ export class EditPostDialogComponent implements OnInit {
       formData.append('audios', file, file.name);
     });
 
-    // TODO: Nếu bạn muốn hỗ trợ xóa media cũ, bạn cần thêm logic vào đây
-    // để thu thập các URL media cũ đã bị xóa và gửi chúng lên backend
-    // Ví dụ: const deletedMediaUrls = { images: [], videos: [], audios: [] };
-    // và truyền nó vào dialogRef.close({ formData: formData, deletedMediaUrls: deletedMediaUrls });
-
+    const deletedMediaUrls = {
+      images: this.deletedImageUrls,
+      videos: this.deletedVideoUrls,
+      audios: this.deletedAudioUrls
+    };
+    formData.append('deletedMediaUrls', new Blob([JSON.stringify(deletedMediaUrls)], { type: 'application/json' }));
 
     this.dialogRef.close({
       formData: formData,
-      deletedMediaUrls: { images: [], videos: [], audios: [] } // Trả về rỗng vì dialog này không xử lý xóa media cũ
+      deletedMediaUrls: deletedMediaUrls
     });
   }
 }

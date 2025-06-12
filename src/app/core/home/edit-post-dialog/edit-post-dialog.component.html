@@ -1,30 +1,34 @@
-<h2 mat-dialog-title>Chỉnh sửa bài đăng</h2>
+
+
+
+
+<h2 mat-dialog-title>Edit post</h2>
 <mat-dialog-content class="dialog-content">
   <form [formGroup]="editForm">
     <mat-form-field appearance="fill" class="full-width post-content-field">
-      <mat-label>Nội dung bài đăng</mat-label>
+      <mat-label>Post content</mat-label>
       <textarea matInput formControlName="content" rows="5" cols="100"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Địa điểm</mat-label>
+      <mat-label>Location</mat-label>
       <mat-icon matPrefix>location_on</mat-icon>
       <input matInput formControlName="location">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Quyền riêng tư</mat-label>
+      <mat-label>Privacy</mat-label>
       <mat-select formControlName="privacy">
-        <mat-option value="PUBLIC">Công khai</mat-option>
-        <mat-option value="PRIVATE">Chỉ mình tôi (có thể chia sẻ)</mat-option>
+        <mat-option value="PUBLIC">Public</mat-option>
+        <mat-option value="PRIVATE">Just me (shareable)</mat-option>
       </mat-select>
       <mat-error *ngIf="editForm.get('privacy')?.hasError('required') && editForm.get('privacy')?.touched">
-        Vui lòng chọn quyền riêng tư.
+        Please select privacy.
       </mat-error>
     </mat-form-field>
 
     <div *ngIf="editForm.get('privacy')?.value === 'PRIVATE'" class="form-group">
-      <mat-label>Chia sẻ với:</mat-label>
+      <mat-label>Share with:</mat-label>
       <mat-chip-listbox aria-label="Người dùng được phép xem" class="mb-2">
         <mat-chip *ngFor="let user of selectedAllowedUsers" (removed)="removeAllowedUser(user)">
           {{user.name}}
@@ -34,37 +38,43 @@
         </mat-chip>
       </mat-chip-listbox>
       <button mat-stroked-button color="primary" type="button" (click)="openUserSelectionDialog()">
-        <mat-icon>person_add</mat-icon> Chọn người dùng
+        <mat-icon>person_add</mat-icon> Select user
       </button>
-      <mat-error *ngIf="editForm.get('allowedUserIds')?.hasError('required') && editForm.get('allowedUserIds')?.touched">
-        Vui lòng chọn ít nhất một người dùng khi chọn "Chỉ mình tôi".
+      <mat-error *ngIf="editFo  rm.get('allowedUserIds')?.hasError('required') && editForm.get('allowedUserIds')?.touched">
+        Please select at least one user when selecting "Only me".
       </mat-error>
     </div>
 
     <div *ngIf="data.post.imageUrls?.length || data.post.videoUrls?.length || data.post.audioUrls?.length" class="existing-media-preview">
-      <h3>Media hiện có:</h3>
+      <h3>Available Media:</h3>
       <div *ngIf="data.post.imageUrls?.length" class="media-list">
-        <span *ngFor="let url of data.post.imageUrls" class="media-item">
-          <mat-icon>image</mat-icon> Ảnh
-          </span>
+        <div *ngFor="let url of data.post.imageUrls" class="media-item">
+          <img [src]="url" [alt]="'Hình ảnh bài đăng'" class="media-preview-image">
+          <button mat-icon-button (click)="removeOldMediaUrl(url, 'images')" color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
       <div *ngIf="data.post.videoUrls?.length" class="media-list">
-        <span *ngFor="let url of data.post.videoUrls" class="media-item">
-          <mat-icon>videocam</mat-icon> Video
-          </span>
+        <div *ngFor="let url of data.post.videoUrls" class="media-item">
+          <video [src]="url" class="media-preview-video" controls></video>
+          <button mat-icon-button (click)="removeOldMediaUrl(url, 'videos')" color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
       <div *ngIf="data.post.audioUrls?.length" class="media-list">
-        <span *ngFor="let url of data.post.audioUrls" class="media-item">
-          <mat-icon>mic</mat-icon> Audio
-          </span>
+        <div *ngFor="let url of data.post.audioUrls" class="media-item">
+          <audio [src]="url" class="media-preview-audio" controls></audio>
+          <button mat-icon-button (click)="removeOldMediaUrl(url, 'audios')" color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
-      <p class="text-sm text-gray-500 mt-2">
-        (Chức năng xóa hoặc thay thế media hiện có trực tiếp trong dialog này phức tạp hơn. Bạn có thể cân nhắc xóa bài đăng và tạo lại nếu cần thay đổi media hiện có.)
-      </p>
     </div>
 
     <div class="add-to-post-section">
-      <span>Thêm media mới (sẽ được thêm vào bài đăng hiện có)</span>
+      <span>Add new media (will be added to existing post)</span>
       <div class="media-upload-buttons">
         <input
           type="file"
@@ -102,7 +112,7 @@
     </div>
 
     <div *ngIf="selectedNewImages.length > 0 || selectedNewVideos.length > 0 || selectedNewAudios.length > 0" class="file-list-preview">
-      <h3>Media mới sẽ thêm:</h3>
+      <h3>New media will add:</h3>
       <div *ngFor="let file of selectedNewImages; let i = index" class="file-item">
         <mat-icon>image</mat-icon> {{ file.name }}
         <button mat-icon-button (click)="removeSelectedNewFile(i, 'images')" color="warn" type="button">
@@ -122,7 +132,6 @@
         </button>
       </div>
     </div>
-
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
