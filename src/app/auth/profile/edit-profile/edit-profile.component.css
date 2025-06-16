@@ -1,0 +1,166 @@
+.edit-profile-container {
+  max-width: 950px;
+  margin: 24px auto;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Phần Header (Ảnh bìa và Avatar để chỉnh sửa) --- */
+.edit-profile-header {
+  background-color: #fff;
+  /* border-bottom-left-radius: 8px; */
+  /* border-bottom-right-radius: 8px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */ /* Box shadow sẽ ở container chính */
+  padding-bottom: 0;
+  position: relative;
+}
+
+.cover-photo-edit {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  position: relative; /* Để định vị nút thay đổi ảnh bìa */
+}
+
+.cover-photo-edit img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.change-cover-button {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 3;
+}
+
+.avatar-edit-wrapper {
+  position: relative;
+  width: 150px; /* Bằng kích thước avatar */
+  height: 150px;
+  border-radius: 50%;
+  margin: -75px auto 0 auto; /* Đẩy avatar lên và căn giữa */
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #e0e0e0;
+  z-index: 2;
+}
+
+.profile-avatar-edit {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.change-avatar-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+}
+
+/* --- Phần Nội dung chính (Form chỉnh sửa) --- */
+.edit-profile-content-area {
+  padding: 24px;
+}
+
+.edit-form-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.edit-form-card mat-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.profile-edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Khoảng cách giữa các form-field */
+}
+
+.full-width-field {
+  flex: 1 1 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+.half-width-field {
+  flex: 1 1 calc(50% - 10px); /* Chiếm một nửa chiều rộng, trừ đi gap */
+  min-width: 280px; /* Đảm bảo không quá nhỏ trên màn hình nhỏ */
+}
+
+.mat-form-field {
+  margin-bottom: 0 !important; /* Bỏ margin-bottom mặc định của mat-form-field */
+}
+
+.form-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* Đẩy các nút sang phải */
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 0 24px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .edit-profile-container {
+    margin: 16px auto;
+  }
+
+  .cover-photo-edit {
+    height: 180px;
+  }
+
+  .avatar-edit-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-top: -60px;
+  }
+
+  .edit-profile-content-area {
+    padding: 16px;
+  }
+
+  .edit-form-card {
+    padding: 16px;
+  }
+
+  .half-width-field {
+    flex: 1 1 100%; /* Stack các trường trên mobile */
+    min-width: unset;
+  }
+
+  .form-actions {
+    flex-direction: column; /* Stack nút trên mobile */
+    align-items: stretch; /* Kéo dài nút ra toàn chiều rộng */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover-photo-edit {
+    height: 150px;
+  }
+  .avatar-edit-wrapper {
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+  }
+}

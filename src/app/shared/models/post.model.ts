@@ -64,7 +64,7 @@
 
 
 
-import { UserResponse } from './user.model'; // Đảm bảo đường dẫn này đúng với UserResponse của bạn
+import { UserResponse } from './profile.model'; // Đảm bảo đường dẫn này đúng với UserResponse của bạn
 import { CommentResponse } from './comment.model'; // Thêm import này
 
 export interface PostRequest {

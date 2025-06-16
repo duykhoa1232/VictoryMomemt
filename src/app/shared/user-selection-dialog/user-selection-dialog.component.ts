@@ -15,7 +15,7 @@ import { debounceTime, distinctUntilChanged, switchMap, catchError, finalize } f
 import { of } from 'rxjs';
 
 import { PostService } from '../../core/home/services/post.service';
-import { UserResponse } from '../models/user.model';
+import { UserResponse } from '../models/profile.model';
 import { MatChip, MatChipListbox } from '@angular/material/chips';
 
 export interface UserSelectionDialogData {

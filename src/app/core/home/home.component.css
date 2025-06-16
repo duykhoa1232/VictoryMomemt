@@ -9,9 +9,9 @@
 }
 
 .content-area {
-  max-width: 1200px; /* Giới hạn chiều rộng nội dung */
+  max-width: 950px; /* Giới hạn chiều rộng nội dung */
   margin: 0 auto; /* Căn giữa nội dung */
-  width: 100%; /* Đảm bảo chiếm 100% chiều rộng tối đa */
+  width: 80%; /* Đảm bảo chiếm 100% chiều rộng tối đa */
   display: flex;
   flex-direction: column;
 }

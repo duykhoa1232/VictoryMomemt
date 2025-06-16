@@ -10,7 +10,7 @@ import { delay, map, catchError } from 'rxjs/operators';
 
 // Đảm bảo import Page từ đúng file model của bạn
 import { PostRequest, PostResponse, Page } from '../../../shared/models/post.model';
-import { UserResponse } from '../../../shared/models/user.model';
+import { UserResponse } from '../../../shared/models/profile.model';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({

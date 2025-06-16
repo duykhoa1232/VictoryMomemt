@@ -314,7 +314,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { AuthService } from '../../../auth/services/auth.service';
 import { PostService } from '../services/post.service';
-import { UserResponse } from '../../../shared/models/user.model';
+import { UserResponse } from '../../../shared/models/profile.model';
 import { PostRequest, PostResponse } from '../../../shared/models/post.model';
 import { UserSelectionDialogComponent } from '../../../shared/user-selection-dialog/user-selection-dialog.component';
 import { environment } from '../../../../environments/environment';

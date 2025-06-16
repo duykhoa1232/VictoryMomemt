@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { PostResponse, PostRequest } from '../../../shared/models/post.model';
-import { UserResponse } from '../../../shared/models/user.model';
+import { UserResponse } from '../../../shared/models/profile.model';
 import { UserSelectionDialogComponent } from '../../../shared/user-selection-dialog/user-selection-dialog.component';
 
 export interface EditPostDialogData {

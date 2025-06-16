@@ -1,0 +1,82 @@
+<div class="profile-page-container">
+  <div class="profile-header">
+    <div class="cover-photo">
+      <img src="https://img.pikbest.com/templates/20241111/2025-happy-new-year-facebook-cover-design-or-banner-template_11065078.jpg!bw700" alt="Ảnh bìa">
+    </div>
+    <div class="avatar-and-info-wrapper">
+      <img class="profile-avatar" [src]="userProfile?.avatarUrl || 'https://img.freepik.com/free-vector/young-prince-royal-attire_1308-176144.jpg?ga=GA1.1.1123927038.1748415959&semt=ais_hybrid&w=740'" alt="Ảnh đại diện">
+      <div class="main-profile-details">
+        <div class="profile-text-section">
+          <h1 class="user-name">{{ userProfile?.name || 'Đang tải...' }}</h1>
+          <p class="user-email">{{ userProfile?.email || 'Đang tải...' }}</p>
+          <p class="user-bio">
+            {{ userProfile?.bio || 'Chưa có giới thiệu.' }}
+          </p>
+        </div>
+        <div class="profile-actions-section">
+          <button mat-raised-button color="primary" routerLink="/profile-edit" class="edit-profile-button">Chỉnh sửa Profile</button>
+          <button mat-icon-button routerLink="/profile-edit"><mat-icon>more_horiz</mat-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-content-area">
+    <div class="profile-details-sidebar">
+      <mat-card class="details-card">
+        <mat-card-header>
+          <mat-card-title>Thông tin chi tiết</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="details-content-grid">
+          <div class="detail-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span>Ngày tham gia:</span>
+            <strong>{{ formatDate(userProfile?.createdAt) || 'N/A' }}</strong>
+          </div>
+          <div class="detail-item">
+            <mat-icon>phone</mat-icon>
+            <span>Số điện thoại:</span>
+            <strong>{{ userProfile?.phoneNumber || 'N/A' }}</strong>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="friends-card">
+        <mat-card-header>
+          <mat-card-title>Bạn bè</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="friend-list-preview">
+            <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F1" alt="Friend 1">
+            <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F2" alt="Friend 2">
+            <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F3" alt="Friend 3">
+          </div>
+          <button mat-button color="primary" class="view-all-friends-button">Xem tất cả bạn bè</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="profile-main-content">
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Bài đăng">
+          <mat-card class="tab-content-card">
+            <p>Đây là nơi hiển thị các bài đăng của người dùng.</p>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Giới thiệu">
+          <mat-card class="tab-content-card">
+            <h2>Thông tin đầy đủ</h2>
+            <p><strong>Email:</strong> {{ userProfile?.email || 'N/A' }}</p>
+            <p><strong>Số điện thoại:</strong> {{ userProfile?.phoneNumber || 'N/A' }}</p>
+            <p><strong>Giới thiệu chi tiết:</strong> {{ userProfile?.bio || 'Chưa có giới thiệu chi tiết.' }}</p>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Ảnh">
+          <mat-card class="tab-content-card">
+            <p>Thư viện ảnh của người dùng.</p>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

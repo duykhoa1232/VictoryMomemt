@@ -32,6 +32,8 @@
 
   <div class="auth-buttons-section">
     <!-- ĐÃ CẬP NHẬT: DROPDOWN MENU CHO TRANG CÁ NHÂN VÀ ĐĂNG XUẤT -->
+
+
     <div class="profile-dropdown-wrapper" *ngIf="authService.isUserLoggedIn()">
       <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-menu-trigger">
         <img
@@ -46,13 +48,13 @@
           <mat-icon>person</mat-icon>
           <span>Personal page</span>
         </a>
-        <a mat-menu-item routerLink="/profile/edit">
-          <mat-icon>edit</mat-icon>
-          <span>Edit Profile</span>
-        </a>
+<!--        <a mat-menu-item >-->
+<!--          <mat-icon>edit</mat-icon>-->
+<!--          <span>Edit Profile</span>-->
+<!--        </a>-->
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">
-          <mat-icon>logout</mat-icon>
+          <mat-icon >logout</mat-icon>
           <span>LogOut</span>
         </button>
       </mat-menu>
