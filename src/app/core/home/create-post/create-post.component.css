@@ -477,3 +477,25 @@ mat-chip {
 .mb-2 {
   margin-bottom: 16px;
 }
+.create-post-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card-header {
+  padding: 16px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+/* ... (giữ nguyên các style cũ) ... */

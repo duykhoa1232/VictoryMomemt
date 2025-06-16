@@ -238,3 +238,36 @@
     font-size: 1rem;
   }
 }
+
+/* ... (giữ nguyên các style cũ) ... */
+
+/* Style cho nút Tạo bài đăng */
+.mb-2 {
+  margin-bottom: 16px;
+}
+
+button[mat-fab] {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Responsive cho nút */
+@media (max-width: 768px) {
+  button[mat-fab] {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+/* Thêm vào home.component.css */
+.post-toolbar {
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: right;
+}
+
+.post-toolbar button {
+  margin-left: 8px;
+}

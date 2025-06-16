@@ -1,11 +1,49 @@
 
+<!--<div class="content-wrapper">-->
+<!--  <div class="content-area">-->
+<!--    <div class="article-and-sidebar-wrapper">-->
+<!--      <mat-card class="article-card">-->
+<!--        <ng-container *ngIf="isLoggedIn; else guestView">-->
+
+<!--          <app-create-post (postCreated)="onPostCreated()"></app-create-post>-->
+<!--          <app-post-list></app-post-list>-->
+<!--        </ng-container>-->
+
+<!--        <ng-template #guestView>-->
+<!--          <mat-card-title>Welcome to the home page!</mat-card-title>-->
+<!--          <mat-card-content>-->
+<!--            <p>Please <a routerLink="/login">log in</a> to create a post and view the full content.</p>-->
+<!--          </mat-card-content>-->
+<!--        </ng-template>-->
+<!--      </mat-card>-->
+
+<!--      <mat-card class="sidebar-card">-->
+<!--        &lt;!&ndash; Nội dung sidebar (có thể thêm logic hoặc nội dung tĩnh) &ndash;&gt;-->
+<!--        &lt;!&ndash; Ví dụ: &ndash;&gt;-->
+<!--        &lt;!&ndash; <h2 class="sidebar-title">Thông tin bổ sung</h2>-->
+<!--        <p class="sidebar-description">Khám phá thêm nội dung hữu ích khi đăng nhập!</p>-->
+<!--        <button mat-raised-button color="primary" routerLink="/login" *ngIf="!isLoggedIn">Đăng nhập</button> &ndash;&gt;-->
+<!--      </mat-card>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
 <div class="content-wrapper">
   <div class="content-area">
     <div class="article-and-sidebar-wrapper">
       <mat-card class="article-card">
         <ng-container *ngIf="isLoggedIn; else guestView">
+          <!-- Nút Tạo bài đăng ở đầu -->
+          <div class="create-post-header">
+            <button mat-raised-button color="primary" (click)="openCreatePostDialog()">
+              <mat-icon>create</mat-icon> Tạo bài đăng
+            </button>
+          </div>
 
-          <app-create-post (postCreated)="onPostCreated()"></app-create-post>
+          <!-- Danh sách bài đăng -->
           <app-post-list></app-post-list>
         </ng-container>
 
@@ -19,13 +57,7 @@
 
       <mat-card class="sidebar-card">
         <!-- Nội dung sidebar (có thể thêm logic hoặc nội dung tĩnh) -->
-        <!-- Ví dụ: -->
-        <!-- <h2 class="sidebar-title">Thông tin bổ sung</h2>
-        <p class="sidebar-description">Khám phá thêm nội dung hữu ích khi đăng nhập!</p>
-        <button mat-raised-button color="primary" routerLink="/login" *ngIf="!isLoggedIn">Đăng nhập</button> -->
       </mat-card>
     </div>
   </div>
 </div>
-
-

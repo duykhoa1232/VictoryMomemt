@@ -40,7 +40,7 @@
       <button mat-stroked-button color="primary" type="button" (click)="openUserSelectionDialog()">
         <mat-icon>person_add</mat-icon> Select user
       </button>
-      <mat-error *ngIf="editFo  rm.get('allowedUserIds')?.hasError('required') && editForm.get('allowedUserIds')?.touched">
+      <mat-error *ngIf="editForm.get('allowedUserIds')?.hasError('required') && editForm.get('allowedUserIds')?.touched">
         Please select at least one user when selecting "Only me".
       </mat-error>
     </div>
