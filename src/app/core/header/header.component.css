@@ -1,267 +1,1029 @@
+
+/*!* src/app/core/header/header.component.css *!*/
+
+/*.app-toolbar {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  padding: 0 24px;*/
+/*  height: 64px;*/
+/*  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*  z-index: 1000;*/
+/*  width: 100%;*/
+/*  box-sizing: border-box;*/
+/*  justify-content: space-between;*/
+/*  background-color: white;*/
+/*  color: #333;*/
+/*}*/
+
+/*!* Phần bên trái: Icon Menu và Logo/Title *!*/
+/*.left-section {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 15px;*/
+/*}*/
+
+/*.menu-icon {*/
+/*  color: #555;*/
+/*  background-color: transparent;*/
+/*  border-radius: 50%;*/
+/*  width: 44px;*/
+/*  height: 44px;*/
+/*}*/
+
+/*.menu-icon:hover {*/
+/*  background-color: rgba(0, 0, 0, 0.05);*/
+/*}*/
+
+/*.logo-text {*/
+/*  white-space: nowrap;*/
+/*  margin-left: -5px;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  height: 100%;*/
+/*}*/
+
+/*.logo-text img {*/
+/*  height: 30px;*/
+/*  width: auto;*/
+/*  object-fit: contain;*/
+/*}*/
+
+/*!* Các icon điều hướng chính giữa *!*/
+/*.main-nav-icons-section {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 30px;*/
+/*  flex-grow: 1; !* Cho phép mở rộng để đẩy search/avatar sang phải *!*/
+/*  justify-content: center;*/
+/*  max-width: 600px;*/
+/*  margin: 0 auto;*/
+/*  transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;*/
+/*}*/
+
+/*!* Thêm class này vào app-toolbar thông qua HostBinding nếu muốn ẩn các icon này khi search mở *!*/
+/*!* Ví dụ: app-toolbar.search-active .main-nav-icons-section { ... } *!*/
+
+
+/*!* Phần bên phải: Profile User và Login Button *!*/
+/*.right-section {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 15px;*/
+/*  margin-left: auto;*/
+/*}*/
+
+/*!* Profile Dropdown Trigger *!*/
+/*.profile-dropdown-wrapper {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.profile-menu-trigger {*/
+/*  width: 48px;*/
+/*  height: 48px;*/
+/*  border-radius: 50%;*/
+/*  padding: 0;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  background-color: transparent;*/
+/*  transition: background-color 0.2s ease-in-out;*/
+/*}*/
+
+/*.profile-menu-trigger:hover {*/
+/*  background-color: rgba(0, 0, 0, 0.05);*/
+/*}*/
+
+/*.toolbar-profile-picture {*/
+/*  width: 38px;*/
+/*  height: 38px;*/
+/*  border-radius: 50%;*/
+/*  object-fit: cover;*/
+/*  border: 2px solid #555;*/
+/*  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.login-button {*/
+/*  background-color: #2c3e50;*/
+/*  color: white;*/
+/*  border-radius: 4px;*/
+/*  padding: 0 18px;*/
+/*  height: 38px;*/
+/*  font-weight: 600;*/
+/*  white-space: nowrap;*/
+/*}*/
+
+/*.login-button:hover {*/
+/*  background-color: #34495e;*/
+/*}*/
+
+/*!* ------------------------------------------- *!*/
+/*!* STYLES CHO THANH TÌM KIẾM MỞ/ĐÓNG (CHỈ ICON KHI ĐÓNG) *!*/
+/*!* ------------------------------------------- *!*/
+
+/*.search-container {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  background-color: #f0f2f5;*/
+/*  border-radius: 20px;*/
+/*  box-sizing: border-box;*/
+/*  height: 38px;*/
+/*  margin: 0 15px;*/
+
+/*  !* Trạng thái thu gọn: Chỉ vừa đủ cho icon tìm kiếm *!*/
+/*  width: 38px; !* Chiều rộng ban đầu chỉ đủ icon (ví dụ icon 20px + padding 9px mỗi bên) *!*/
+/*  padding: 0; !* Loại bỏ padding ngang khi thu gọn *!*/
+/*  justify-content: center; !* Căn giữa icon khi thu gọn *!*/
+
+/*  flex-shrink: 0; !* Ngăn không cho container bị co lại quá mức *!*/
+/*  transition: width 0.3s ease-in-out, background-color 0.15s ease-in-out, padding 0.3s ease-in-out;*/
+/*}*/
+
+/*.search-container.expanded {*/
+/*  max-width: 280px;*/
+/*  padding: 0 10px; !* Thêm padding ngang khi mở rộng *!*/
+/*  flex-grow: 1; !* Cho phép mở rộng để chiếm không gian có sẵn *!*/
+/*  background-color: #e5e7eb; !* Màu nền hơi tối hơn khi mở rộng *!*/
+/*  justify-content: flex-start; !* Căn lề trái cho nội dung khi mở rộng *!*/
+/*}*/
+
+/*.search-container .search-icon {*/
+/*  color: #65676b;*/
+/*  font-size: 20px;*/
+/*  width: 20px;*/
+/*  height: 20px;*/
+/*  flex-shrink: 0; !* Ngăn icon bị co lại *!*/
+/*  !* Không có margin-right khi thu gọn để icon nằm sát lề *!*/
+/*}*/
+
+/*.search-container.expanded .search-icon {*/
+/*  margin-right: 8px; !* Thêm margin khi mở rộng để tách biệt với input *!*/
+/*}*/
+
+/*.search-container input {*/
+/*  !* Trạng thái ẩn/thu gọn *!*/
+/*  width: 0;*/
+/*  opacity: 0;*/
+/*  flex-grow: 0; !* Không cho input chiếm không gian khi thu gọn *!*/
+
+/*  border: none;*/
+/*  outline: none;*/
+/*  background: transparent;*/
+/*  font-size: 1rem;*/
+/*  color: #333;*/
+/*  height: 100%;*/
+/*  padding: 0;*/
+/*  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; !* Chuyển đổi mượt mà *!*/
+/*}*/
+
+/*.search-container.expanded input {*/
+/*  width: auto; !* Cho phép input có chiều rộng tự nhiên khi mở rộng *!*/
+/*  opacity: 1;*/
+/*  flex-grow: 1; !* Cho phép input mở rộng để lấp đầy không gian còn lại *!*/
+/*}*/
+
+/*.search-container input::placeholder {*/
+/*  color: #65676b;*/
+/*}*/
+
+/*!* Nút xóa/đóng *!*/
+/*.search-container .clear-search-button {*/
+/*  color: #65676b;*/
+/*  width: 28px; !* Kích thước nhỏ hơn cho nút đóng *!*/
+/*  height: 28px;*/
+/*  min-width: 0; !* Ghi đè min-width mặc định của button Material *!*/
+/*  padding: 0;*/
+/*  margin-left: 5px; !* Khoảng cách với input *!*/
+/*  flex-shrink: 0; !* Ngăn nút bị co lại *!*/
+/*  transition: opacity 0.3s ease-in-out; !* Chuyển đổi opacity mượt mà *!*/
+/*}*/
+
+/*.search-container .clear-search-button mat-icon {*/
+/*  font-size: 18px;*/
+/*  width: 18px;*/
+/*  height: 18px;*/
+/*}*/
+
+/*.clear-search-button:hover {*/
+/*  background-color: rgba(0, 0, 0, 0.08);*/
+/*}*/
+
+
+/*!* Nút ngôn ngữ - trên nền trắng *!*/
+/*.language-en, .language-vn {*/
+/*  color: #2c3e50;*/
+/*  font-weight: 600;*/
+/*  font-size: 14px;*/
+/*  padding: 0 10px;*/
+/*}*/
+/*.language-en:hover, .language-vn:hover {*/
+/*  background-color: rgba(0, 0, 0, 0.05);*/
+/*  border-radius: 4px;*/
+/*}*/
+
+
+/*!* ======================================= *!*/
+/*!* RESPONSIVE STYLES *!*/
+/*!* ======================================= *!*/
+
+/*!* Màn hình vừa (Small Desktops, Tablets ngang) *!*/
+/*@media (max-width: 1200px) {*/
+/*  .app-toolbar {*/
+/*    padding: 0 16px;*/
+/*  }*/
+/*  .main-nav-icons-section {*/
+/*    gap: 20px;*/
+/*    max-width: 500px;*/
+/*  }*/
+/*  .main-nav-icons-section button.mat-icon-button {*/
+/*    width: 44px;*/
+/*    height: 44px;*/
+/*  }*/
+/*  .main-nav-icons-section button.mat-icon-button mat-icon {*/
+/*    font-size: 24px;*/
+/*    width: 24px;*/
+/*    height: 24px;*/
+/*  }*/
+/*  .profile-menu-trigger {*/
+/*    width: 44px;*/
+/*    height: 44px;*/
+/*  }*/
+/*  .toolbar-profile-picture {*/
+/*    width: 34px;*/
+/*    height: 34px;*/
+/*  }*/
+/*  .search-container {*/
+/*    width: 38px; !* Giữ kích thước icon *!*/
+/*  }*/
+/*  .search-container.expanded {*/
+/*    width: 240px; !* Điều chỉnh độ rộng khi mở rộng *!*/
+/*  }*/
+/*}*/
+
+/*!* Màn hình nhỏ (Tablets dọc, lớn hơn mobile) *!*/
+/*@media (max-width: 992px) {*/
+/*  .app-toolbar {*/
+/*    padding: 0 10px;*/
+/*  }*/
+
+/*  .left-section {*/
+/*    gap: 8px;*/
+/*  }*/
+
+/*  .logo-text {*/
+/*    font-size: 1.3rem;*/
+/*  }*/
+/*  .logo-text img {*/
+/*    height: 28px;*/
+/*  }*/
+
+/*  !* Ẩn các icon điều hướng chính giữa để tạo không gian khi search mở rộng *!*/
+/*  !* Sử dụng HostBinding trong TS để thêm class 'search-active' vào app-toolbar *!*/
+/*  .app-toolbar.search-active .main-nav-icons-section {*/
+/*    max-width: 0;*/
+/*    opacity: 0;*/
+/*    overflow: hidden;*/
+/*    margin: 0;*/
+/*  }*/
+/*  !* Đảm bảo hiển thị khi không phải search-active *!*/
+/*  .app-toolbar:not(.search-active) .main-nav-icons-section {*/
+/*    max-width: 300px; !* Hoặc một chiều rộng phù hợp cho các icon *!*/
+/*    opacity: 1;*/
+/*    overflow: visible;*/
+/*    flex-grow: 1;*/
+/*  }*/
+
+
+/*  .right-section {*/
+/*    gap: 10px;*/
+/*    margin-left: auto;*/
+/*  }*/
+
+/*  .profile-menu-trigger {*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*  }*/
+/*  .toolbar-profile-picture {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*  }*/
+/*  .login-button {*/
+/*    padding: 0 12px;*/
+/*    height: 34px;*/
+/*    font-size: 0.85rem;*/
+/*  }*/
+
+/*  .search-container {*/
+/*    width: 34px; !* Kích thước icon nhỏ hơn *!*/
+/*    margin: 0 10px;*/
+/*  }*/
+/*  .search-container.expanded {*/
+/*    width: 200px; !* Điều chỉnh độ rộng khi mở rộng *!*/
+/*  }*/
+/*  .search-container .search-icon {*/
+/*    font-size: 18px;*/
+/*    width: 18px;*/
+/*    height: 18px;*/
+/*  }*/
+/*  .search-container .clear-search-button {*/
+/*    width: 24px;*/
+/*    height: 24px;*/
+/*  }*/
+/*  .search-container .clear-search-button mat-icon {*/
+/*    font-size: 16px;*/
+/*    width: 16px;*/
+/*    height: 16px;*/
+/*  }*/
+/*}*/
+
+/*!* Màn hình rất nhỏ (Mobile) *!*/
+/*@media (max-width: 768px) {*/
+/*  .app-toolbar {*/
+/*    flex-wrap: nowrap;*/
+/*    height: 60px;*/
+/*    padding: 0 8px;*/
+/*  }*/
+
+/*  .left-section {*/
+/*    margin-right: 0;*/
+/*    gap: 8px;*/
+/*  }*/
+
+/*  .right-section {*/
+/*    margin-left: auto;*/
+/*    gap: 8px;*/
+/*  }*/
+
+/*  .menu-icon {*/
+/*    width: 36px;*/
+/*    height: 36px;*/
+/*  }*/
+/*  .menu-icon mat-icon {*/
+/*    font-size: 22px;*/
+/*    width: 22px;*/
+/*    height: 22px;*/
+/*  }*/
+/*  .logo-text {*/
+/*    font-size: 1rem;*/
+/*  }*/
+/*  .logo-text img {*/
+/*    height: 25px;*/
+/*  }*/
+/*  .profile-menu-trigger {*/
+/*    width: 36px;*/
+/*    height: 36px;*/
+/*  }*/
+/*  .toolbar-profile-picture {*/
+/*    width: 28px;*/
+/*    height: 28px;*/
+/*  }*/
+/*  .login-button {*/
+/*    height: 30px;*/
+/*    font-size: 0.8rem;*/
+/*    padding: 0 10px;*/
+/*  }*/
+/*  .search-container {*/
+/*    width: 30px; !* Kích thước icon nhỏ hơn nữa *!*/
+/*    margin: 0 8px;*/
+/*    height: 34px;*/
+/*  }*/
+/*  .search-container.expanded {*/
+/*    width: 150px; !* Điều chỉnh độ rộng khi mở rộng *!*/
+/*  }*/
+/*  .search-container .search-icon {*/
+/*    font-size: 16px;*/
+/*    width: 16px;*/
+/*    height: 16px;*/
+/*  }*/
+/*  .search-container input {*/
+/*    font-size: 0.9rem;*/
+/*  }*/
+/*  .search-container .clear-search-button {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*  }*/
+/*  .search-container .clear-search-button mat-icon {*/
+/*    font-size: 14px;*/
+/*    width: 14px;*/
+/*    height: 14px;*/
+/*  }*/
+/*  .language-en, .language-vn {*/
+/*    display: none;*/
+/*  }*/
+/*}*/
+
+/*!* Màn hình cực nhỏ (Small Mobile) *!*/
+/*@media (max-width: 480px) {*/
+/*  .app-toolbar {*/
+/*    padding: 0 6px;*/
+/*    height: 56px;*/
+/*  }*/
+/*  .left-section {*/
+/*    gap: 5px;*/
+/*  }*/
+/*  .menu-icon {*/
+/*    width: 32px;*/
+/*    height: 32px;*/
+/*  }*/
+/*  .menu-icon mat-icon {*/
+/*    font-size: 20px;*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*  }*/
+/*  .logo-text img {*/
+/*    height: 22px;*/
+/*  }*/
+/*  .profile-menu-trigger {*/
+/*    width: 32px;*/
+/*    height: 32px;*/
+/*  }*/
+/*  .toolbar-profile-picture {*/
+/*    width: 24px;*/
+/*    height: 24px;*/
+/*  }*/
+/*  .login-button {*/
+/*    padding: 0 8px;*/
+/*    height: 26px;*/
+/*    font-size: 0.75rem;*/
+/*  }*/
+/*  .search-container {*/
+/*    width: 28px; !* Kích thước icon nhỏ nhất *!*/
+/*    height: 30px;*/
+/*    padding: 0;*/
+/*  }*/
+/*  .search-container.expanded {*/
+/*    width: 80px; !* Điều chỉnh độ rộng khi mở rộng *!*/
+/*  }*/
+/*  .search-container .search-icon {*/
+/*    font-size: 14px;*/
+/*    width: 14px;*/
+/*    height: 14px;*/
+/*  }*/
+/*  .search-container input {*/
+/*    font-size: 0.8rem;*/
+/*  }*/
+/*  .search-container .clear-search-button {*/
+/*    width: 18px;*/
+/*    height: 18px;*/
+/*  }*/
+/*  .search-container .clear-search-button mat-icon {*/
+/*    font-size: 12px;*/
+/*    width: 12px;*/
+/*    height: 12px;*/
+/*  }*/
+/*}*/
+
+
+
 /* src/app/core/header/header.component.css */
 
 .app-toolbar {
   display: flex;
   align-items: center;
-  padding: 0 24px; /* Tăng padding ngang để phù hợp với giao diện */
+  padding: 0 24px;
   height: 64px;
-  background-color: #2c3e50; /* Màu nền tối */
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-
-  /* VỊ TRÍ CỐ ĐỊNH VÀ Z-INDEX */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+  background-color: white;
+  color: #333;
 }
 
-.logo-section {
+/* Phần bên trái: Icon Menu và Logo/Title */
+.left-section {
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  gap: 15px;
 }
 
-.pexels-logo {
-  height: 40px; /* Kích thước logo */
-  margin-right: 10px;
+.menu-icon {
+  color: #555;
+  background-color: transparent;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
 }
 
-.app-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+.menu-icon:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.logo-text {
   white-space: nowrap;
-  text-transform: uppercase; /* Chữ hoa như trong hình */
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-.nav-links-section {
+  margin-left: -5px;
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
-.nav-links-section a.mat-button {
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  border-radius: 4px;
-  padding: 8px 12px;
+.logo-text img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
 }
 
-.nav-links-section a.mat-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+.logo-text a { /* Style cho text Victory Moments */
+  color: #333; /* Màu chữ */
+  text-decoration: none; /* Bỏ gạch chân */
+  font-weight: 600; /* Đậm hơn */
+  font-size: 1.2rem; /* Kích thước chữ */
+  margin-left: 5px; /* Khoảng cách với logo */
+  white-space: nowrap; /* Ngăn xuống dòng */
 }
 
-/* Styles cho dropdown (Explore) */
-.dropdown-wrapper {
-  position: relative;
+.logo-text a:hover {
+  color: #007bff; /* Thay đổi màu khi hover (ví dụ) */
 }
 
-.dropdown-wrapper button.mat-button {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  border-radius: 4px;
-  padding: 8px 12px;
-}
 
-.dropdown-wrapper button.mat-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-.dropdown-icon {
-  font-size: 1.2rem;
-  height: 1.2rem;
-  width: 1.2rem;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-
-/* Auth Buttons Section */
-.auth-buttons-section {
+/* Các icon điều hướng chính giữa */
+.main-nav-icons-section {
   display: flex;
-  align-items: center; /* Đảm bảo căn giữa theo chiều dọc */
-  gap: 10px;
-  margin-left: 20px;
+  align-items: center;
+  gap: 30px;
+  flex-grow: 1; /* Cho phép mở rộng để đẩy search/avatar sang phải */
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: opacity 0.3s ease-in-out, max-width 0.3s ease-in-out;
 }
 
-.auth-buttons-section button.mat-flat-button,
-.auth-buttons-section button.mat-raised-button,
-.auth-buttons-section button.mat-button {
-  padding: 0 18px;
-  height: 38px;
-  font-weight: 600;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-size: 0.9rem;
+/* Phần bên phải: Profile User và Login Button */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
 }
 
-.auth-buttons-section button.mat-flat-button[color="accent"] {
-  background-color: #e67e22; /* Màu cam đậm hơn cho Change Your Life */
-  color: white;
-}
-.auth-buttons-section button.mat-flat-button[color="accent"]:hover {
-  background-color: #d35400;
-}
-
-.auth-buttons-section button.mat-button {
-  color: rgba(255, 255, 255, 0.85);
-}
-.auth-buttons-section button.mat-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-/* Styles for Profile Dropdown Trigger */
+/* Profile Dropdown Trigger */
 .profile-dropdown-wrapper {
-  /* Có thể thêm display: flex nếu muốn căn chỉnh nội dung bên trong wrapper */
   display: flex;
   align-items: center;
 }
 
 .profile-menu-trigger {
-  width: 48px; /* Kích thước nút mat-icon-button */
+  width: 48px;
   height: 48px;
   border-radius: 50%;
-  padding: 0; /* Đảm bảo không có padding thừa */
-  display: flex; /* Để căn giữa ảnh đại diện */
+  padding: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1); /* Nền mờ để nổi bật */
+  background-color: transparent;
   transition: background-color 0.2s ease-in-out;
 }
 
 .profile-menu-trigger:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .toolbar-profile-picture {
-  width: 32px; /* Kích thước ảnh đại diện bên trong nút */
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #FFC107; /* Viền màu nhấn */
+  border: 2px solid #555;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive adjustments for the new profile dropdown */
-@media (max-width: 992px) {
-  .nav-links-section {
-    display: none;
+.login-button {
+  background-color: #2c3e50;
+  color: white;
+  border-radius: 4px;
+  padding: 0 18px;
+  height: 38px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.login-button:hover {
+  background-color: #34495e;
+}
+
+/* ------------------------------------------- */
+/* STYLES CHO THANH TÌM KIẾM MỞ/ĐÓNG (VÀ DROPDOWN) */
+/* ------------------------------------------- */
+
+.search-container {
+  position: relative; /* RẤT QUAN TRỌNG: Để định vị dropdown con */
+  display: flex;
+  align-items: center;
+  background-color: #f0f2f5;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 38px;
+  margin: 0 15px;
+
+  /* Trạng thái thu gọn: Chỉ vừa đủ cho icon tìm kiếm */
+  width: 38px;
+  padding: 0;
+  justify-content: center;
+
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out, background-color 0.15s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.search-container.expanded {
+  max-width: 280px;
+  padding: 0 10px;
+  flex-grow: 1;
+  background-color: #e5e7eb;
+  justify-content: flex-start;
+}
+
+.search-container .search-icon {
+  color: #65676b;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.search-container.expanded .search-icon {
+  margin-right: 8px;
+}
+
+.search-container input {
+  width: 0;
+  opacity: 0;
+  flex-grow: 0;
+
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #333;
+  height: 100%;
+  padding: 0;
+  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.search-container.expanded input {
+  width: auto;
+  opacity: 1;
+  flex-grow: 1;
+}
+
+.search-container input::placeholder {
+  color: #65676b;
+}
+
+.search-container .clear-search-button {
+  color: #65676b;
+  width: 28px;
+  height: 28px;
+  min-width: 0;
+  padding: 0;
+  margin-left: 5px;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.search-container .clear-search-button mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.clear-search-button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Các styles cho DROPDOWN KẾT QUẢ TÌM KIẾM */
+.search-results-dropdown {
+  position: absolute;
+  top: 100%; /* Đặt ngay bên dưới thanh input tìm kiếm */
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Tạo thanh cuộn nếu danh sách quá dài */
+  z-index: 1000; /* Đảm bảo hiển thị trên các phần tử khác */
+  padding: 5px 0; /* Khoảng cách bên trong */
+  width: 100%; /* Chiếm toàn bộ chiều rộng của search-container */
+  box-sizing: border-box; /* Đảm bảo padding không làm tràn */
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.search-results-dropdown mat-spinner {
+  margin: 15px auto;
+  display: block;
+}
+
+.no-results-message {
+  padding: 10px 15px;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.search-results-dropdown mat-list {
+  padding: 0; /* Loại bỏ padding mặc định của mat-list */
+}
+
+.search-results-dropdown mat-list-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  height: auto; /* Cho phép item co giãn theo nội dung nếu cần */
+  padding: 8px 15px; /* Điều chỉnh padding cho item */
+}
+
+.search-results-dropdown mat-list-item:hover {
+  background-color: #f0f0f0;
+}
+
+.search-result-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.search-result-email {
+  font-size: 0.8em;
+  color: #888;
+}
+
+
+/* Nút ngôn ngữ - trên nền trắng */
+.language-button {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 10px;
+}
+.language-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+
+/* ======================================= */
+/* RESPONSIVE STYLES */
+/* ======================================= */
+
+/* Màn hình vừa (Small Desktops, Tablets ngang) */
+@media (max-width: 1200px) {
+  .app-toolbar {
+    padding: 0 16px;
   }
-  .auth-buttons-section {
-    gap: 8px;
+  .main-nav-icons-section {
+    gap: 20px;
+    max-width: 500px;
   }
-  .auth-buttons-section button {
-    padding: 0 14px;
+  .main-nav-icons-section button.mat-icon-button {
+    width: 44px;
+    height: 44px;
   }
-  /* Profile dropdown trigger on smaller screens */
+  .main-nav-icons-section button.mat-icon-button mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
   .profile-menu-trigger {
-    width: 40px; /* Nhỏ hơn một chút */
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
   .toolbar-profile-picture {
-    width: 28px; /* Nhỏ hơn một chút */
-    height: 28px;
+    width: 34px;
+    height: 34px;
+  }
+  .search-container {
+    width: 38px;
+  }
+  .search-container.expanded {
+    width: 240px;
   }
 }
 
-@media (max-width: 768px) {
+/* Màn hình nhỏ (Tablets dọc, lớn hơn mobile) */
+@media (max-width: 992px) {
   .app-toolbar {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 10px;
-    justify-content: center;
-  }
-
-  .logo-section {
-    flex-basis: 100%;
-    justify-content: center;
-    margin-bottom: 10px;
-    margin-right: 0;
-  }
-
-  .auth-buttons-section {
-    flex-basis: 100%;
-    justify-content: center;
-    gap: 8px;
-    margin-left: 0;
-  }
-
-  .auth-buttons-section button {
-    flex-grow: 1;
-    min-width: 90px;
-    font-size: 0.85rem;
     padding: 0 10px;
   }
 
-  .pexels-logo {
-    height: 35px;
+  .left-section {
+    gap: 8px;
   }
-  .app-title {
+
+  .logo-text {
     font-size: 1.3rem;
   }
+  .logo-text img {
+    height: 28px;
+  }
+
+  /* Ẩn các icon điều hướng chính giữa để tạo không gian khi search mở rộng trên mobile */
+  .app-toolbar.search-active .main-nav-icons-section {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+    pointer-events: none; /* Ngăn chặn click vào các icon ẩn */
+  }
+  /* Đảm bảo hiển thị khi không phải search-active */
+  .app-toolbar:not(.search-active) .main-nav-icons-section {
+    max-width: 300px;
+    opacity: 1;
+    overflow: visible;
+    flex-grow: 1;
+    pointer-events: auto;
+  }
+
+
+  .right-section {
+    gap: 10px;
+    margin-left: auto;
+  }
+
   .profile-menu-trigger {
-    width: 36px; /* Nhỏ hơn nữa trên mobile */
-    height: 36px;
+    width: 40px;
+    height: 40px;
   }
   .toolbar-profile-picture {
-    width: 24px; /* Nhỏ hơn nữa */
+    width: 30px;
+    height: 30px;
+  }
+  .login-button {
+    padding: 0 12px;
+    height: 34px;
+    font-size: 0.85rem;
+  }
+
+  .search-container {
+    width: 34px;
+    margin: 0 10px;
+  }
+  .search-container.expanded {
+    width: 200px;
+  }
+  .search-container .search-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  .search-container .clear-search-button {
+    width: 24px;
     height: 24px;
+  }
+  .search-container .clear-search-button mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
   }
 }
 
-@media (max-width: 480px) {
+/* Màn hình rất nhỏ (Mobile) */
+@media (max-width: 768px) {
   .app-toolbar {
-    padding: 8px;
+    flex-wrap: nowrap;
+    height: 60px;
+    padding: 0 8px;
   }
-  .auth-buttons-section {
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+
+  .left-section {
+    margin-right: 0;
+    gap: 8px;
   }
-  .auth-buttons-section button {
-    width: 90%;
-    max-width: 200px;
+
+  .right-section {
+    margin-left: auto;
+    gap: 8px;
   }
-  /* Profile dropdown trigger trên màn hình rất nhỏ */
+
+  .menu-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .menu-icon mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+  .logo-text {
+    font-size: 1rem;
+  }
+  .logo-text img {
+    height: 25px;
+  }
   .profile-menu-trigger {
-    width: 40px; /* Có thể tăng lại một chút để dễ chạm */
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
   .toolbar-profile-picture {
     width: 28px;
     height: 28px;
   }
-}
-/* Thêm vào cuối file header.component.css */
-.language-switcher {
-  display: flex;
-  gap: 8px;
-  margin-right: 10px;
+  .login-button {
+    height: 30px;
+    font-size: 0.8rem;
+    padding: 0 10px;
+  }
+  .search-container {
+    width: 30px;
+    height: 34px;
+    margin: 0 8px;
+  }
+  .search-container.expanded {
+    width: 150px;
+  }
+  .search-container .search-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+  .search-container input {
+    font-size: 0.9rem;
+  }
+  .search-container .clear-search-button {
+    width: 20px;
+    height: 20px;
+  }
+  .search-container .clear-search-button mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+  .language-button { /* Đổi từ .language-en, .language-vn */
+    display: none;
+  }
 }
 
-.language-switcher button.mat-button {
-  color: rgba(255, 255, 255, 0.9);
-  padding: 4px 12px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: background-color 0.3s ease, color 0.2s ease;
+/* Màn hình cực nhỏ (Small Mobile) */
+@media (max-width: 480px) {
+  .app-toolbar {
+    padding: 0 6px;
+    height: 56px;
+  }
+  .left-section {
+    gap: 5px;
+  }
+  .menu-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .menu-icon mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  .logo-text img {
+    height: 22px;
+  }
+  .profile-menu-trigger {
+    width: 32px;
+    height: 32px;
+  }
+  .toolbar-profile-picture {
+    width: 24px;
+    height: 24px;
+  }
+  .login-button {
+    padding: 0 8px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+  .search-container {
+    width: 28px;
+    height: 30px;
+    padding: 0;
+  }
+  .search-container.expanded {
+    width: 80px;
+  }
+  .search-container .search-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+  .search-container input {
+    font-size: 0.8rem;
+  }
+  .search-container .clear-search-button {
+    width: 18px;
+    height: 18px;
+  }
+  .search-container .clear-search-button mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
 }
-
-.language-switcher button.mat-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-

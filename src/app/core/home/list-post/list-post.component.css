@@ -1,9 +1,10 @@
 /* Container cho toàn bộ danh sách bài đăng */
 .post-list-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 680px; /* Tăng max-width để rộng rãi hơn một chút */
   margin: 24px auto;
   padding: 0 16px;
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
 }
 
 /* Spinner và thông báo khi tải hoặc không có bài đăng */
@@ -16,22 +17,36 @@
   padding: 40px;
   color: #606060;
   text-align: center;
+  background-color: #f8f8f8; /* Nền nhẹ nhàng hơn */
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .no-posts-message mat-icon {
-  font-size: 48px;
-  width: 48px;
-  height: 48px;
+  font-size: 56px; /* Icon lớn hơn */
+  width: 56px;
+  height: 56px;
   margin-bottom: 16px;
   color: #90a4ae;
+}
+
+.no-posts-message p {
+  font-size: 1.1em;
+  color: #555;
 }
 
 /* Thẻ bài đăng */
 .post-card {
   margin-bottom: 24px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* Bo góc nhiều hơn */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Đổ bóng rõ nét hơn */
   background-color: #fff;
+  transition: transform 0.2s ease-in-out; /* Thêm hiệu ứng hover */
+}
+
+.post-card:hover {
+  transform: translateY(-2px); /* Nâng nhẹ thẻ khi hover */
 }
 
 /* Header của bài đăng (avatar, tên, thời gian, nút tùy chọn) */
@@ -39,84 +54,77 @@
   padding: 16px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px; /* Khoảng cách giữa avatar và info */
 }
 
 .mat-card-avatar {
-  width: 40px;
-  height: 40px;
+  width: 48px; /* Avatar lớn hơn */
+  height: 48px;
   border-radius: 50%;
-  margin-right: 12px;
+  object-fit: cover;
   background-color: #e0e0e0;
+  border: 2px solid #f0f0f0; /* Viền nhẹ cho avatar */
   flex-shrink: 0;
 }
 
-.mat-card-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 2px;
+.user-post-info {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
 
+.mat-card-title {
+  font-size: 17px; /* Font size tên người dùng */
+  font-weight: 700; /* Đậm hơn */
+  margin-bottom: 2px;
+  color: #333;
+}
+
 .mat-card-subtitle {
-  font-size: 12px;
+  font-size: 13px; /* Font size nhỏ hơn cho subtitle */
   color: #777;
+  display: flex; /* Cho phép hiển thị ngang hàng với privacy status */
+  align-items: center;
+  gap: 8px; /* Khoảng cách giữa thời gian và status */
 }
 
 /* Style cho chỉ báo trạng thái (ở vị trí mới trong header) */
 .post-privacy-status {
-  display: flex;
+  display: inline-flex; /* Đảm bảo hiển thị inline */
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
   color: #777;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  background-color: #f9f9f9;
 }
 
 .post-privacy-status.public {
-  color: #388e3c; /* Xanh lá cho Công khai */
+  color: #2e7d32; /* Xanh lá đậm hơn cho Công khai */
+  background-color: #e8f5e9;
+  border-color: #c8e6c9;
 }
 
 .post-privacy-status.public mat-icon {
-  color: #388e3c;
+  color: #2e7d32;
 }
 
 .post-privacy-status.private {
-  color: #d81b60; /* Hồng đậm cho Riêng tư */
+  color: #c62828; /* Đỏ đậm hơn cho Riêng tư */
+  background-color: #ffebee;
+  border-color: #ffcdd2;
 }
 
 .post-privacy-status.private mat-icon {
-  color: #d81b60;
+  color: #c62828;
 }
 
 .post-privacy-status mat-icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
+  font-size: 18px; /* Icon lớn hơn */
+  width: 18px;
+  height: 18px;
   margin-right: 4px;
-}
-
-.post-privacy-status span {
-  font-weight: 500;
-}
-
-/* Style cho ngày đăng bài (ở vị trí mới dưới nội dung) */
-.post-timestamp {
-  display: flex;
-  align-items: center;
-  color: #777;
-  font-size: 12px;
-  margin: 12px 20px 8px;
-}
-
-.post-timestamp mat-icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  color: #777;
-}
-
-.post-timestamp span {
-  font-weight: 500;
 }
 
 /* Styles cho nút '...' (more_vert) */
@@ -126,9 +134,9 @@
 }
 
 .post-actions button.mat-icon-button {
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
+  width: 40px; /* Nút lớn hơn một chút */
+  height: 40px;
+  line-height: 40px;
   border-radius: 50%;
   color: #666;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -142,27 +150,24 @@
 }
 
 .post-actions button.mat-icon-button mat-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-}
-
-.post-actions button.mat-icon-button:focus {
-  outline: none;
+  font-size: 24px; /* Icon lớn hơn */
+  width: 24px;
+  height: 24px;
 }
 
 /* Nội dung bài đăng */
 .post-content {
   padding: 0 20px 16px;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px; /* Font size nội dung */
+  line-height: 1.6;
   color: #333;
 }
 
 .post-content p {
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 12px; /* Khoảng cách dưới đoạn văn */
   word-wrap: break-word;
+  white-space: pre-wrap; /* Giữ định dạng xuống dòng của người dùng */
 }
 
 .post-location {
@@ -170,49 +175,73 @@
   align-items: center;
   color: #777;
   font-size: 14px;
-  margin-bottom: 8px;
+  margin-top: 8px; /* Khoảng cách trên location */
+  margin-bottom: 12px;
+  padding: 4px 8px;
+  background-color: #f0f2f5;
+  border-radius: 6px;
+  width: fit-content; /* Chỉ rộng bằng nội dung */
 }
 
 .post-location mat-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
-  margin-right: 4px;
+  font-size: 20px; /* Icon lớn hơn */
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  color: #888;
 }
 
 /* Styles cho gallery media (nhiều ảnh/video/audio) */
 .post-media-gallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid; /* Sử dụng Grid cho layout linh hoạt hơn */
   gap: 8px;
   margin-top: 10px;
-  justify-content: center;
-  background-color: #f0f2f5;
-  border-radius: 4px;
-  padding: 8px;
+  /* Dựa vào số lượng item để tạo layout */
+  /* Ví dụ: 1 ảnh/video: 1 cột; 2 ảnh/video: 2 cột; 3-4 ảnh/video: 2 cột, v.v. */
 }
 
-/* Styles CHỈ DÀNH CHO ẢNH VÀ VIDEO */
 .post-media-gallery img,
-.post-media-gallery video {
-  max-width: 100%;
+.post-media-gallery video,
+.post-media-gallery audio {
+  width: 100%;
   height: auto;
   display: block;
-  border-radius: 4px;
+  border-radius: 8px; /* Bo góc media */
   object-fit: cover;
-  flex: 1 1 auto;
-  width: calc(50% - 4px);
-  max-width: calc(50% - 4px);
+  background-color: #e0e0e0; /* Màu nền khi tải hoặc không có ảnh */
 }
 
-/* Styles CHỈ DÀNH CHO AUDIO */
-.post-media-gallery audio {
-  max-width: 100%;
-  width: 100%;
-  height: 50px;
-  display: block;
-  border-radius: 4px;
+/* Định nghĩa layout grid cho các trường hợp khác nhau */
+.post-media-gallery:has(> img:only-child),
+.post-media-gallery:has(> video:only-child),
+.post-media-gallery:has(> audio:only-child) {
+  grid-template-columns: 1fr; /* Một item: chiếm toàn bộ chiều rộng */
 }
+
+.post-media-gallery:has(> img:nth-child(2)):not(:has(> img:nth-child(3))),
+.post-media-gallery:has(> video:nth-child(2)):not(:has(> video:nth-child(3))),
+.post-media-gallery:has(> audio:nth-child(2)):not(:has(> audio:nth-child(3))) {
+  grid-template-columns: 1fr 1fr; /* Hai item: mỗi item chiếm 1/2 chiều rộng */
+}
+
+.post-media-gallery:has(> img:nth-child(3)),
+.post-media-gallery:has(> video:nth-child(3)),
+.post-media-gallery:has(> audio:nth-child(3)) {
+  grid-template-columns: repeat(auto-fit, minmax(calc(50% - 4px), 1fr)); /* 3+ item: tự động chia 2 cột */
+}
+
+.post-media-gallery img {
+  max-height: 400px; /* Giới hạn chiều cao cho ảnh */
+}
+
+.post-media-gallery video {
+  max-height: 350px; /* Giới hạn chiều cao cho video */
+}
+
+.post-media-gallery audio {
+  height: 50px; /* Chiều cao cố định cho audio player */
+}
+
 
 /* Footer bài đăng (số lượng like, comment, share) */
 .post-stats {
@@ -221,30 +250,46 @@
   padding: 10px 16px;
   border-top: 1px solid #eee;
   color: #555;
-  font-size: 0.9em;
+  font-size: 0.95em;
   background-color: #fcfcfc;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 12px; /* Bo góc khớp với card */
+  border-bottom-right-radius: 12px;
 }
 
 .post-stats .stat-item {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px; /* Khoảng cách giữa icon và số */
+  cursor: pointer;
+  padding: 8px 12px; /* Tăng padding để dễ click hơn */
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.post-stats .stat-item:hover {
+  background-color: #f0f2f5; /* Nền nhẹ khi hover */
 }
 
 .post-stats .stat-item mat-icon {
-  font-size: 18px;
-  height: 18px;
-  width: 18px;
+  font-size: 20px; /* Icon lớn hơn */
+  height: 20px;
+  width: 20px;
   color: #888;
+  transition: color 0.2s ease-in-out;
 }
 
+.post-stats .stat-item:hover .like-icon,
+.post-stats .stat-item:hover .comment-icon,
+.post-stats .stat-item:hover .share-repost-icon,
+.post-stats .stat-item:hover .share-send-icon {
+  color: #1976d2; /* Một màu xanh dương thống nhất khi hover */
+}
 /* Styles cho MatMenu items (Sửa, Xóa) */
 .mat-menu-item {
   color: #333;
   font-weight: 500;
   transition: background-color 0.2s ease-in-out;
+  font-size: 14px;
 }
 
 .mat-menu-item:hover {
@@ -254,7 +299,9 @@
 .mat-menu-item mat-icon {
   margin-right: 8px;
   color: #666;
-  transition: color 0.2s ease-in-out;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .mat-menu-item.delete-button {
@@ -268,657 +315,570 @@
 .mat-menu-item:hover.delete-button {
   background-color: rgba(244, 67, 54, 0.08);
 }
-.comment-section {
-  padding: 10px;
+
+/* Comment section styles */
+.comment-section-wrapper {
+  padding: 16px;
   border-top: 1px solid #e0e0e0;
+  background-color: #fcfcfc; /* Nền nhẹ nhàng hơn */
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin-top: -1px; /* Để đường viền khớp với card */
 }
 
-.comment {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.replies {
-  margin-left: 20px;
-  margin-top: 10px;
-}
-
-.reply {
-  margin-bottom: 5px;
-  padding: 5px;
-  border-left: 2px solid #ccc;
-}
-.post-list-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.post-card {
+.comment-input-form {
   margin-bottom: 20px;
-}
-
-.post-header {
-  display: flex;
-  align-items: center;
-}
-
-.post-privacy-status {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-
-.post-privacy-status.public {
-  color: #4caf50;
-}
-
-.post-privacy-status.private {
-  color: #f44336;
-}
-
-.post-content {
-  padding: 16px;
-}
-
-.post-media-gallery {
-  margin-top: 10px;
-}
-
-.post-media-gallery img,
-.post-media-gallery video,
-.post-media-gallery audio {
-  max-width: 100%;
-  margin-bottom: 10px;
-}
-
-.post-stats {
-  display: flex;
-  justify-content: space-around;
-  padding: 8px;
-  border-top: 1px solid #ddd;
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.comment-section {
-  padding: 16px;
-  border-top: 1px solid #ddd;
-}
-
-.comment {
-  margin-bottom: 10px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #f9f9f9;
+  border-radius: 10px; /* Bo góc nhiều hơn */
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.reply {
-  margin-left: 20px;
-  border-left: 2px solid #ccc;
+.full-width-input {
+  width: 100%;
 }
 
-.replies {
-  margin-top: 10px;
+.comment-input-form mat-form-field {
+  width: 100%;
 }
 
-.comment-actions {
+.comment-action-buttons {
   display: flex;
-  gap: 5px;
+  justify-content: flex-end;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.comment-action-buttons button {
+  padding: 0 16px;
+  height: 36px;
+  font-size: 14px;
+}
+
+/* Style cho từng bình luận */
+.comment-list {
+  margin-top: 20px;
+}
+
+.comment-card {
+  margin-bottom: 12px; /* Khoảng cách giữa các comment */
+  background-color: #fff;
+  box-shadow: none; /* Bỏ shadow mặc định */
+  border: 1px solid #eee;
+  border-radius: 10px; /* Bo góc nhiều hơn */
+  overflow: hidden; /* Đảm bảo nội dung không tràn */
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  padding-bottom: 0;
+  background-color: #f5f7f9; /* Nền cho header comment */
+  border-bottom: 1px solid #eee;
+}
+
+.comment-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-author {
+  font-weight: 600;
+  font-size: 15px; /* Font size lớn hơn */
+  color: #333;
+}
+
+.comment-timestamp {
+  font-size: 12px;
+  color: #888;
+}
+
+.comment-card .mat-card-avatar {
+  width: 36px; /* Avatar comment lớn hơn */
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.comment-content {
+  padding: 8px 15px; /* Điều chỉnh padding */
+  padding-left: 55px; /* Thụt lề để căn chỉnh với avatar */
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #444;
+}
+
+.comment-content p {
+  margin: 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.comment-footer {
+  display: flex;
+  gap: 15px; /* Khoảng cách giữa các nút */
+  padding: 0 15px 10px 55px; /* Thụt lề */
+}
+
+.comment-footer button {
+  font-size: 13px; /* Font size nút */
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px; /* Tăng padding nút */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.comment-footer button:hover {
+  color: #1976d2;
+  background-color: #e3f2fd; /* Nền xanh nhẹ khi hover */
+}
+
+.comment-footer button mat-icon {
+  font-size: 18px; /* Icon lớn hơn */
+  width: 18px;
+  height: 18px;
+}
+
+.reply-form, .edit-comment-form {
+  padding: 10px 15px 10px 55px; /* Thụt lề */
+  background-color: #fcfcfc; /* Nền cho form */
+  border-top: 1px solid #eee;
 }
 
 .comment-input {
   width: 100%;
-  margin-top: 10px;
 }
 
+.edit-comment-form mat-form-field {
+  width: 100%;
+}
+
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+/* Styles cho bình luận phản hồi (replies) */
+.replies {
+  margin-left: 30px; /* Tạo thụt lề cho phản hồi */
+  padding-left: 15px;
+  border-left: 2px solid #e0e0e0; /* Đường kẻ phân cách */
+  margin-top: 12px; /* Khoảng cách trên replies block */
+}
+
+/* Định nghĩa lại màu cho nút delete */
+.comment-footer button.delete-button {
+  color: #f44336;
+}
+
+.comment-footer button.delete-button:hover {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.comment-footer button.delete-button mat-icon {
+  color: #f44336;
+}
+
+.comment-footer button.delete-button:hover mat-icon {
+  color: #c62828;
+}
+
+.no-comments-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #606060;
+  text-align: center;
+  background-color: #fcfcfc;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #eee;
+}
+
+.no-comments-message mat-icon {
+  font-size: 38px; /* Icon lớn hơn */
+  width: 38px;
+  height: 38px;
+  margin-bottom: 8px;
+  color: #90a4ae;
+}
+
+/* Load more button and end of posts message */
 .load-more-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
+
+.load-more-container button {
+  height: 44px;
+  font-size: 15px;
+  padding: 0 24px;
+  border-radius: 8px;
+}
+
+.load-more-container button mat-icon {
+  font-size: 20px;
+  margin-left: 8px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 .end-of-posts-message {
   text-align: center;
-  color: #666;
-  margin-top: 20px;
+  color: #888;
+  font-size: 1.05em;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 
-/* ... (giữ nguyên các phần khác của CSS hiện tại) ... */
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .post-list-container {
+    padding: 0 12px;
+  }
 
-/* Style cho phần bình luận */
-.comment-section {
-  padding: 16px;
-  border-top: 1px solid #ddd;
-}
+  .post-card {
+    border-radius: 10px;
+  }
 
-.comment {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  position: relative;
-}
+  .post-header {
+    padding: 12px 16px;
+    gap: 10px;
+  }
 
-.comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
-}
+  .mat-card-avatar {
+    width: 44px;
+    height: 44px;
+  }
 
-.comment-author {
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-}
+  .mat-card-title {
+    font-size: 16px;
+  }
 
-.comment-timestamp {
-  font-size: 12px;
-  color: #777;
-}
+  .mat-card-subtitle {
+    font-size: 12px;
+    gap: 6px;
+  }
 
-.comment-content p {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #444;
-}
+  .post-privacy-status mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
 
-.comment-footer {
-  margin-top: 5px;
-  display: flex;
-  gap: 10px;
-}
+  .post-actions button.mat-icon-button {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
 
-.comment-footer button {
-  font-size: 12px;
-  color: #555;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
+  .post-actions button.mat-icon-button mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
 
-.comment-footer button:hover {
-  color: #1976d2;
-}
+  .post-content {
+    padding: 0 16px 12px;
+    font-size: 15px;
+  }
 
-.reply-form {
-  margin-top: 10px;
-}
+  .post-location {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
 
-.replies {
-  margin-left: 40px;
-  margin-top: 10px;
-  border-left: 2px solid #ccc;
-  padding-left: 10px;
-}
+  .post-media-gallery img,
+  .post-media-gallery video {
+    max-height: 300px;
+  }
 
-.replies .comment {
-  background-color: #f5f5f5;
-  margin-bottom: 5px;
-}
+  .post-stats {
+    padding: 8px 12px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 
-.replies .replies {
-  margin-left: 30px;
-  border-left-color: #bbb;
-}
+  .post-stats .stat-item {
+    gap: 4px;
+    padding: 6px 10px;
+  }
 
-.comment-input {
-  width: 100%;
-}
+  .post-stats .stat-item mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
 
-.comment-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
-  margin-top: 5px;
-}
+  .comment-section-wrapper {
+    padding: 12px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 
-.delete-button {
-  color: #f44336;
-}
+  .comment-input-form {
+    margin-bottom: 16px;
+    padding: 10px;
+    border-radius: 8px;
+  }
 
-.delete-button mat-icon {
-  color: #f44336;
-}
+  .comment-action-buttons button {
+    height: 32px;
+    font-size: 13px;
+    padding: 0 12px;
+  }
 
-/* Responsive */
-@media (max-width: 600px) {
+  .comment-card {
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+
+  .comment-header {
+    padding: 8px;
+  }
+
+  .comment-author {
+    font-size: 14px;
+  }
+
+  .comment-card .mat-card-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .comment-content {
+    padding: 6px 12px;
+    padding-left: 45px; /* Điều chỉnh thụt lề */
+    font-size: 13.5px;
+  }
+
+  .comment-footer {
+    padding: 0 12px 8px 45px; /* Điều chỉnh thụt lề */
+    gap: 10px;
+  }
+
+  .comment-footer button {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+
+  .comment-footer button mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .reply-form, .edit-comment-form {
+    padding: 8px 12px 8px 45px; /* Điều chỉnh thụt lề */
+  }
+
   .replies {
     margin-left: 20px;
+    padding-left: 10px;
   }
-  .replies .replies {
-    margin-left: 10px;
+
+  .no-comments-message mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .load-more-container button {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  .end-of-posts-message {
+    font-size: 1em;
+    padding: 15px;
   }
 }
-/* Comment section styles */
-.comment-section {
-  padding: 12px 16px;
-  border-top: 1px solid #e0e0e0;
-}
-
-.comment-input-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.current-user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.comments-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.comment {
-  display: flex;
-  gap: 8px;
-}
-
-.comment.reply {
-  margin-left: 36px; /* Indent for replies */
-}
-
-.comment-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.comment-body {
-  flex-grow: 1;
-}
-
-.comment-header {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.comment-author {
-  font-weight: 600;
-  font-size: 13px;
-  color: #050505;
-}
-
-.comment-time {
-  font-size: 11px;
-  color: #65676B;
-}
-
-.comment-content {
-  font-size: 14px;
-  line-height: 1.3;
-  color: #050505;
-  margin-bottom: 4px;
-}
-
-.comment-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.comment-actions button {
-  font-size: 12px !important;
-  line-height: 16px !important;
-  color: #65676B !important;
-  min-width: auto !important;
-  padding: 0 !important;
-}
-
-.reply-form {
-  margin-top: 8px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.reply-form mat-form-field {
-  flex-grow: 1;
-}
-
-.loading-replies {
-  padding: 8px 0;
-  text-align: center;
-  color: #65676B;
-  font-size: 13px;
-}
-/* ... (giữ nguyên các phần CSS hiện có của post-list-container, post-card, post-header, v.v.) ... */
-
-/* Style cho phần bình luận chung */
-.comment-section-wrapper {
-  padding: 16px;
-  border-top: 1px solid #e0e0e0;
-  background-color: #fff;
-}
-
-.comment-input-form {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fcfcfc;
-}
-
-.full-width-input {
-  width: 100%;
-}
-
-.comment-action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-/* Style cho từng bình luận */
-.comment-list {
-  margin-top: 20px;
-}
-
-.comment-card {
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-  box-shadow: none;
-  border: 1px solid #eee;
-  border-radius: 8px;
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  padding-bottom: 0;
-}
-
-.comment-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.comment-author {
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-}
-
-.comment-timestamp {
-  font-size: 12px;
-  color: #777;
-}
-
-.comment-card .mat-card-avatar { /* Đảm bảo chọn đúng avatar của comment */
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.comment-content {
-  padding: 5px 10px 10px 50px; /* Thụt lề để căn chỉnh với avatar */
-  font-size: 14px;
-  line-height: 1.5;
-  color: #444;
-}
-
-.comment-content p {
-  margin: 0;
-}
-
-.comment-footer {
-  display: flex;
-  gap: 10px;
-  padding: 0 10px 10px 50px; /* Thụt lề để căn chỉnh với avatar */
-}
-
-.comment-footer button {
-  font-size: 12px;
-  color: #555;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.comment-footer button:hover {
-  color: #1976d2;
-}
-
-.comment-footer button mat-icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-.reply-form, .edit-comment-form {
-  padding: 10px 10px 0 50px; /* Thụt lề */
-}
-
-.comment-input {
-  width: 100%;
-}
-
-.comment-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 5px;
-}
-
-/* Styles cho bình luận phản hồi (replies) */
-.replies {
-  margin-left: 20px; /* Tạo thụt lề cho phản hồi */
-  padding-left: 10px;
-  border-left: 2px solid #e0e0e0; /* Đường kẻ phân cách */
-  margin-top: 10px;
-}
-
-/* Định nghĩa lại màu cho nút delete */
-.comment-footer button.delete-button {
-  color: #f44336;
-}
-
-.comment-footer button.delete-button mat-icon {
-  color: #f44336;
-}
-
-.no-comments-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: #606060;
-  text-align: center;
-}
-
-.no-comments-message mat-icon {
-  font-size: 32px;
-  width: 32px;
-  height: 32px;
-  margin-bottom: 8px;
-  color: #90a4ae;
-}
-/* src/app/pages/post/list-post/list-post.component.css */
-/* ... (giữ nguyên các phần CSS hiện có của post-list-container, post-card, post-header, v.v.) ... */
-
-/* Style cho phần bình luận chung */
-.comment-section-wrapper {
-  padding: 16px;
-  border-top: 1px solid #e0e0e0;
-  background-color: #fff;
-}
-
-.comment-input-form {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fcfcfc;
-}
-
-.full-width-input {
-  width: 100%;
-}
-
-.comment-action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-/* Style cho từng bình luận */
-.comment-list {
-  margin-top: 20px;
-}
-
-.comment-card {
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-  box-shadow: none;
-  border: 1px solid #eee;
-  border-radius: 8px;
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-  padding-bottom: 0;
-}
-
-.comment-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.comment-author {
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-}
-
-.comment-timestamp {
-  font-size: 12px;
-  color: #777;
-}
-
-.comment-card .mat-card-avatar { /* Đảm bảo chọn đúng avatar của comment */
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.comment-content {
-  padding: 5px 10px 10px 50px; /* Thụt lề để căn chỉnh với avatar */
-  font-size: 14px;
-  line-height: 1.5;
-  color: #444;
-}
-
-.comment-content p {
-  margin: 0;
-}
-
-.comment-footer {
-  display: flex;
-  gap: 10px;
-  padding: 0 10px 10px 50px; /* Thụt lề để căn chỉnh với avatar */
-}
-
-.comment-footer button {
-  font-size: 12px;
-  color: #555;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.comment-footer button:hover {
-  color: #1976d2;
-}
-
-.comment-footer button mat-icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-.reply-form, .edit-comment-form {
-  padding: 10px 10px 0 50px; /* Thụt lề */
-}
-
-.comment-input {
-  width: 100%;
-}
-
-.comment-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 5px;
-}
-
-/* Styles cho bình luận phản hồi (replies) */
-.replies {
-  margin-left: 20px; /* Tạo thụt lề cho phản hồi */
-  padding-left: 10px;
-  border-left: 2px solid #e0e0e0; /* Đường kẻ phân cách */
-  margin-top: 10px;
-}
-
-/* Định nghĩa lại màu cho nút delete */
-.comment-footer button.delete-button {
-  color: #f44336;
-}
-
-.comment-footer button.delete-button mat-icon {
-  color: #f44336;
-}
-
-.no-comments-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: #606060;
-  text-align: center;
-}
-
-.no-comments-message mat-icon {
-  font-size: 32px;
-  width: 32px;
-  height: 32px;
-  margin-bottom: 8px;
-  color: #90a4ae;
+
+@media (max-width: 480px) {
+  .post-list-container {
+    padding: 0 8px;
+  }
+
+  .post-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .mat-card-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mat-card-title {
+    font-size: 15px;
+  }
+
+  .mat-card-subtitle {
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .post-privacy-status {
+    padding: 1px 4px;
+  }
+
+  .post-privacy-status mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .post-actions button.mat-icon-button {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .post-actions button.mat-icon-button mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .post-content {
+    padding: 0 12px 10px;
+    font-size: 14px;
+  }
+
+  .post-location {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+
+  .post-location mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .post-media-gallery img,
+  .post-media-gallery video {
+    max-height: 250px;
+  }
+
+  .post-stats {
+    padding: 6px 8px;
+  }
+
+  .post-stats .stat-item {
+    font-size: 0.85em;
+    padding: 4px 8px;
+  }
+
+  .post-stats .stat-item mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .comment-section-wrapper {
+    padding: 8px;
+  }
+
+  .comment-input-form {
+    margin-bottom: 12px;
+    padding: 8px;
+  }
+
+  .comment-action-buttons button {
+    height: 30px;
+    font-size: 12px;
+    padding: 0 10px;
+  }
+
+  .comment-card {
+    margin-bottom: 8px;
+  }
+
+  .comment-header {
+    padding: 6px;
+  }
+
+  .comment-author {
+    font-size: 13px;
+  }
+
+  .comment-card .mat-card-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .comment-content {
+    padding: 4px 10px;
+    padding-left: 40px; /* Điều chỉnh thụt lề */
+    font-size: 13px;
+  }
+
+  .comment-footer {
+    padding: 0 10px 6px 40px; /* Điều chỉnh thụt lề */
+    gap: 8px;
+  }
+
+  .comment-footer button {
+    font-size: 11px;
+    padding: 1px 4px;
+  }
+
+  .comment-footer button mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .reply-form, .edit-comment-form {
+    padding: 6px 10px 6px 40px; /* Điều chỉnh thụt lề */
+  }
+
+  .replies {
+    margin-left: 15px;
+    padding-left: 8px;
+  }
+
+  .no-comments-message mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .load-more-container button {
+    height: 36px;
+    font-size: 13px;
+    padding: 0 16px;
+  }
+
+  .end-of-posts-message {
+    font-size: 0.9em;
+    padding: 12px;
+  }
 }

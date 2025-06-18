@@ -1,69 +1,108 @@
-<mat-toolbar color="primary" class="app-toolbar">
-  <div class="logo-section">
-    <!--    <img src="assets/pexels_logo.png" alt="Pexels Logo" class="pexels-logo" />-->
-    <!--    <span class="app-title">Pexels</span>-->
-  </div>
 
-  <span class="spacer"></span>
 
-  <div class="nav-links-section">
-    <a mat-button routerLink="/home">Home</a>
-    <a mat-button routerLink="/daily-podcast">Daily Podcast</a>
-    <a mat-button routerLink="/expert-interviews">Expert Interviews</a>
-    <a mat-button routerLink="/brian-ford">Brian Ford</a>
 
-    <div class="dropdown-wrapper">
-      <button mat-button [matMenuTriggerFor]="exploreMenu">
-        Explore
-        <mat-icon class="dropdown-icon">expand_more</mat-icon>
-      </button>
-      <mat-menu #exploreMenu="matMenu">
-        <a mat-menu-item routerLink="/todos" *ngIf="authService.isUserLoggedIn()">Discover Photos</a>
-        <a mat-menu-item>Popular Searches</a>
-        <a mat-menu-item>Leaderboard</a>
-        <a mat-menu-item>Challenges</a>
-        <a mat-menu-item>Free Videos</a>
-        <a mat-menu-item>Pexels Blog</a>
-      </mat-menu>
+<mat-toolbar class="app-toolbar white-theme">
+  <div class="left-section">
+    <div class="logo-text">
+      <img src="https://victorymoments.s3.ap-southeast-1.amazonaws.com/images/2b2f12b8-8188-4a66-a5e2-2938c94be811.png" alt="Pexels Logo">
+      <a routerLink="/home">Victory Moments</a>
     </div>
   </div>
 
-  <span class="spacer"></span>
+  <div
+    class="search-container"
+    [class.expanded]="isSearchExpanded"
+    (click)="expandSearch()"
+    #searchContainer
+  >
+    <mat-icon class="search-icon">search</mat-icon>
 
-  <div class="auth-buttons-section">
-    <!-- ĐÃ CẬP NHẬT: DROPDOWN MENU CHO TRANG CÁ NHÂN VÀ ĐĂNG XUẤT -->
+    <input
+      type="text"
+      placeholder="Tìm kiếm..."
+      [formControl]="searchControl"
+      (keyup.enter)="performSearch()"
+      (focus)="expandSearch()"
+      (blur)="collapseSearch()"
+      #searchInput
+    >
+    <button
+      mat-icon-button
+      class="clear-search-button"
+      *ngIf="isSearchExpanded && searchControl.value"
+      (click)="clearSearch($event)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
 
+    <div *ngIf="isSearchExpanded && showSearchResults" class="search-results-dropdown">
+      <mat-spinner *ngIf="isLoadingSearch" diameter="24"></mat-spinner>
+      <div *ngIf="!isLoadingSearch && searchResults.length === 0 && searchControl.value && searchControl.value.trim().length > 0" class="no-results-message">
+        Không tìm thấy người dùng nào.
+      </div>
+      <mat-list *ngIf="!isLoadingSearch && searchResults.length > 0">
+        <mat-list-item *ngFor="let user of searchResults" (click)="goToUserProfile(user.email)">
+          <img matListItemAvatar [src]="user.avatarUrl || 'assets/default-avatar.png'" alt="Avatar" class="search-result-avatar">
+          <div matListItemTitle>{{ user.name }}</div>
+          <div matListItemLine class="search-result-email">{{ user.email }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
 
+  <div class="main-nav-icons-section">
+    <button mat-icon-button routerLink="/home" aria-label="Trang chủ">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/daily-podcast" aria-label="Nhắn tin">
+      <mat-icon>chat_bubble_outline</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/expert-interviews" aria-label="Bạn bè">
+      <mat-icon>group</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/brian-ford" aria-label="Thông báo">
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="exploreMenu" aria-label="Ứng dụng/Thêm">
+      <mat-icon>apps</mat-icon>
+    </button>
+    <mat-menu #exploreMenu="matMenu">
+      <a mat-menu-item routerLink="/todos" *ngIf="authService.isUserLoggedIn()">Khám phá ảnh</a>
+      <a mat-menu-item>Tìm kiếm phổ biến</a>
+      <a mat-menu-item>Bảng xếp hạng</a>
+      <a mat-menu-item>Thử thách</a>
+      <a mat-menu-item>Video miễn phí</a>
+      <a mat-menu-item>Blog Pexels</a>
+    </mat-menu>
+  </div>
+
+  <div class="right-section">
     <div class="profile-dropdown-wrapper" *ngIf="authService.isUserLoggedIn()">
+      <button mat-button class="language-button language-en">
+        EN
+      </button>
+      <button mat-button class="language-button language-vn">
+        VN
+      </button>
       <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-menu-trigger">
         <img
-          src="https://placehold.co/32x32/FFC107/212121?text=Me"
-          alt="Ảnh đại diện"
+          [src]="authService.currentUser?.avatarUrl || 'https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau.jpeg'"
+          alt="Ảnh đại diện người dùng"
           class="toolbar-profile-picture"
-          onerror="this.onerror=null; this.src='https://placehold.co/32x32/cccccc/ffffff?text=AV';"
         />
       </button>
       <mat-menu #profileMenu="matMenu">
         <a mat-menu-item routerLink="/profile">
           <mat-icon>person</mat-icon>
-          <span>Personal page</span>
+          <span>Trang cá nhân</span>
         </a>
-<!--        <a mat-menu-item >-->
-<!--          <mat-icon>edit</mat-icon>-->
-<!--          <span>Edit Profile</span>-->
-<!--        </a>-->
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">
-          <mat-icon >logout</mat-icon>
-          <span>LogOut</span>
+          <mat-icon>logout</mat-icon>
+          <span>Đăng xuất</span>
         </button>
       </mat-menu>
     </div>
-
-    <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login">Login</button>
+    <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login" class="login-button">Đăng nhập</button>
   </div>
 </mat-toolbar>
-
-
-
-

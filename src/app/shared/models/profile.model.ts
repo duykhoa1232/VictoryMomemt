@@ -47,7 +47,7 @@ export interface ProfileResponse {
   name: string;
   email: string;
   phoneNumber: string;
-  avatarUrl: string;
+  avatarUrl?: string; // **Đảm bảo có dấu '?' ở đây nếu avatarUrl có thể là null/undefined từ backend.**
   bio: string;
   createdAt: string; // LocalDateTime từ Java sẽ được deserialize thành string ISO 8601
   updatedAt: string; // LocalDateTime từ Java sẽ được deserialize thành string ISO 8601

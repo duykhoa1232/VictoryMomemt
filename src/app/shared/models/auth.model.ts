@@ -14,3 +14,10 @@ export interface RegisterRequest {
 export interface AuthResponse {
   token: string;
 }
+export interface CurrentUser {
+  id: string;
+  email: string;
+  name?: string;
+  avatarUrl?: string; // Thêm trường này để lưu trữ URL avatar từ token (nếu có)
+  // Thêm các trường khác của người dùng mà bạn muốn truy cập từ token
+}

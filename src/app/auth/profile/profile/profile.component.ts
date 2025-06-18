@@ -1,66 +1,162 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import {ProfileResponse} from '../../../shared/models/profile.model';
-import {UserService} from '../../services/user.service';
+
+
+
+// src/app/auth/profile/profile/profile.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router'; // THÊM ActivatedRoute, Router
+import { ProfileResponse } from '../../../shared/models/profile.model'; // Đảm bảo đường dẫn đúng
+import { UserService } from '../../services/user.service'; // Đảm bảo đường dẫn đúng
+import { NgIf, CommonModule, DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CreatePostComponent } from '../../../core/home/create-post/create-post.component'; // Đảm bảo đường dẫn đúng
+import { PostListComponent } from '../../../core/home/list-post/list-post.component'; // Đảm bảo đường dẫn đúng
+import { AuthService } from '../../services/auth.service'; // Đảm bảo đường dẫn đúng
+import { Subject, takeUntil, switchMap, tap, Observable } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Đổi từ MatProgressSpinner sang MatProgressSpinnerModule
 
 @Component({
   selector: 'app-profile',
-  standalone: true, // Assuming this is a standalone component
+  standalone: true,
   imports: [
-    MatIcon,
-    MatTab,
-    MatTabGroup,
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatIconButton,
-    MatButton,
-    MatCardTitle,
-    RouterLink
+    MatIconModule,
+    MatTabsModule,
+    MatCardModule,
+    MatButtonModule,
+    RouterLink,
+    PostListComponent,
+    NgIf,
+    CommonModule,
+    MatProgressSpinnerModule, // Sử dụng MatProgressSpinnerModule
+    // DatePipe // Cần DatePipe nếu muốn dùng pipe trong template
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  userProfile: ProfileResponse | null = null; // Biến để lưu trữ dữ liệu profile
+  userProfile: ProfileResponse | null = null;
+  isMyProfile: boolean = false;
+  isLoading: boolean = true;
+  private destroy$ = new Subject<void>();
 
-  constructor(private userService: UserService) { } // Inject UserService
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    public router: Router // <--- SỬA TỪ private SANG public
+  ) { }
 
   ngOnInit(): void {
-    this.loadUserProfile();
-  }
+    this.route.paramMap.pipe(
+      tap(() => {
+        this.isLoading = true;
+        this.userProfile = null;
+        this.isMyProfile = false;
+      }),
+      switchMap(params => {
+        const userEmailFromRoute = params.get('userEmail');
 
-  loadUserProfile(): void {
-    // Gọi API để lấy dữ liệu profile của người dùng hiện tại
-    this.userService.getCurrentUserProfile().subscribe({
+        if (userEmailFromRoute) {
+          return this.userService.getUserProfileByEmail(userEmailFromRoute);
+        } else {
+          return this.userService.getCurrentUserProfile();
+        }
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
       next: (data) => {
-        this.userProfile = data; // Gán dữ liệu nhận được vào biến userProfile
-        console.log('User Profile fetched successfully:', this.userProfile); // In ra console để kiểm tra
+        this.userProfile = data;
+        this.isMyProfile = (this.userProfile?.email === this.authService.getCurrentUserEmail());
+        this.isLoading = false;
+        console.log('User Profile fetched successfully:', this.userProfile);
       },
       error: (err) => {
         console.error('Error fetching user profile:', err);
-        // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi cho người dùng
-        // Có thể kiểm tra err.status (ví dụ: 401 Unauthorized)
+        this.snackBar.open('Lỗi khi tải hồ sơ người dùng.', 'Đóng', { duration: 3000 });
+        this.isLoading = false;
+        if (err.status === 404) {
+          this.router.navigate(['/home']);
+        } else if (err.status === 401 || err.status === 403) {
+          this.router.navigate(['/login']);
+        }
       }
     });
   }
 
-  // Hàm helper để định dạng ngày từ chuỗi ISO 8601
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   formatDate(dateString: string | undefined): string {
     if (!dateString) {
       return 'N/A';
     }
-    // Lấy phần ngày thôi nếu chuỗi có cả thời gian (ví dụ: "2024-06-16T10:30:00")
-    const datePart = dateString.split('T')[0];
-    const [year, month, day] = datePart.split('-');
-    return `${day}/${month}/${year}`; // Định dạng DD/MM/YYYY
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
-  // Bạn có thể thêm các phương thức xử lý sự kiện khác ở đây
-  // Ví dụ: handleEditProfile()
+  openCreatePostDialog(): void {
+    if (!this.authService.isUserLoggedIn()) {
+      this.snackBar.open('Vui lòng đăng nhập để tạo bài đăng.', "Đăng nhập", {
+        duration: 5000,
+      }).onAction().subscribe(() => {
+        this.router.navigate(['/login']);
+      });
+      return;
+    }
+
+    const dialogRef = this.dialog.open(CreatePostComponent, {
+      width: '600px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.onPostCreated();
+      }
+    });
+  }
+
+  onPostCreated(): void {
+    console.log('Bài đăng mới đã được tạo từ trang profile!');
+    this.snackBar.open('Bài đăng đã được tạo thành công!', 'Đóng', { duration: 2000 });
+    this.loadProfileBasedOnRoute();
+  }
+
+  private loadProfileBasedOnRoute(): void {
+    const userEmailFromRoute = this.route.snapshot.paramMap.get('userEmail');
+    let profileObservable: Observable<ProfileResponse>;
+
+    if (userEmailFromRoute) {
+      profileObservable = this.userService.getUserProfileByEmail(userEmailFromRoute);
+    } else {
+      profileObservable = this.userService.getCurrentUserProfile();
+    }
+
+    profileObservable.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (data) => {
+        this.userProfile = data;
+        this.isMyProfile = (this.userProfile?.email === this.authService.getCurrentUserEmail());
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching user profile after post creation:', err);
+        this.snackBar.open('Lỗi khi tải lại hồ sơ người dùng.', 'Đóng', { duration: 3000 });
+        this.isLoading = false;
+      }
+    });
+  }
 }

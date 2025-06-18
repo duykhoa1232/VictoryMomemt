@@ -1,82 +1,108 @@
+
 <div class="profile-page-container">
-  <div class="profile-header">
-    <div class="cover-photo">
-      <img src="https://img.pikbest.com/templates/20241111/2025-happy-new-year-facebook-cover-design-or-banner-template_11065078.jpg!bw700" alt="Ảnh bìa">
-    </div>
-    <div class="avatar-and-info-wrapper">
-      <img class="profile-avatar" [src]="userProfile?.avatarUrl || 'https://img.freepik.com/free-vector/young-prince-royal-attire_1308-176144.jpg?ga=GA1.1.1123927038.1748415959&semt=ais_hybrid&w=740'" alt="Ảnh đại diện">
-      <div class="main-profile-details">
-        <div class="profile-text-section">
-          <h1 class="user-name">{{ userProfile?.name || 'Đang tải...' }}</h1>
-          <p class="user-email">{{ userProfile?.email || 'Đang tải...' }}</p>
-          <p class="user-bio">
-            {{ userProfile?.bio || 'Chưa có giới thiệu.' }}
-          </p>
-        </div>
-        <div class="profile-actions-section">
-          <button mat-raised-button color="primary" routerLink="/profile-edit" class="edit-profile-button">Chỉnh sửa Profile</button>
-          <button mat-icon-button routerLink="/profile-edit"><mat-icon>more_horiz</mat-icon></button>
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Đang tải profile...</p>
+  </div>
+
+  <ng-container *ngIf="!isLoading && userProfile">
+    <div class="profile-header">
+      <div class="cover-photo">
+        <img src="https://img.pikbest.com/templates/20241111/2025-happy-new-year-facebook-cover-design-or-banner-template_11065078.jpg!bw700" alt="Ảnh bìa">
+      </div>
+      <div class="avatar-and-info-wrapper">
+        <img class="profile-avatar" [src]="userProfile.avatarUrl || 'https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau.jpeg'" alt="Ảnh đại diện">
+        <div class="main-profile-details">
+          <div class="profile-text-section">
+            <h1 class="user-name">{{ userProfile.name || 'N/A' }}</h1>
+            <p class="user-email">{{ userProfile.email || 'N/A' }}</p>
+            <p class="user-bio">
+              {{ userProfile.bio || 'Chưa có giới thiệu.' }}
+            </p>
+          </div>
+          <div class="profile-actions-section">
+            <button mat-raised-button color="primary" routerLink="/profile-edit" class="edit-profile-button" *ngIf="isMyProfile">Chỉnh sửa Profile</button>
+            <button mat-raised-button color="accent" (click)="openCreatePostDialog()" *ngIf="isMyProfile">
+              <mat-icon>add</mat-icon> Tạo bài đăng
+            </button>
+            <ng-container *ngIf="!isMyProfile">
+              <button mat-raised-button>
+                <mat-icon>person_add</mat-icon> Kết bạn
+              </button>
+              <button mat-icon-button><mat-icon>chat</mat-icon></button>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="profile-content-area">
-    <div class="profile-details-sidebar">
-      <mat-card class="details-card">
-        <mat-card-header>
-          <mat-card-title>Thông tin chi tiết</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="details-content-grid">
-          <div class="detail-item">
-            <mat-icon>calendar_today</mat-icon>
-            <span>Ngày tham gia:</span>
-            <strong>{{ formatDate(userProfile?.createdAt) || 'N/A' }}</strong>
-          </div>
-          <div class="detail-item">
-            <mat-icon>phone</mat-icon>
-            <span>Số điện thoại:</span>
-            <strong>{{ userProfile?.phoneNumber || 'N/A' }}</strong>
-          </div>
-        </mat-card-content>
-      </mat-card>
+    <div class="profile-content-area">
+      <div class="profile-details-sidebar">
+        <mat-card class="details-card">
+          <mat-card-header>
+            <mat-card-title>Thông tin chi tiết</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="details-content-grid">
+            <div class="detail-item">
+              <mat-icon>calendar_today</mat-icon>
+              <span>Ngày tham gia:</span>
+              <strong>{{ formatDate(userProfile.createdAt) || 'N/A' }}</strong>
+            </div>
+            <div class="detail-item">
+              <mat-icon>phone</mat-icon>
+              <span>Số điện thoại:</span>
+              <strong>{{ userProfile.phoneNumber || 'N/A' }}</strong>
+            </div>
+          </mat-card-content>
+        </mat-card>
 
-      <mat-card class="friends-card">
-        <mat-card-header>
-          <mat-card-title>Bạn bè</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="friend-list-preview">
-            <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F1" alt="Friend 1">
-            <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F2" alt="Friend 2">
-            <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F3" alt="Friend 3">
-          </div>
-          <button mat-button color="primary" class="view-all-friends-button">Xem tất cả bạn bè</button>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        <mat-card class="friends-card">
+          <mat-card-header>
+            <mat-card-title>Bạn bè</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="friend-list-preview">
+              <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F1" alt="Friend 1">
+              <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F2" alt="Friend 2">
+              <img src="https://placehold.co/50x50/e0e0e0/ffffff?text=F3" alt="Friend 3">
+            </div>
+            <button mat-button color="primary" class="view-all-friends-button">Xem tất cả bạn bè</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
-    <div class="profile-main-content">
-      <mat-tab-group animationDuration="0ms">
-        <mat-tab label="Bài đăng">
-          <mat-card class="tab-content-card">
-            <p>Đây là nơi hiển thị các bài đăng của người dùng.</p>
-          </mat-card>
-        </mat-tab>
-        <mat-tab label="Giới thiệu">
-          <mat-card class="tab-content-card">
-            <h2>Thông tin đầy đủ</h2>
-            <p><strong>Email:</strong> {{ userProfile?.email || 'N/A' }}</p>
-            <p><strong>Số điện thoại:</strong> {{ userProfile?.phoneNumber || 'N/A' }}</p>
-            <p><strong>Giới thiệu chi tiết:</strong> {{ userProfile?.bio || 'Chưa có giới thiệu chi tiết.' }}</p>
-          </mat-card>
-        </mat-tab>
-        <mat-tab label="Ảnh">
-          <mat-card class="tab-content-card">
-            <p>Thư viện ảnh của người dùng.</p>
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
+      <div class="profile-main-content">
+        <mat-tab-group animationDuration="0ms">
+          <mat-tab label="Bài đăng">
+            <mat-card class="tab-content-card">
+              <app-post-list *ngIf="userProfile.email" [userEmail]="userProfile.email"></app-post-list>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Giới thiệu">
+            <mat-card class="tab-content-card">
+              <h2>Thông tin đầy đủ</h2>
+              <p><strong>Email:</strong> {{ userProfile.email || 'N/A' }}</p>
+              <p><strong>Số điện thoại:</strong> {{ userProfile.phoneNumber || 'N/A' }}</p>
+              <p><strong>Giới thiệu chi tiết:</strong> {{ userProfile.bio || 'Chưa có giới thiệu chi tiết.' }}</p>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Ảnh">
+            <mat-card class="tab-content-card">
+              <p>Thư viện ảnh của người dùng.</p>
+            </mat-card>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div >
+  </ng-container>
+
+  <div *ngIf="!isLoading && !userProfile" class="error-message-container">
+    <mat-card class="error-card">
+      <mat-card-content>
+        <mat-icon color="warn">error_outline</mat-icon>
+        <p>Không tìm thấy hồ sơ người dùng hoặc có lỗi xảy ra.</p>
+        <button mat-flat-button color="primary" (click)="router.navigate(['/home'])">Về Trang chủ</button>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

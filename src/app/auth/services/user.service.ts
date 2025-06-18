@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import {ProfileRequest, ProfileResponse} from '../../shared/models/profile.model';
+import {ProfileRequest, ProfileResponse, UserResponse} from '../../shared/models/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +38,9 @@ export class UserService {
     formData.append('file', avatarFile, avatarFile.name); // 'file' phải khớp với @RequestParam("file") trong backend
 
     return this.http.post<ProfileResponse>(`${this.apiUrl}/${userEmail}/avatar`, formData);
+  }
+  searchUsers(query: string): Observable<UserResponse[]> {
+    let params=new HttpParams().set('query', query);
+    return this.http.get<UserResponse[]>(`${this.apiUrl}/search`, {params});
   }
 }
