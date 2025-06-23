@@ -47,7 +47,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     AuthService,
     AuthGuard,
-    provideI18n() // 👈 thêm dòng này để tích hợp i18n
+    provideI18n(), // 👈 thêm dòng này để tích hợp i18n
+    provideAnimations(), // ✅ OK
 
   ]
 };

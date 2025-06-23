@@ -26,6 +26,7 @@ import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/
 import { authInterceptor } from './interceptors/auth.interceptor';
 
 import { routes } from './app.routes';
+import {provideAnimations} from '@angular/platform-browser/animations';
 
 export const config: ApplicationConfig = {
   providers: [
@@ -33,6 +34,8 @@ export const config: ApplicationConfig = {
     provideRouter(routes),
     // THÊM withFetch() VÀO provideHttpClient()
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    provideAnimations(), // 👈 THÊM DÒNG NÀY
+
     // Thêm bất kỳ providers nào khác mà bạn cần trong môi trường server rendering
   ]
 };

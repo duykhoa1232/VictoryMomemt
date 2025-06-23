@@ -1,368 +1,4 @@
 
-<!--&lt;!&ndash;<div class="post-list-container" >&ndash;&gt;-->
-<!--&lt;!&ndash;  <div *ngIf="isLoading" class="loading-spinner">&ndash;&gt;-->
-<!--&lt;!&ndash;    <mat-spinner diameter="50"></mat-spinner>&ndash;&gt;-->
-<!--&lt;!&ndash;    <p>{{ 'POST_LIST.LOADING' | translate }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">&ndash;&gt;-->
-<!--&lt;!&ndash;    <mat-icon>info</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;    <p>{{ 'POST_LIST.NO_POSTS' | translate }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;  <mat-card *ngFor="let post of posts" class="post-card">&ndash;&gt;-->
-<!--&lt;!&ndash;    <mat-card-header class="post-header">&ndash;&gt;-->
-<!--&lt;!&ndash;      <img mat-card-avatar [src]="post.author.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=#'" alt="User Avatar">&ndash;&gt;-->
-
-<!--&lt;!&ndash;      <div class="user-post-info">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-card-title>{{ getUserName(post) }}</mat-card-title>&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-card-subtitle>&ndash;&gt;-->
-<!--&lt;!&ndash;          {{ post.createdAt | date:'medium' }}&ndash;&gt;-->
-<!--&lt;!&ndash;          <span class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase()">&ndash;&gt;-->
-<!--&lt;!&ndash;  <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;  <span>{{ 'POST_LIST.VISIBILITY.' + post.visibilityStatus.toUpperCase() | translate }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;</span>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        </mat-card-subtitle>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="post-actions">&ndash;&gt;-->
-<!--&lt;!&ndash;        <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng">&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-icon>more_vert</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;        </button>&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-menu #postMenu="matMenu">&ndash;&gt;-->
-<!--&lt;!&ndash;          <button mat-menu-item (click)="editPost(post)">&ndash;&gt;-->
-<!--&lt;!&ndash;            <mat-icon>edit</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span>{{ 'POST_LIST.EDIT' | translate }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </button>&ndash;&gt;-->
-<!--&lt;!&ndash;          <button mat-menu-item (click)="deletePost(post)" class="delete-button">&ndash;&gt;-->
-<!--&lt;!&ndash;            <mat-icon>delete</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span>{{ 'POST_LIST.DELETE' | translate }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </mat-menu>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </mat-card-header>&ndash;&gt;-->
-<!--&lt;!&ndash;    <mat-card-content class="post-content">&ndash;&gt;-->
-<!--&lt;!&ndash;      <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div *ngIf="post.location" class="post-location">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-icon>location_on</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;        <span>{{ post.location }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;      <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">&ndash;&gt;-->
-<!--&lt;!&ndash;        <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">&ndash;&gt;-->
-<!--&lt;!&ndash;        <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">&ndash;&gt;-->
-<!--&lt;!&ndash;          Your browser does not support the video tag.&ndash;&gt;-->
-<!--&lt;!&ndash;        </video>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">&ndash;&gt;-->
-<!--&lt;!&ndash;        <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">&ndash;&gt;-->
-<!--&lt;!&ndash;          Your browser does not support the audio tag.&ndash;&gt;-->
-<!--&lt;!&ndash;        </audio>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </mat-card-content>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    <mat-card-footer class="post-stats">&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="stat-item" (click)="onLike(post)">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="stat-item" (click)="toggleComments(post)">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ getTotalCommentsCount(post.comments) }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="stat-item">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="stat-item">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-icon class="share-send-icon" (click)="openShareDialog(post)">send</mat-icon> <span>{{ post.shareCount }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </mat-card-footer>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    <div *ngIf="areCommentsShown(post.id)" class="comment-section-wrapper">&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="comment-input-form">&ndash;&gt;-->
-<!--&lt;!&ndash;        <mat-form-field appearance="outline" class="full-width-input">&ndash;&gt;-->
-<!--&lt;!&ndash;          <textarea matInput&ndash;&gt;-->
-<!--&lt;!&ndash;                    [formControl]="getCommentFormControl(post.id)"&ndash;&gt;-->
-<!--&lt;!&ndash;                    placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;                    rows="2"></textarea>&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-error *ngIf="getCommentFormControl(post.id).invalid && getCommentFormControl(post.id).dirty">&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ 'POST_LIST.NO_COMMENTS' | translate }}&ndash;&gt;-->
-<!--&lt;!&ndash;          </mat-error>&ndash;&gt;-->
-<!--&lt;!&ndash;        </mat-form-field>&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="comment-action-buttons">&ndash;&gt;-->
-<!--&lt;!&ndash;          <button mat-flat-button color="primary" [disabled]="getCommentFormControl(post.id).invalid" (click)="createComment(post)">&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ 'POST_LIST.COMMENT' | translate }}&ndash;&gt;-->
-
-<!--&lt;!&ndash;          </button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;      <div class="comment-list">&ndash;&gt;-->
-<!--&lt;!&ndash;        <ng-template #commentTemplate let-comments="comments">&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-card *ngFor="let comment of comments" class="comment-card">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="comment-header">&ndash;&gt;-->
-<!--&lt;!&ndash;              <img mat-card-avatar [src]="comment.userAvatar || 'https://i.pinimg.com/736x/79/25/77/792577693bccf32473271c5e48ee0374.jpg' " alt="User Avatar">&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="comment-info">&ndash;&gt;-->
-<!--&lt;!&ndash;                <span class="comment-author">{{ getCommentUserName(comment) }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                <span class="comment-timestamp">{{ comment.createdAt | date:'short' }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <div class="comment-content">&ndash;&gt;-->
-<!--&lt;!&ndash;              <p *ngIf="!isEditingComment(comment.id)">{{ comment.content }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;              <div *ngIf="isEditingComment(comment.id)" class="edit-comment-form">&ndash;&gt;-->
-<!--&lt;!&ndash;                <mat-form-field appearance="outline" class="comment-input">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <textarea matInput [formControl]="getEditCommentFormControl(comment.id)" placeholder=" {{'POST_LIST.EDIT_COMMENT' | translate}}"></textarea>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <mat-error *ngIf="getEditCommentFormControl(comment.id).invalid && getEditCommentFormControl(comment.id).dirty">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <span>{{'POST_LIST.NO_COMMENT' | translate}}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
-<!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="comment-actions">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <button mat-button color="warn" (click)="cancelEditingComment(comment.id)">{{'POST_LIST.CANCEL' | translate}}</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <button mat-flat-button color="primary" [disabled]="getEditCommentFormControl(comment.id).invalid" (click)="saveEditedComment(post, comment)">{{'POST_LIST.SAVE' | translate}}</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <div class="comment-footer">&ndash;&gt;-->
-<!--&lt;!&ndash;              <button mat-button (click)="toggleReplyForm(comment)">&ndash;&gt;-->
-<!--&lt;!&ndash;                <mat-icon>reply</mat-icon> {{'POST_LIST.REPLY' | translate}}&ndash;&gt;-->
-<!--&lt;!&ndash;              </button>&ndash;&gt;-->
-<!--&lt;!&ndash;              <ng-container *ngIf="isMyComment(comment)">&ndash;&gt;-->
-<!--&lt;!&ndash;                <button mat-button (click)="startEditingComment(comment)">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <mat-icon>edit</mat-icon> {{'POST_LIST.EDIT' | translate}}&ndash;&gt;-->
-<!--&lt;!&ndash;                </button>&ndash;&gt;-->
-<!--&lt;!&ndash;                <button mat-button class="delete-button" (click)="deleteComment(post, comment.id)">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <mat-icon>delete</mat-icon> {{'POST_LIST.DELETE' | translate}}&ndash;&gt;-->
-<!--&lt;!&ndash;                </button>&ndash;&gt;-->
-<!--&lt;!&ndash;              </ng-container>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <div *ngIf="isReplyFormShown(comment.id)" class="reply-form">&ndash;&gt;-->
-<!--&lt;!&ndash;              <mat-form-field appearance="outline" class="comment-input">&ndash;&gt;-->
-<!--&lt;!&ndash;                <textarea matInput [formControl]="getReplyFormControl(comment.id)" placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"></textarea>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                <mat-error *ngIf="getReplyFormControl(comment.id).invalid && getReplyFormControl(comment.id).dirty">&ndash;&gt;-->
-<!--&lt;!&ndash;                  {{'POST_LIST.NO_REPLY' | translate}}&ndash;&gt;-->
-<!--&lt;!&ndash;                </mat-error>&ndash;&gt;-->
-<!--&lt;!&ndash;              </mat-form-field>&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="comment-actions">&ndash;&gt;-->
-<!--&lt;!&ndash;                <button mat-button (click)="toggleReplyForm(comment)">{{'POST_LIST.CANCEL' | translate}}</button>&ndash;&gt;-->
-<!--&lt;!&ndash;                <button mat-flat-button color="primary" [disabled]="getReplyFormControl(comment.id).invalid" (click)="createReply(post, comment)">{{'POST_LIST.SEND' | translate}}</button>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <div *ngIf="comment.replies && comment.replies.length > 0" class="replies">&ndash;&gt;-->
-<!--&lt;!&ndash;              <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: comment.replies }"></ng-container>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </mat-card>&ndash;&gt;-->
-<!--&lt;!&ndash;        </ng-template>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: post.comments || [] }"></ng-container>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        <div *ngIf="!post.comments?.length && areCommentsShown(post.id)" class="no-comments-message">&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-icon>info</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;          <p>{{'POST_LIST.NO_COMMENTS' | translate}}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;  </mat-card>&ndash;&gt;-->
-
-<!--&lt;!&ndash;  <div *ngIf="!isLoading && posts.length > 0 && posts.length < totalPosts" class="load-more-container">&ndash;&gt;-->
-<!--&lt;!&ndash;    <button mat-raised-button color="primary" (click)="loadMorePosts()">&ndash;&gt;-->
-<!--&lt;!&ndash;      Load more posts&ndash;&gt;-->
-<!--&lt;!&ndash;      <mat-icon *ngIf="isLoading">autorenew</mat-icon>&ndash;&gt;-->
-<!--&lt;!&ndash;    </button>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;  <div *ngIf="!isLoading && posts.length > 0 && posts.length >= totalPosts" class="end-of-posts-message">&ndash;&gt;-->
-<!--&lt;!&ndash;    <p>You have read the whole article.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-
-<!--<div class="post-list-container" >-->
-<!--  <div *ngIf="isLoading" class="loading-spinner">-->
-<!--    <mat-spinner diameter="50"></mat-spinner>-->
-<!--    <p>{{ 'POST_LIST.LOADING' | translate }}</p>-->
-<!--  </div>-->
-
-<!--  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">-->
-<!--    <mat-icon>info</mat-icon>-->
-<!--    <p>{{ 'POST_LIST.NO_POSTS' | translate }}</p>-->
-<!--  </div>-->
-
-<!--  <mat-card *ngFor="let post of posts" class="post-card">-->
-<!--    <mat-card-header class="post-header">-->
-<!--      <img mat-card-avatar [src]="post.author.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=#'" alt="User Avatar">-->
-
-<!--      <div class="user-post-info">-->
-<!--        <mat-card-title>{{ getUserName(post) }}</mat-card-title>-->
-<!--        <mat-card-subtitle>-->
-<!--          {{ post.createdAt | date:'medium' }}-->
-<!--          <span class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase()">-->
-<!--  <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>-->
-<!--  <span>{{ 'POST_LIST.VISIBILITY.' + post.visibilityStatus.toUpperCase() | translate }}</span>-->
-<!--</span>-->
-
-<!--        </mat-card-subtitle>-->
-<!--      </div>-->
-<!--      <div class="post-actions">-->
-<!--        <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng">-->
-<!--          <mat-icon>more_vert</mat-icon>-->
-<!--        </button>-->
-<!--        <mat-menu #postMenu="matMenu">-->
-<!--          <button mat-menu-item (click)="editPost(post)">-->
-<!--            <mat-icon>edit</mat-icon>-->
-<!--            <span>{{ 'POST_LIST.EDIT' | translate }}</span>-->
-<!--          </button>-->
-<!--          <button mat-menu-item (click)="deletePost(post)" class="delete-button">-->
-<!--            <mat-icon>delete</mat-icon>-->
-<!--            <span>{{ 'POST_LIST.DELETE' | translate }}</span>-->
-<!--          </button>-->
-<!--        </mat-menu>-->
-<!--      </div>-->
-<!--    </mat-card-header>-->
-<!--    <mat-card-content class="post-content">-->
-<!--      <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>-->
-<!--      <div *ngIf="post.location" class="post-location">-->
-<!--        <mat-icon>location_on</mat-icon>-->
-<!--        <span>{{ post.location }}</span>-->
-<!--      </div>-->
-
-<!--      <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">-->
-<!--        <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">-->
-<!--      </div>-->
-<!--      <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">-->
-<!--        <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">-->
-<!--          Your browser does not support the video tag.-->
-<!--        </video>-->
-<!--      </div>-->
-<!--      <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">-->
-<!--        <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">-->
-<!--          Your browser does not support the audio tag.-->
-<!--        </audio>-->
-<!--      </div>-->
-<!--    </mat-card-content>-->
-
-<!--    <mat-card-footer class="post-stats">-->
-<!--      <div class="stat-item" (click)="onLike(post)">-->
-<!--        <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>-->
-<!--      </div>-->
-<!--      <div class="stat-item" (click)="toggleComments(post)">-->
-<!--        <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ getTotalCommentsCount(post.comments) }}</span>-->
-<!--      </div>-->
-<!--      <div class="stat-item">-->
-<!--        <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>-->
-<!--      </div>-->
-<!--      <div class="stat-item">-->
-<!--        <mat-icon class="share-send-icon" (click)="openShareDialog(post)">send</mat-icon> <span>{{ post.shareCount }}</span>-->
-<!--      </div>-->
-<!--    </mat-card-footer>-->
-
-<!--    <div *ngIf="areCommentsShown(post.id)" class="comment-section-wrapper">-->
-<!--      <div class="comment-input-form">-->
-<!--        <mat-form-field appearance="outline" class="full-width-input">-->
-<!--          <textarea matInput-->
-<!--                    [formControl]="getCommentFormControl(post.id)"-->
-<!--                    placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"-->
-<!--                    rows="2"></textarea>-->
-<!--          <mat-error *ngIf="getCommentFormControl(post.id).invalid && getCommentFormControl(post.id).dirty">-->
-<!--            {{ 'POST_LIST.NO_COMMENTS' | translate }}-->
-<!--          </mat-error>-->
-<!--        </mat-form-field>-->
-<!--        <div class="comment-action-buttons">-->
-<!--          <button mat-flat-button color="primary" [disabled]="getCommentFormControl(post.id).invalid" (click)="createComment(post)">-->
-<!--            {{ 'POST_LIST.COMMENT' | translate }}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="comment-list">-->
-<!--        <ng-template #commentTemplate let-comments="comments">-->
-<!--          <mat-card *ngFor="let comment of comments" class="comment-card">-->
-<!--            <div class="comment-header">-->
-<!--              <img mat-card-avatar [src]="comment.userAvatar || 'https://i.pinimg.com/736x/79/25/77/792577693bccf32473271c5e48ee0374.jpg' " alt="User Avatar">-->
-<!--              <div class="comment-info">-->
-<!--                <span class="comment-author">{{ getCommentUserName(comment) }}</span>-->
-<!--                <span class="comment-timestamp">{{ comment.createdAt | date:'short' }}</span>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="comment-content">-->
-<!--              <p *ngIf="!isEditingComment(comment.id)">{{ comment.content }}</p>-->
-<!--              <div *ngIf="isEditingComment(comment.id)" class="edit-comment-form">-->
-<!--                <mat-form-field appearance="outline" class="comment-input">-->
-<!--                  <textarea matInput [formControl]="getEditCommentFormControl(comment.id)" placeholder=" {{'POST_LIST.EDIT_COMMENT' | translate}}"></textarea>-->
-<!--                  <mat-error *ngIf="getEditCommentFormControl(comment.id).invalid && getEditCommentFormControl(comment.id).dirty">-->
-<!--                    <span>{{'POST_LIST.NO_COMMENT' | translate}}</span>-->
-<!--                  </mat-error>-->
-<!--                </mat-form-field>-->
-<!--                <div class="comment-actions">-->
-<!--                  <button mat-button color="warn" (click)="cancelEditingComment(comment.id)">{{'POST_LIST.CANCEL' | translate}}</button>-->
-<!--                  <button mat-flat-button color="primary" [disabled]="getEditCommentFormControl(comment.id).invalid" (click)="saveEditedComment(post, comment)">{{'POST_LIST.SAVE' | translate}}</button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="comment-footer">-->
-<!--              <button mat-button (click)="toggleReplyForm(comment)">-->
-<!--                <mat-icon>reply</mat-icon> {{'POST_LIST.REPLY' | translate}}-->
-<!--              </button>-->
-<!--              <ng-container *ngIf="isMyComment(comment)">-->
-<!--                <button mat-button (click)="startEditingComment(comment)">-->
-<!--                  <mat-icon>edit</mat-icon> {{'POST_LIST.EDIT' | translate}}-->
-<!--                </button>-->
-<!--                <button mat-button class="delete-button" (click)="deleteComment(post, comment.id)">-->
-<!--                  <mat-icon>delete</mat-icon> {{'POST_LIST.DELETE' | translate}}-->
-<!--                </button>-->
-<!--              </ng-container>-->
-<!--            </div>-->
-
-<!--            <div *ngIf="isReplyFormShown(comment.id)" class="reply-form">-->
-<!--              <mat-form-field appearance="outline" class="comment-input">-->
-<!--                <textarea matInput [formControl]="getReplyFormControl(comment.id)" placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"></textarea>-->
-<!--                <mat-error *ngIf="getReplyFormControl(comment.id).invalid && getReplyFormControl(comment.id).dirty">-->
-<!--                  {{'POST_LIST.NO_REPLY' | translate}}-->
-<!--                </mat-error>-->
-<!--              </mat-form-field>-->
-<!--              <div class="comment-actions">-->
-<!--                <button mat-button (click)="toggleReplyForm(comment)">{{'POST_LIST.CANCEL' | translate}}</button>-->
-<!--                <button mat-flat-button color="primary" [disabled]="getReplyFormControl(comment.id).invalid" (click)="createReply(post, comment)">{{'POST_LIST.SEND' | translate}}</button>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div *ngIf="comment.replies && comment.replies.length > 0" class="replies">-->
-<!--              <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: comment.replies }"></ng-container>-->
-<!--            </div>-->
-<!--          </mat-card>-->
-<!--        </ng-template>-->
-
-<!--        <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: post.comments || [] }"></ng-container>-->
-
-<!--        <div *ngIf="!post.comments?.length && areCommentsShown(post.id)" class="no-comments-message">-->
-<!--          <mat-icon>info</mat-icon>-->
-<!--          <p>{{'POST_LIST.NO_COMMENTS' | translate}}</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </mat-card>-->
-
-<!--  <div *ngIf="!isLoading && posts.length > 0 && posts.length < totalPosts" class="load-more-container">-->
-<!--    <button mat-raised-button color="primary" (click)="loadMorePosts()">-->
-<!--      Load more posts-->
-<!--      <mat-icon *ngIf="isLoading">autorenew</mat-icon>-->
-<!--    </button>-->
-<!--  </div>-->
-
-<!--  <div *ngIf="!isLoading && posts.length > 0 && posts.length >= totalPosts" class="end-of-posts-message">-->
-<!--    <p>You have read the whole article.</p>-->
-<!--  </div>-->
-<!--</div>-->
-
 
 <div class="post-list-container" >
   <div *ngIf="isLoading" class="loading-spinner">
@@ -375,7 +11,7 @@
     <p>{{ 'POST_LIST.NO_POSTS' | translate }}</p>
   </div>
 
-  <mat-card *ngFor="let post of posts" class="post-card">
+  <mat-card *ngFor="let post of posts; let isLast = last; trackBy: trackByPostId" class="post-card" [@fadeIn]>
     <mat-card-header class="post-header">
       <img mat-card-avatar [src]="post.author.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=#'" alt="User Avatar">
 
@@ -444,93 +80,6 @@
       </div>
     </mat-card-footer>
 
-<!--    <div *ngIf="areCommentsShown(post.id)" class="comment-section-wrapper">-->
-<!--      <div class="comment-input-form">-->
-<!--        <mat-form-field appearance="outline" class="full-width-input">-->
-<!--          <textarea matInput-->
-<!--                    [formControl]="getCommentFormControl(post.id)"-->
-<!--                    placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"-->
-<!--                    rows="2"></textarea>-->
-<!--          <mat-error *ngIf="getCommentFormControl(post.id).invalid && getCommentFormControl(post.id).dirty">-->
-<!--            {{ 'POST_LIST.NO_COMMENTS' | translate }}-->
-<!--          </mat-error>-->
-<!--        </mat-form-field>-->
-<!--        <div class="comment-action-buttons">-->
-<!--          <button mat-flat-button color="primary" [disabled]="getCommentFormControl(post.id).invalid" (click)="createComment(post)">-->
-<!--            {{ 'POST_LIST.COMMENT' | translate }}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="comment-list">-->
-<!--        <ng-template #commentTemplate let-comments="comments">-->
-<!--          <mat-card *ngFor="let comment of comments" class="comment-card">-->
-<!--            <div class="comment-header">-->
-<!--              <img mat-card-avatar [src]="comment.userAvatar || 'https://i.pinimg.com/736x/79/25/77/792577693bccf32473271c5e48ee0374.jpg' " alt="User Avatar">-->
-<!--              <div class="comment-info">-->
-<!--                <span class="comment-author">{{ getCommentUserName(comment) }}</span>-->
-<!--                <span class="comment-timestamp">{{ comment.createdAt | date:'short' }}</span>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="comment-content">-->
-<!--              <p *ngIf="!isEditingComment(comment.id)">{{ comment.content }}</p>-->
-<!--              <div *ngIf="isEditingComment(comment.id)" class="edit-comment-form">-->
-<!--                <mat-form-field appearance="outline" class="comment-input">-->
-<!--                  <textarea matInput [formControl]="getEditCommentFormControl(comment.id)" placeholder=" {{'POST_LIST.EDIT_COMMENT' | translate}}"></textarea>-->
-<!--                  <mat-error *ngIf="getEditCommentFormControl(comment.id).invalid && getEditCommentFormControl(comment.id).dirty">-->
-<!--                    <span>{{'POST_LIST.NO_COMMENT' | translate}}</span>-->
-<!--                  </mat-error>-->
-<!--                </mat-form-field>-->
-<!--                <div class="comment-actions">-->
-<!--                  <button mat-button color="warn" (click)="cancelEditingComment(comment.id)">{{'POST_LIST.CANCEL' | translate}}</button>-->
-<!--                  <button mat-flat-button color="primary" [disabled]="getEditCommentFormControl(comment.id).invalid" (click)="saveEditedComment(post, comment)">{{'POST_LIST.SAVE' | translate}}</button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="comment-footer">-->
-<!--              <button mat-button (click)="toggleReplyForm(comment)">-->
-<!--                <mat-icon>reply</mat-icon> {{'POST_LIST.REPLY' | translate}}-->
-<!--              </button>-->
-<!--              <ng-container *ngIf="isMyComment(comment)">-->
-<!--                <button mat-button (click)="startEditingComment(comment)">-->
-<!--                  <mat-icon>edit</mat-icon> {{'POST_LIST.EDIT' | translate}}-->
-<!--                </button>-->
-<!--                <button mat-button class="delete-button" (click)="deleteComment(post, comment.id)">-->
-<!--                  <mat-icon>delete</mat-icon> {{'POST_LIST.DELETE' | translate}}-->
-<!--                </button>-->
-<!--              </ng-container>-->
-<!--            </div>-->
-
-<!--            <div *ngIf="isReplyFormShown(comment.id)" class="reply-form">-->
-<!--              <mat-form-field appearance="outline" class="comment-input">-->
-<!--                <textarea matInput [formControl]="getReplyFormControl(comment.id)" placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"></textarea>-->
-<!--                <mat-error *ngIf="getReplyFormControl(comment.id).invalid && getReplyFormControl(comment.id).dirty">-->
-<!--                  {{'POST_LIST.NO_REPLY' | translate}}-->
-<!--                </mat-error>-->
-<!--              </mat-form-field>-->
-<!--              <div class="comment-actions">-->
-<!--                <button mat-button (click)="toggleReplyForm(comment)">{{'POST_LIST.CANCEL' | translate}}</button>-->
-<!--                <button mat-flat-button color="primary" [disabled]="getReplyFormControl(comment.id).invalid" (click)="createReply(post, comment)">{{'POST_LIST.SEND' | translate}}</button>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div *ngIf="comment.replies && comment.replies.length > 0" class="replies">-->
-<!--              <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: comment.replies }"></ng-container>-->
-<!--            </div>-->
-<!--          </mat-card>-->
-<!--        </ng-template>-->
-
-<!--        <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: post.comments || [] }"></ng-container>-->
-
-<!--        <div *ngIf="!post.comments?.length && areCommentsShown(post.id)" class="no-comments-message">-->
-<!--          <mat-icon>info</mat-icon>-->
-<!--          <p>{{'POST_LIST.NO_COMMENTS' | translate}}</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </mat-card>-->
 
     <app-comment-section
       *ngIf="areCommentsShown(post.id)"
@@ -539,16 +88,114 @@
     </app-comment-section>
 
 
+    <div *ngIf="isLast && posts.length < totalPosts" #loadMoreTrigger class="scroll-trigger-sentinel"></div>
 
   </mat-card>
-  <div *ngIf="!isLoading && posts.length > 0 && posts.length < totalPosts" class="load-more-container">
-    <button mat-raised-button color="primary" (click)="loadMorePosts()">
-      Load more posts
-      <mat-icon *ngIf="isLoading">autorenew</mat-icon>
-    </button>
+  <!-- Trigger vô hình theo dõi scroll -->
+
+  <div *ngIf="!isLoading && posts.length >= totalPosts && posts.length > 0" class="end-of-posts-message">
+    <mat-icon color="primary">check_circle</mat-icon>
+    <span>{{ 'POST_LIST.NO_MORE_POSTS' | translate }}</span>
+  </div>
+  <!-- Spinner khi đang loading -->
+  <div *ngIf="isLoading && posts.length > 0" class="footer-spinner">
+    <mat-spinner diameter="24"></mat-spinner>
   </div>
 
-  <div *ngIf="!isLoading && posts.length > 0 && posts.length >= totalPosts" class="end-of-posts-message">
-    <p>You have read the whole article.</p>
-  </div>
+
 </div>
+
+
+
+
+<!--<div class="post-list-container">-->
+<!--  <div *ngIf="isLoading" class="loading-spinner">-->
+<!--    <mat-spinner diameter="50"></mat-spinner>-->
+<!--    <p>{{ 'POST_LIST.LOADING' | translate }}</p>-->
+<!--  </div>-->
+
+<!--  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">-->
+<!--    <mat-icon>info</mat-icon>-->
+<!--    <p>{{ 'POST_LIST.NO_POSTS' | translate }}</p>-->
+<!--  </div>-->
+
+<!--  <ng-container *ngFor="let post of posts; let last = last">-->
+<!--    <mat-card class="post-card" [@fadeIn]>-->
+<!--      <mat-card-header class="post-header">-->
+<!--        <img mat-card-avatar [src]="post.author.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=#'" alt="User Avatar">-->
+
+<!--        <div class="user-post-info">-->
+<!--          <mat-card-title>{{ getUserName(post) }}</mat-card-title>-->
+<!--          <mat-card-subtitle>-->
+<!--            {{ post.createdAt | date:'medium' }}-->
+<!--            <span class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase()">-->
+<!--              <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>-->
+<!--              <span>{{ 'POST_LIST.VISIBILITY.' + post.visibilityStatus.toUpperCase() | translate }}</span>-->
+<!--            </span>-->
+<!--          </mat-card-subtitle>-->
+<!--        </div>-->
+
+<!--        <div class="post-actions">-->
+<!--          <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng" *ngIf="isMyPost(post)">-->
+<!--            <mat-icon>more_vert</mat-icon>-->
+<!--          </button>-->
+<!--          <mat-menu #postMenu="matMenu">-->
+<!--            <button mat-menu-item (click)="editPost(post)">-->
+<!--              <mat-icon>edit</mat-icon>-->
+<!--              <span>{{ 'POST_LIST.EDIT' | translate }}</span>-->
+<!--            </button>-->
+<!--            <button mat-menu-item (click)="deletePost(post)" class="delete-button">-->
+<!--              <mat-icon>delete</mat-icon>-->
+<!--              <span>{{ 'POST_LIST.DELETE' | translate }}</span>-->
+<!--            </button>-->
+<!--          </mat-menu>-->
+<!--        </div>-->
+<!--      </mat-card-header>-->
+
+<!--      <mat-card-content class="post-content">-->
+<!--        <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>-->
+<!--        <div *ngIf="post.location" class="post-location">-->
+<!--          <mat-icon>location_on</mat-icon>-->
+<!--          <span>{{ post.location }}</span>-->
+<!--        </div>-->
+
+<!--        <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">-->
+<!--          <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">-->
+<!--        </div>-->
+<!--        <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">-->
+<!--          <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">-->
+<!--            Your browser does not support the video tag.-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">-->
+<!--          <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">-->
+<!--            Your browser does not support the audio tag.-->
+<!--          </audio>-->
+<!--        </div>-->
+<!--      </mat-card-content>-->
+
+<!--      <mat-card-footer class="post-stats">-->
+<!--        <div class="stat-item" (click)="onLike(post)">-->
+<!--          <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>-->
+<!--        </div>-->
+<!--        <div class="stat-item" (click)="toggleComments(post)">-->
+<!--          <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ getTotalCommentsCount(post.comments) }}</span>-->
+<!--        </div>-->
+<!--        <div class="stat-item">-->
+<!--          <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>-->
+<!--        </div>-->
+<!--        <div class="stat-item">-->
+<!--          <mat-icon class="share-send-icon">send</mat-icon> <span>{{ post.shareCount }}</span>-->
+<!--        </div>-->
+<!--      </mat-card-footer>-->
+
+<!--      <app-comment-section *ngIf="areCommentsShown(post.id)" [post]="post"></app-comment-section>-->
+<!--    </mat-card>-->
+
+<!--    <div *ngIf="last && posts.length < totalPosts" #loadMoreTrigger class="scroll-trigger-sentinel"></div>-->
+<!--  </ng-container>-->
+
+<!--  <div *ngIf="isLoading && posts.length > 0" class="footer-spinner">-->
+<!--    <mat-spinner diameter="24"></mat-spinner>-->
+<!--  </div>-->
+<!--</div>-->

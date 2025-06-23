@@ -139,7 +139,7 @@ import { I18nService } from './services/i18n.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
   @ViewChild(PostListComponent) postListComponent!: PostListComponent;
   isLoggedIn: boolean = false;
 
@@ -155,20 +155,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.isLoggedIn = this.authService.isUserLoggedIn();
   }
 
-  ngAfterViewInit(): void {
-    if (this.isLoggedIn && this.postListComponent) {
-      console.log("HomeComponent: Calling getPosts from PostListComponent in ngAfterViewInit.");
-      this.postListComponent.getPosts();
-    } else if (!this.isLoggedIn) {
-      this.snackBar.open(
-        this.i18n.instant('HOME_SNACKBAR_LOGIN_REQUIRED_VIEW_POSTS'),
-        'Đóng',
-        { duration: 3000, panelClass: ['error-snackbar'] }
-      ).onAction().subscribe(() => {
-        window.location.href = '/login';
-      });
-    }
-  }
+  // ngAfterViewInit(): void {
+  //   if (this.isLoggedIn && this.postListComponent) {
+  //     console.log("HomeComponent: Calling getPosts from PostListComponent in ngAfterViewInit.");
+  //     this.postListComponent.getPosts();
+  //   } else if (!this.isLoggedIn) {
+  //     this.snackBar.open(
+  //       this.i18n.instant('HOME_SNACKBAR_LOGIN_REQUIRED_VIEW_POSTS'),
+  //       'Đóng',
+  //       { duration: 3000, panelClass: ['error-snackbar'] }
+  //     ).onAction().subscribe(() => {
+  //       window.location.href = '/login';
+  //     });
+  //   }
+  // }
 
   onPostCreated(): void {
     console.log('New post has been created!');

@@ -75,6 +75,7 @@
     "CANCEL": "Cancel",
     "LOAD_MORE": "Load more posts",
     "END_OF_POSTS": "You have read the whole article.",
+    "NO_MORE_POSTS": "You have viewed all posts",
     "VISIBILITY": {
       "PUBLIC": "Public",
       "PRIVATE": "Private",
