@@ -1,3 +1,81 @@
+<!--<div class="edit-profile-container">-->
+<!--  <div class="edit-profile-header">-->
+<!--    <div class="cover-photo-edit">-->
+<!--      <img src="https://img.pikbest.com/templates/20241111/2025-happy-new-year-facebook-cover-design-or-banner-template_11065078.jpg!bw700" alt="Ảnh bìa">-->
+<!--      <button mat-mini-fab color="primary" class="change-cover-button">-->
+<!--        <mat-icon>photo_camera</mat-icon>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div class="avatar-edit-wrapper">-->
+<!--      <img class="profile-avatar-edit" [src]="userProfile?.avatarUrl || 'https://img.freepik.com/free-vector/young-prince-royal-attire_1308-176144.jpg?ga=GA1.1.1123927038.1748415959&semt=ais_hybrid&w=740'" alt="Ảnh đại diện">-->
+
+<!--      <input type="file" #fileInput hidden (change)="onAvatarSelected($event)" accept="image/*">-->
+<!--      <button mat-mini-fab color="primary" class="change-avatar-button" (click)="fileInput.click()">-->
+<!--        <mat-icon>camera_alt</mat-icon>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div class="avatar-upload-actions" *ngIf="selectedAvatarFile">-->
+<!--      <button mat-raised-button color="accent" (click)="onUploadAvatar()" [disabled]="isLoading">-->
+<!--        <mat-icon>upload</mat-icon> Tải lên ảnh đại diện-->
+<!--      </button>-->
+<!--      <button mat-button (click)="selectedAvatarFile = null">Hủy</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="edit-profile-content-area">-->
+<!--    <mat-card class="edit-form-card">-->
+<!--      <mat-card-header>-->
+<!--        <mat-card-title>Chỉnh sửa thông tin cá nhân</mat-card-title>-->
+<!--      </mat-card-header>-->
+<!--      <mat-card-content>-->
+<!--        <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-edit-form">-->
+<!--          <mat-form-field appearance="outline" class="full-width-field">-->
+<!--            <mat-label>Tên Người Dùng</mat-label>-->
+<!--            <input matInput formControlName="name" placeholder="Nhập tên của bạn">-->
+<!--            <mat-error *ngIf="profileForm.get('name')?.hasError('required') && profileForm.get('name')?.touched">-->
+<!--              Tên không được để trống.-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field appearance="outline" class="full-width-field">-->
+<!--            <mat-label>Email</mat-label>-->
+<!--            <input matInput formControlName="email" placeholder="Email của bạn">-->
+<!--            <mat-error *ngIf="profileForm.get('email')?.hasError('required') && profileForm.get('email')?.touched">-->
+<!--              Email không được để trống.-->
+<!--            </mat-error>-->
+<!--            <mat-error *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched">-->
+<!--              Email không hợp lệ.-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field appearance="outline" class="full-width-field">-->
+<!--            <mat-label>Giới thiệu bản thân (Bio)</mat-label>-->
+<!--            <textarea matInput formControlName="bio" placeholder="Viết vài dòng về bản thân..." rows="4"></textarea>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field appearance="outline" class="full-width-field">-->
+<!--            <mat-label>Số điện thoại</mat-label>-->
+<!--            <input matInput formControlName="phoneNumber" placeholder="Nhập số điện thoại của bạn">-->
+<!--            <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('required') && profileForm.get('phoneNumber')?.touched">-->
+<!--              Số điện thoại không được để trống.-->
+<!--            </mat-error>-->
+<!--            <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('pattern') && profileForm.get('phoneNumber')?.touched">-->
+<!--              Số điện thoại không hợp lệ.-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <div class="form-actions">-->
+<!--            <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || isLoading">Lưu thay đổi</button>-->
+<!--            <button mat-button routerLink="/profile" type="button">Hủy</button>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
 <div class="edit-profile-container">
   <div class="edit-profile-header">
     <div class="cover-photo-edit">
@@ -7,8 +85,7 @@
       </button>
     </div>
     <div class="avatar-edit-wrapper">
-      <img class="profile-avatar-edit" [src]="userProfile?.avatarUrl || 'https://img.freepik.com/free-vector/young-prince-royal-attire_1308-176144.jpg?ga=GA1.1.1123927038.1748415959&semt=ais_hybrid&w=740'" alt="Ảnh đại diện">
-
+            <img class="profile-avatar-edit" [src]="userProfile?.avatarUrl || 'https://img.freepik.com/free-vector/young-prince-royal-attire_1308-176144.jpg?ga=GA1.1.1123927038.1748415959&semt=ais_hybrid&w=740'" alt="Ảnh đại diện">
       <input type="file" #fileInput hidden (change)="onAvatarSelected($event)" accept="image/*">
       <button mat-mini-fab color="primary" class="change-avatar-button" (click)="fileInput.click()">
         <mat-icon>camera_alt</mat-icon>
@@ -16,57 +93,59 @@
     </div>
     <div class="avatar-upload-actions" *ngIf="selectedAvatarFile">
       <button mat-raised-button color="accent" (click)="onUploadAvatar()" [disabled]="isLoading">
-        <mat-icon>upload</mat-icon> Tải lên ảnh đại diện
+        <mat-icon>upload</mat-icon> {{ 'EDIT_PROFILE.UPLOAD_AVATAR' | translate }}
       </button>
-      <button mat-button (click)="selectedAvatarFile = null">Hủy</button>
+      <button mat-button (click)="selectedAvatarFile = null">{{ 'EDIT_PROFILE.CANCEL' | translate }}</button>
     </div>
   </div>
 
   <div class="edit-profile-content-area">
     <mat-card class="edit-form-card">
       <mat-card-header>
-        <mat-card-title>Chỉnh sửa thông tin cá nhân</mat-card-title>
+        <mat-card-title>{{ 'EDIT_PROFILE.EDIT_TITLE' | translate }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-edit-form">
           <mat-form-field appearance="outline" class="full-width-field">
-            <mat-label>Tên Người Dùng</mat-label>
-            <input matInput formControlName="name" placeholder="Nhập tên của bạn">
+            <mat-label>{{ 'EDIT_PROFILE.NAME' | translate }}</mat-label>
+            <input matInput formControlName="name" [placeholder]="'EDIT_PROFILE.NAME_PLACEHOLDER' | translate">
             <mat-error *ngIf="profileForm.get('name')?.hasError('required') && profileForm.get('name')?.touched">
-              Tên không được để trống.
+              {{ 'EDIT_PROFILE.NAME_REQUIRED' | translate }}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width-field">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Email của bạn">
+            <mat-label>{{ 'PROFILE.EMAIL' | translate }}</mat-label>
+            <input matInput formControlName="email" [placeholder]="'EDIT_PROFILE.EMAIL_PLACEHOLDER' | translate">
             <mat-error *ngIf="profileForm.get('email')?.hasError('required') && profileForm.get('email')?.touched">
-              Email không được để trống.
+              {{ 'EDIT_PROFILE.EMAIL_REQUIRED' | translate }}
             </mat-error>
             <mat-error *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched">
-              Email không hợp lệ.
+              {{ 'EDIT_PROFILE.EMAIL_INVALID' | translate }}
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width-field">
-            <mat-label>Giới thiệu bản thân (Bio)</mat-label>
-            <textarea matInput formControlName="bio" placeholder="Viết vài dòng về bản thân..." rows="4"></textarea>
+            <mat-label>{{ 'EDIT_PROFILE.BIO' | translate }}</mat-label>
+            <textarea matInput formControlName="bio" [placeholder]="'EDIT_PROFILE.BIO_PLACEHOLDER' | translate" rows="4"></textarea>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width-field">
-            <mat-label>Số điện thoại</mat-label>
-            <input matInput formControlName="phoneNumber" placeholder="Nhập số điện thoại của bạn">
+            <mat-label>{{ 'PROFILE.PHONE' | translate }}</mat-label>
+            <input matInput formControlName="phoneNumber" [placeholder]="'EDIT_PROFILE.PHONE_PLACEHOLDER' | translate">
             <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('required') && profileForm.get('phoneNumber')?.touched">
-              Số điện thoại không được để trống.
+              {{ 'EDIT_PROFILE.PHONE_REQUIRED' | translate }}
             </mat-error>
             <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('pattern') && profileForm.get('phoneNumber')?.touched">
-              Số điện thoại không hợp lệ.
+              {{ 'EDIT_PROFILE.PHONE_INVALID' | translate }}
             </mat-error>
           </mat-form-field>
 
           <div class="form-actions">
-            <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || isLoading">Lưu thay đổi</button>
-            <button mat-button routerLink="/profile" type="button">Hủy</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || isLoading">
+              {{ 'EDIT_PROFILE.SAVE' | translate }}
+            </button>
+            <button mat-button routerLink="/profile" type="button">{{ 'EDIT_PROFILE.CANCEL' | translate }}</button>
           </div>
         </form>
       </mat-card-content>

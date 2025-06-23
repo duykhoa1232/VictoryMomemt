@@ -337,4 +337,11 @@ export class AuthService {
   getCurrentUserEmail(): string | null {
     return this._currentUser.value?.email || null;
   }
+  updateCurrentUserAvatar(newAvatarUrl: string | null): void {
+    const currentUser = this._currentUser.value;
+    if (currentUser) {
+      this._currentUser.next({ ...currentUser, avatarUrl: newAvatarUrl });
+    }
+  }
+
 }

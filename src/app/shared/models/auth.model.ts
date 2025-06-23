@@ -18,6 +18,6 @@ export interface CurrentUser {
   id: string;
   email: string;
   name?: string;
-  avatarUrl?: string; // Thêm trường này để lưu trữ URL avatar từ token (nếu có)
+  avatarUrl?: string | null; // 👈 thêm null vào đây
   // Thêm các trường khác của người dùng mà bạn muốn truy cập từ token
 }

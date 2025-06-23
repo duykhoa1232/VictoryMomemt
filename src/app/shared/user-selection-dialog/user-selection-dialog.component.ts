@@ -17,6 +17,8 @@ import { of } from 'rxjs';
 import { PostService } from '../../core/home/services/post.service';
 import { UserResponse } from '../models/profile.model';
 import { MatChip, MatChipListbox } from '@angular/material/chips';
+import {TranslatePipe} from '@ngx-translate/core';
+import {I18nService} from '../../core/home/services/i18n.service';
 
 export interface UserSelectionDialogData {
   selectedUsers: UserResponse[];
@@ -39,7 +41,8 @@ export interface UserSelectionDialogData {
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatChipListbox,
-    MatChip
+    MatChip,
+    TranslatePipe
   ],
   templateUrl: './user-selection-dialog.component.html',
   styleUrls: ['./user-selection-dialog.component.css']
@@ -55,7 +58,8 @@ export class UserSelectionDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<UserSelectionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UserSelectionDialogData,
     private postService: PostService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private i18n: I18nService
   ) {
     this.selectedUsers = [...data.selectedUsers];
   }
@@ -70,7 +74,11 @@ export class UserSelectionDialogComponent implements OnInit {
           return this.postService.searchUsers(query).pipe(
             catchError(error => {
               console.error('Lỗi khi tìm kiếm người dùng:', error);
-              this.snackBar.open('Lỗi khi tìm kiếm người dùng.', 'Đóng', { duration: 3000 });
+              this.snackBar.open(
+                this.i18n.instant('USER_SELECTION_SNACKBAR.SEARCH_ERROR'),
+                'Đóng',
+                { duration: 3000, panelClass: ['success-snackbar'] }
+              );
               return of([]);
             }),
             finalize(() => this.isLoading = false)

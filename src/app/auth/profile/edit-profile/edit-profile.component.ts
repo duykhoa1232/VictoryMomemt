@@ -10,6 +10,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import {ProfileRequest, ProfileResponse} from '../../../shared/models/profile.model';
 import {NgIf} from '@angular/common';
 import {UserService} from '../../services/user.service';
+import {AuthService} from '../../services/auth.service';
+import {TranslatePipe} from '@ngx-translate/core';
+import {I18nService} from '../../../core/home/services/i18n.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-profile',
@@ -30,6 +34,7 @@ import {UserService} from '../../services/user.service';
     MatNativeDateModule,
     ReactiveFormsModule,
     NgIf,
+    TranslatePipe,
   ],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css'
@@ -45,7 +50,12 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,// ✅ Thêm dòng này
+    public i18n: I18nService // ✅ Dùng service bạn đã tạo
+
+
   ) {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
@@ -77,7 +87,13 @@ export class EditProfileComponent implements OnInit {
       error: (err: any) => {
         console.error('Error loading user profile for edit:', err);
         this.isLoading = false;
-        alert('Không thể tải thông tin hồ sơ. Vui lòng kiểm tra lại đăng nhập hoặc thử lại sau.');
+        this.snackBar.open(
+          this.i18n.instant('EDIT-PROFILE_SNACKBAR.LOAD_ERROR'),
+          'Đóng',
+          { duration: 4000, panelClass: ['snackbar-error'] }
+        );
+
+
       }
     });
   }
@@ -101,7 +117,12 @@ export class EditProfileComponent implements OnInit {
 
       } else {
         this.selectedAvatarFile = null;
-        alert('Vui lòng chọn một file ảnh hợp lệ.');
+        this.snackBar.open(
+          this.i18n.instant('EDIT-PROFILE_SNACKBAR.AVATAR_INVALID'),
+          'Đóng',
+          { duration: 3000, panelClass: ['snackbar-error'] }
+        );
+
       }
     } else {
       this.selectedAvatarFile = null;
@@ -123,18 +144,37 @@ export class EditProfileComponent implements OnInit {
         next: (updatedProfile: ProfileResponse) => {
           console.log('Profile updated successfully (text fields):', updatedProfile);
           this.userProfile = updatedProfile;
-          alert('Cập nhật thông tin hồ sơ thành công!');
+          this.snackBar.open(
+            this.i18n.instant('EDIT-PROFILE_SNACKBAR.SAVE_SUCCESS'),
+            'Đóng',
+            { duration: 3000, panelClass: ['snackbar-success'] }
+          );
+
           this.isLoading = false;
         },
         error: (err: any) => {
           console.error('Error updating profile (text fields):', err);
           this.isLoading = false;
-          alert('Cập nhật thông tin hồ sơ thất bại: ' + (err.error?.message || 'Có lỗi xảy ra.'));
+          this.snackBar.open(
+            this.i18n.instant('EDIT-PROFILE_SNACKBAR.SAVE_ERROR', {
+              message: err.error?.message || 'Có lỗi xảy ra.'
+            }),
+            'Đóng',
+            { duration: 4000, panelClass: ['snackbar-error'] }
+          );
+
+
         }
       });
     } else {
       console.warn('Form is invalid or currentUserEmail is missing. Cannot save text fields.');
-      alert('Vui lòng điền đầy đủ và đúng thông tin.');
+      this.snackBar.open(
+        this.i18n.instant('EDIT-PROFILE_SNACKBAR.FORM_INVALID'),
+        'Đóng',
+        { duration: 3000, panelClass: ['snackbar-error'] }
+      );
+
+
     }
   }
 
@@ -146,19 +186,39 @@ export class EditProfileComponent implements OnInit {
         next: (updatedProfile: ProfileResponse) => {
           console.log('Avatar uploaded successfully:', updatedProfile);
           this.userProfile = updatedProfile;
+          this.authService.updateCurrentUserAvatar(updatedProfile.avatarUrl || null);
+
           this.selectedAvatarFile = null;
-          alert('Cập nhật ảnh đại diện thành công!');
+          this.snackBar.open(
+            this.i18n.instant('EDIT-PROFILE_SNACKBAR.AVATAR_SUCCESS'),
+            'Đóng',
+            { duration: 3000, panelClass: ['snackbar-success'] }
+          );
+
           this.isLoading = false;
         },
         error: (err: any) => {
           console.error('Error uploading avatar:', err);
           this.isLoading = false;
-          alert('Cập nhật ảnh đại diện thất bại: ' + (err.error?.message || 'Có lỗi xảy ra.'));
+          this.snackBar.open(
+            this.i18n.instant('EDIT-PROFILE_SNACKBAR.AVATAR_ERROR', {
+              message: err.error?.message || 'Có lỗi xảy ra.'
+            }),
+            'Đóng',
+            { duration: 4000, panelClass: ['snackbar-error'] }
+          );
+
         }
       });
     } else {
       console.warn('No avatar file selected or currentUserEmail is missing. Cannot upload avatar.');
-      alert('Vui lòng chọn ảnh đại diện để tải lên.');
+      this.snackBar.open(
+        this.i18n.instant('EDIT-PROFILE_SNACKBAR.AVATAR_REQUIRED'),
+        'Đóng',
+        { duration: 3000, panelClass: ['snackbar-error'] }
+      );
+
+
     }
   }
 }

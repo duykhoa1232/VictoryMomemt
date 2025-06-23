@@ -1,39 +1,114 @@
 
+<!--<div class="auth-wrapper">-->
+<!--  <mat-card class="auth-card">-->
+<!--    <h2 class="auth-title">Login</h2>-->
+<!--    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Email</mat-label>-->
+<!--        <input matInput formControlName="email" required />-->
+<!--        <mat-error *ngIf="f['email'].touched && f['email'].invalid">-->
+<!--          <span *ngIf="f['email'].errors?.['required']">Email là bắt buộc.</span>-->
+<!--          <span *ngIf="f['email'].errors?.['email']">Email không hợp lệ.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Password</mat-label>-->
+<!--        <input matInput [type]="fieldTextType ? 'text' : 'password'"   formControlName="password" required />-->
+<!--        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">-->
+<!--          <mat-icon [ngClass]="{-->
+<!--            'bi-eye': fieldTextType,-->
+<!--            'bi-eye-slash': !fieldTextType-->
+<!--          }"></mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="f['password'].touched && f['password'].invalid">-->
+<!--          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid">-->
+<!--     Login-->
+<!--      </button>-->
+
+<!--    </form>-->
+
+<!--    <p class="auth-footer">-->
+<!--      Don't have an account? <a [routerLink]="['/register']">Register</a>-->
+<!--    </p>-->
+<!--  </mat-card>-->
+<!--</div>-->
+
+
+<!--<div class="auth-wrapper">-->
+<!--  <mat-card class="auth-card">-->
+<!--    <h2 class="auth-title">Login</h2>-->
+<!--    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Email</mat-label>-->
+<!--        <input matInput formControlName="email" required />-->
+<!--        <mat-error *ngIf="f['email'].touched && f['email'].invalid">-->
+<!--          <span *ngIf="f['email'].errors?.['required']">Email là bắt buộc.</span>-->
+<!--          <span *ngIf="f['email'].errors?.['email']">Email không hợp lệ.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Password</mat-label>-->
+<!--        <input matInput [type]="fieldTextType ? 'text' : 'password'"   formControlName="password" required />-->
+<!--        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">-->
+<!--          <mat-icon>{{ fieldTextType ? 'visibility' : 'visibility_off' }}</mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="f['password'].touched && f['password'].invalid">-->
+<!--          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">-->
+<!--        Login-->
+<!--      </button>-->
+
+<!--    </form>-->
+
+<!--    <p class="auth-footer">-->
+<!--      Don't have an account? <a [routerLink]="['/register']">Register</a>-->
+<!--    </p>-->
+<!--  </mat-card>-->
+<!--</div>-->
+
+<button mat-button (click)="switchLang('en')" class="language-button language-en">EN</button>
+<button mat-button (click)="switchLang('vi')" class="language-button language-vn">VN</button>
 <div class="auth-wrapper">
   <mat-card class="auth-card">
-    <h2 class="auth-title">Login</h2>
+    <h2 class="auth-title">{{ 'AUTH.LOGIN_TITLE' | translate }}</h2>
     <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
       <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ 'AUTH.EMAIL' | translate }}</mat-label>
         <input matInput formControlName="email" required />
         <mat-error *ngIf="f['email'].touched && f['email'].invalid">
-          <span *ngIf="f['email'].errors?.['required']">Email là bắt buộc.</span>
-          <span *ngIf="f['email'].errors?.['email']">Email không hợp lệ.</span>
+          <span *ngIf="f['email'].errors?.['required']">{{ 'AUTH.EMAIL_REQUIRED' | translate }}</span>
+          <span *ngIf="f['email'].errors?.['email']">{{ 'AUTH.EMAIL_INVALID' | translate }}</span>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput [type]="fieldTextType ? 'text' : 'password'"   formControlName="password" required />
+        <mat-label>{{ 'AUTH.PASSWORD' | translate }}</mat-label>
+        <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName="password" required />
         <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">
-          <mat-icon [ngClass]="{
-            'bi-eye': fieldTextType,
-            'bi-eye-slash': !fieldTextType
-          }"></mat-icon>
+          <mat-icon>{{ fieldTextType ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
         <mat-error *ngIf="f['password'].touched && f['password'].invalid">
-          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>
+          <span *ngIf="f['password'].errors?.['required']">{{ 'AUTH.PASSWORD_REQUIRED' | translate }}</span>
         </mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid">
-     Login
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        {{ 'AUTH.LOGIN' | translate }}
       </button>
-
     </form>
 
     <p class="auth-footer">
-      Don't have an account? <a [routerLink]="['/register']">Register</a>
+      {{ 'AUTH.NO_ACCOUNT' | translate }}
+      <a [routerLink]="['/register']">{{ 'AUTH.REGISTER' | translate }}</a>
     </p>
   </mat-card>
 </div>

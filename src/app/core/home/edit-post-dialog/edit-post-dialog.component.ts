@@ -15,6 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostResponse, PostRequest } from '../../../shared/models/post.model';
 import { UserResponse } from '../../../shared/models/profile.model';
 import { UserSelectionDialogComponent } from '../../../shared/user-selection-dialog/user-selection-dialog.component';
+import {I18nService} from '../services/i18n.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 export interface EditPostDialogData {
   post: PostResponse;
@@ -36,7 +38,8 @@ export interface EditPostDialogData {
     MatDialogContent,
     MatDialogActions,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    TranslatePipe
   ],
   templateUrl: './edit-post-dialog.component.html',
   styleUrls: ['./edit-post-dialog.component.css']
@@ -55,7 +58,9 @@ export class EditPostDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditPostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditPostDialogData,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private i18n: I18nService,
+
   ) {}
 
   ngOnInit(): void {
@@ -116,13 +121,15 @@ export class EditPostDialogComponent implements OnInit {
         const file = files[i];
         if (file.size > maxFileSize) {
           this.snackBar.open(
-            `File ${file.name} quá lớn. Kích thước tối đa cho phép cho ${fileTypeDisplayName} là ${maxFileSize / (1024 * 1024)}MB.`,
+            this.i18n.instant('EDIT_POST_SNACKBAR.FILE_TOO_LARGE', {
+              fileName: file.name,
+              type: fileTypeDisplayName,
+              maxSize: maxFileSize / (1024 * 1024),
+            }),
             'Đóng',
-            {
-              duration: 5000,
-              panelClass: ['warning-snackbar'],
-            }
+            { duration: 5000, panelClass: ['warning-snackbar'] }
           );
+
           continue;
         }
         newFiles.push(file);
@@ -160,9 +167,14 @@ export class EditPostDialogComponent implements OnInit {
       this.data.post.audioUrls = this.data.post.audioUrls?.filter(u => u !== url) || [];
       this.deletedAudioUrls.push(url);
     }
-    this.snackBar.open(`Đã đánh dấu ${type === 'images' ? 'ảnh' : type === 'videos' ? 'video' : 'audio'} để xóa.`, 'Đóng', {
-      duration: 2000,
-    });
+    this.snackBar.open(
+      this.i18n.instant('EDIT_POST_SNACKBAR.MEDIA_MARKED_FOR_DELETE', {
+        mediaType: type === 'images' ? 'ảnh' : type === 'videos' ? 'video' : 'âm thanh',
+      }),
+      'Đóng',
+      { duration: 2000 }
+    );
+
   }
 
   removeAllowedUser(userToRemove: UserResponse): void {
@@ -187,6 +199,72 @@ export class EditPostDialogComponent implements OnInit {
       }
     });
   }
+  getCurrentLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          this.fetchAddressFromCoordinates(lat, lon);
+        },
+        error => {
+          console.error('Lỗi khi lấy vị trí:', error);
+          this.snackBar.open(
+            this.i18n.instant('EDIT_POST_SNACKBAR.LOCATION_FETCH_FAIL'),
+            'Đóng',
+            { duration: 3000 }
+          );
+        }
+      );
+    } else {
+      this.snackBar.open(
+        this.i18n.instant('EDIT_POST_SNACKBAR.BROWSER_UNSUPPORTED'),
+        'Đóng',
+        { duration: 3000 }
+      );
+
+    }
+  }
+
+  fetchAddressFromCoordinates(lat: number, lon: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const address = data.address;
+
+        const houseNumber = address.house_number || '';
+        const road = address.road || '';
+        const ward = address.suburb || address.neighbourhood || address.city_district || '';
+        const city = address.city || address.town || address.village || address.county || '';
+
+        // Gộp số nhà và đường
+        const street = [houseNumber, road].filter(part => part).join(' ');
+
+        // Gộp địa chỉ đầy đủ
+        const formattedAddress = [street, ward, city].filter(part => part).join(', ');
+
+        this.editForm.get('location')?.setValue(formattedAddress);
+
+        this.snackBar.open(
+          this.i18n.instant('EDIT_POST_SNACKBAR.ADDRESS_AUTO_FILLED'),
+          'Đóng',
+          { duration: 2000 }
+        );
+      })
+      .catch(error => {
+        console.error('Lỗi khi gọi Nominatim:', error);
+        this.snackBar.open(
+          this.i18n.instant('EDIT_POST_SNACKBAR.COORDINATE_FAIL'),
+          'Đóng',
+          { duration: 3000 }
+        );
+
+      });
+  }
+
+
 
   onCancel(): void {
     this.dialogRef.close(null);
@@ -196,10 +274,12 @@ export class EditPostDialogComponent implements OnInit {
     this.editForm.markAllAsTouched();
 
     if (this.editForm.invalid) {
-      this.snackBar.open('Vui lòng kiểm tra lại thông tin bài viết và quyền riêng tư!', 'Đóng', {
-        duration: 3000,
-        panelClass: ['warning-snackbar'],
-      });
+      this.snackBar.open(
+        this.i18n.instant('EDIT_POST_SNACKBAR.INVALID_FORM'),
+        'Đóng',
+        { duration: 3000, panelClass: ['warning-snackbar'] }
+      );
+
       return;
     }
 
@@ -240,4 +320,5 @@ export class EditPostDialogComponent implements OnInit {
       deletedMediaUrls: deletedMediaUrls
     });
   }
+
 }

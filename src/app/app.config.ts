@@ -35,6 +35,7 @@ import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/
 import { AuthService } from './auth/services/auth.service';
 import { AuthGuard } from './auth/guards/AuthGuard.service';
 import {authInterceptor} from './interceptors/auth.interceptor';
+import {provideI18n} from './i18n.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,5 +47,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     AuthService,
     AuthGuard,
+    provideI18n() // 👈 thêm dòng này để tích hợp i18n
+
   ]
 };

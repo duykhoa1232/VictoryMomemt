@@ -1,7 +1,12 @@
 
+
+
 <!--<mat-card class="create-post-card">-->
 <!--  <mat-card-header class="card-header">-->
 <!--    <mat-card-title>Create new post</mat-card-title>-->
+<!--    <button mat-icon-button class="close-button" (click)="onCancel()">-->
+<!--      <mat-icon>close</mat-icon>-->
+<!--    </button>-->
 <!--  </mat-card-header>-->
 
 <!--  <mat-divider></mat-divider>-->
@@ -54,8 +59,12 @@
 
 <!--      <mat-form-field appearance="fill" class="full-width">-->
 <!--        <mat-label>Location</mat-label>-->
-<!--        <input matInput formControlName="location">-->
+<!--        <input matInput formControlName="location" placeholder="Enter location or use GPS">-->
+<!--        <button mat-icon-button matSuffix type="button" (click)="getCurrentLocation()" aria-label="Lấy vị trí hiện tại">-->
+<!--          <mat-icon>my_location</mat-icon>-->
+<!--        </button>-->
 <!--      </mat-form-field>-->
+
 
 <!--      <div class="add-to-post-section">-->
 <!--        <span>Add to your post</span>-->
@@ -145,9 +154,10 @@
 
 
 
+
 <mat-card class="create-post-card">
   <mat-card-header class="card-header">
-    <mat-card-title>Create new post</mat-card-title>
+    <mat-card-title>{{ 'CREATE_POST.TITLE' | translate }}</mat-card-title>
     <button mat-icon-button class="close-button" (click)="onCancel()">
       <mat-icon>close</mat-icon>
     </button>
@@ -165,49 +175,52 @@
 
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill" class="full-width post-content-field">
-        <mat-label>What are you thinking, {{ currentUserName }}?</mat-label>
+        <mat-label>{{ 'CREATE_POST.PLACEHOLDER' | translate:{name: currentUserName} }}</mat-label>
         <textarea matInput formControlName="content" rows="5" cols="100"></textarea>
         <mat-error *ngIf="postForm.get('content')?.hasError('required') && postForm.get('content')?.touched">
-          Article content is required.
+          {{ 'CREATE_POST.CONTENT_REQUIRED' | translate }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Privacy</mat-label>
+        <mat-label>{{ 'CREATE_POST.PRIVACY' | translate }}</mat-label>
         <mat-select formControlName="privacy">
-          <mat-option value="PUBLIC">Public</mat-option>
-          <mat-option value="PRIVATE">Just me (shareable)</mat-option>
+          <mat-option value="PUBLIC">{{ 'CREATE_POST.PUBLIC' | translate }}</mat-option>
+          <mat-option value="PRIVATE">{{ 'CREATE_POST.PRIVATE' | translate }}</mat-option>
         </mat-select>
         <mat-error *ngIf="postForm.get('privacy')?.hasError('required') && postForm.get('privacy')?.touched">
-          Vui lòng chọn quyền riêng tư.
+          {{ 'CREATE_POST.PRIVACY' | translate }} {{ 'CREATE_POST.SHARE_REQUIRED' | translate }}
         </mat-error>
       </mat-form-field>
 
       <div *ngIf="postForm.get('privacy')?.value === 'PRIVATE'" class="form-group">
-        <mat-label>Share with:</mat-label>
-        <mat-chip-listbox aria-label="Users are allowed to view" class="mb-2">
+        <mat-label>{{ 'CREATE_POST.SHARE_WITH' | translate }}</mat-label>
+        <mat-chip-listbox [attr.aria-label]="'CREATE_POST.SELECTED_USERS' | translate" class="mb-2">
           <mat-chip *ngFor="let user of selectedAllowedUsers" (removed)="removeAllowedUser(user)">
-            {{user.name}}
+            {{ user.name }}
             <button matChipRemove [attr.aria-label]="'remove ' + user.name">
               <mat-icon>cancel</mat-icon>
             </button>
           </mat-chip>
         </mat-chip-listbox>
         <button mat-stroked-button color="primary" type="button" (click)="openUserSelectionDialog()">
-          <mat-icon>person_add</mat-icon> Select User
+          <mat-icon>person_add</mat-icon> {{ 'CREATE_POST.SELECT_USER' | translate }}
         </button>
         <mat-error *ngIf="postForm.get('allowedUserIds')?.hasError('required') && postForm.get('allowedUserIds')?.touched">
-          Please select at least one user when selecting "Only me".
+          {{ 'CREATE_POST.SHARE_REQUIRED' | translate }}
         </mat-error>
       </div>
 
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Location</mat-label>
-        <input matInput formControlName="location">
+        <mat-label>{{ 'CREATE_POST.LOCATION' | translate }}</mat-label>
+        <input matInput formControlName="location" [placeholder]="'CREATE_POST.LOCATION_PLACEHOLDER' | translate">
+        <button mat-icon-button matSuffix type="button" (click)="getCurrentLocation()" [attr.aria-label]="'CREATE_POST.GET_LOCATION' | translate">
+          <mat-icon>my_location</mat-icon>
+        </button>
       </mat-form-field>
 
       <div class="add-to-post-section">
-        <span>Add to your post</span>
+        <span>{{ 'CREATE_POST.ADD_TO_POST' | translate }}</span>
         <div class="media-upload-buttons">
           <input
             type="file"
@@ -216,7 +229,8 @@
             accept="image/*"
             multiple
             (change)="onFileSelected($event, 'images')"
-            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"
+            (keydown.enter)="$event.preventDefault()"
+            (keydown.space)="$event.preventDefault()"
           >
           <button mat-icon-button (click)="imageInput.click()" class="media-button photo-button" type="button">
             <mat-icon>photo_library</mat-icon>
@@ -229,7 +243,8 @@
             accept="video/*"
             multiple
             (change)="onFileSelected($event, 'videos')"
-            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"
+            (keydown.enter)="$event.preventDefault()"
+            (keydown.space)="$event.preventDefault()"
           >
           <button mat-icon-button (click)="videoInput.click()" class="media-button video-button" type="button">
             <mat-icon>videocam</mat-icon>
@@ -242,7 +257,8 @@
             accept="audio/*"
             multiple
             (change)="onFileSelected($event, 'audios')"
-            (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()"
+            (keydown.enter)="$event.preventDefault()"
+            (keydown.space)="$event.preventDefault()"
           >
           <button mat-icon-button (click)="audioInput.click()" class="media-button audio-button" type="button">
             <mat-icon>audiotrack</mat-icon>
@@ -251,7 +267,7 @@
       </div>
 
       <div *ngIf="selectedImages.length > 0 || selectedVideos.length > 0 || selectedAudios.length > 0" class="file-list-preview">
-        <h3>Selected Media:</h3>
+        <h3>{{ 'CREATE_POST.SELECTED_MEDIA' | translate }}</h3>
         <div *ngFor="let file of selectedImages; let i = index" class="file-item">
           <mat-icon>image</mat-icon>
           <img [src]="sanitizedUrls[i]" class="media-preview-image" alt="{{ file.name }}">
@@ -278,13 +294,13 @@
       </div>
 
       <mat-card-actions align="end">
-        <button mat-button (click)="onCancel()" type="button">Cancel</button>
+        <button mat-button (click)="onCancel()" type="button">{{ 'CREATE_POST.CANCEL' | translate }}</button>
         <button
           mat-flat-button
           color="primary"
           type="submit"
           [disabled]="postForm.invalid || (!f['content'].value?.trim() && selectedImages.length === 0 && selectedVideos.length === 0 && selectedAudios.length === 0)">
-          Post
+          {{ 'CREATE_POST.POST' | translate }}
         </button>
       </mat-card-actions>
     </form>

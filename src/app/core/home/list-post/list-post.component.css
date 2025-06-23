@@ -882,3 +882,7 @@
     padding: 12px;
   }
 }
+.comment-viewport {
+  height: 300px; /* hoặc tự động theo số lượng ban đầu */
+  overflow: auto;
+}

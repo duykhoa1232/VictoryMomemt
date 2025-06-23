@@ -17,7 +17,8 @@ import { CreatePostComponent } from '../../../core/home/create-post/create-post.
 import { PostListComponent } from '../../../core/home/list-post/list-post.component'; // Đảm bảo đường dẫn đúng
 import { AuthService } from '../../services/auth.service'; // Đảm bảo đường dẫn đúng
 import { Subject, takeUntil, switchMap, tap, Observable } from 'rxjs';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Đổi từ MatProgressSpinner sang MatProgressSpinnerModule
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {TranslatePipe} from '@ngx-translate/core'; // Đổi từ MatProgressSpinner sang MatProgressSpinnerModule
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; /
     PostListComponent,
     NgIf,
     CommonModule,
-    MatProgressSpinnerModule, // Sử dụng MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TranslatePipe,
+    // Sử dụng MatProgressSpinnerModule
     // DatePipe // Cần DatePipe nếu muốn dùng pipe trong template
   ],
   templateUrl: './profile.component.html',

@@ -21,6 +21,8 @@ import { AuthService } from '../../auth/services/auth.service';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../shared/confirm-dialog.component';
 import { UserResponse } from '../../shared/models/profile.model';
 import { UserService } from '../../auth/services/user.service';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {I18nService} from '../home/services/i18n.service';
 
 @Component({
   selector: 'app-header',
@@ -39,11 +41,14 @@ import { UserService } from '../../auth/services/user.service';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatListModule,
+    TranslatePipe,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+
   isSearchExpanded: boolean = false;
   searchControl = new FormControl('');
   searchResults: UserResponse[] = [];
@@ -65,7 +70,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private userService: UserService,
     private router: Router,
-  ) { }
+    public i18n: I18nService // ✅ Dùng service bạn đã tạo
+
+
+  ) {
+
+
+  }
+  switchLang(lang: string): void {
+    this.i18n.switchLang(lang);
+  }
 
   ngOnInit(): void {
     this.subscriptions.add(this.searchControl.valueChanges.pipe(

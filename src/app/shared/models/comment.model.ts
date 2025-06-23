@@ -1,25 +1,3 @@
-// export interface CommentRequest {
-//   content: string;
-//   parentCommentId?: string; // ID của comment cha (nếu là reply)
-// }
-//
-// export interface CommentResponse {
-//   id: string;
-//   postId: string;
-//   userId: string;
-//   userEmail: string;
-//   userName: string;
-//   userAvatar?: string; // URL avatar người dùng
-//   content: string;
-//   parentCommentId?: string; // ID comment cha
-//   replyCount: number; // Số lượng reply
-//   createdAt: Date;
-//   updatedAt: Date;
-//   isActive: boolean;
-//   replies?: CommentResponse[]; // Danh sách reply
-//   showReplies?: boolean; // Hiển thị replies hay không
-//   isReplying?: boolean; // Đang trong trạng thái reply
-// }
 
 
 // src/app/shared/models/comment.model.ts

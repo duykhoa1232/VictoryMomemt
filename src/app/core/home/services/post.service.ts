@@ -155,12 +155,15 @@ import { delay, map, catchError } from 'rxjs/operators';
 import { PostRequest, PostResponse, Page } from '../../../shared/models/post.model';
 import { UserResponse } from '../../../shared/models/profile.model';
 import { environment } from '../../../../environments/environment';
+import {ShareRequest, ShareResponse} from '../../../shared/models/share.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private baseUrl = `${environment.apiUrl}/api/posts`;
+  private shareUrl = `${environment.apiUrl}/api/shares`; // Định nghĩa URL cho API chia sẻ
+
 
   constructor(private http: HttpClient) { }
 
@@ -218,6 +221,20 @@ export class PostService {
       catchError(this.handleError)
     );
   }
+  // Phương thức mới để SHAREPOST
+  sharePost(shareRequest: ShareRequest): Observable<ShareResponse> {
+    return this.http.post<ShareResponse>(this.shareUrl, shareRequest).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Phương thức để hủy chia sẻ bài đăng (nếu cần)
+  unsharePost(shareId: string): Observable<void> {
+    return this.http.delete<void>(`${this.shareUrl}/${shareId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   addComment(postId: string, content: string): Observable<PostResponse> {
     const body = {content};
     return this.http.post<PostResponse>(`${this.baseUrl}/${postId}/comments`, body).pipe(catchError(this.handleError));  }

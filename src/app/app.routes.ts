@@ -27,7 +27,6 @@ export const routes: Routes = [
       {
         path: 'home',
         loadComponent: () => import('./core/home/home.component').then(c => c.HomeComponent),
-        canActivate: [AuthGuard] // Giả định home cần đăng nhập
       },
       {
         path: 'profile', // Profile của người dùng hiện tại
