@@ -265,7 +265,42 @@
     "INVALID_FORM": "Vui lòng điền đầy đủ và đúng thông tin.",
     "REGISTER_SUCCESS": "Đăng ký thành công! Vui lòng đăng nhập.",
     "REGISTER_ERROR": "Đăng ký thất bại. Vui lòng thử lại."
+  },
+
+
+  "COMMENT_SECTION": {
+    "CONFIRM_CREATE_TITLE": "Xác nhận tạo bình luận",
+    "CONFIRM_CREATE_MESSAGE": "Bạn có chắc muốn đăng bình luận với nội dung: \"{{content}}\"?",
+    "CONFIRM_CREATE_CONFIRM": "Đăng",
+    "CONFIRM_CREATE_CANCEL": "Hủy",
+
+    "SNACKBAR_CREATE_SUCCESS": "Bình luận đã được tạo!",
+    "SNACKBAR_CREATE_ERROR": "Tạo bình luận thất bại!",
+
+    "CONFIRM_DELETE_TITLE": "Xác nhận xóa bình luận",
+    "CONFIRM_DELETE_MESSAGE": "Bạn có chắc chắn muốn xóa bình luận của {{user}} có nội dung: '{{content}}' không?",
+    "CONFIRM_DELETE_CONFIRM": "Xóa",
+    "CONFIRM_DELETE_CANCEL": "Hủy",
+    "SNACKBAR_DELETE_SUCCESS": "Bình luận đã được xóa!",
+    "SNACKBAR_DELETE_ERROR": "Xóa bình luận thất bại!",
+
+    "CONFIRM_EDIT_TITLE": "Xác nhận chỉnh sửa",
+    "CONFIRM_EDIT_MESSAGE": "Bạn có chắc muốn cập nhật bình luận thành: \"{{content}}\"?",
+    "CONFIRM_EDIT_CONFIRM": "Cập nhật",
+    "CONFIRM_EDIT_CANCEL": "Hủy",
+
+
+    "CONFIRM_REPLY_TITLE": "Xác nhận phản hồi",
+    "CONFIRM_REPLY_MESSAGE": "Bạn có chắc muốn phản hồi {{user}} với nội dung: \"{{content}}\"?",
+    "CONFIRM_REPLY_CONFIRM": "Phản hồi",
+    "CONFIRM_REPLY_CANCEL": "Hủy",
+    "SNACKBAR_REPLY_SUCCESS": "Phản hồi đã được tạo!",
+    "SNACKBAR_REPLY_ERROR": "Phản hồi thất bại!",
+
+    "SNACKBAR_EDIT_SUCCESS": "Bình luận đã được cập nhật!",
+    "SNACKBAR_EDIT_ERROR": "Cập nhật bình luận thất bại!"
+  },
+  "COMMON": {
+    "CLOSE": "Đóng"
   }
-
-
 }

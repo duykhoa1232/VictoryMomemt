@@ -265,6 +265,41 @@
     "INVALID_FORM": "Please fill in the information completely and correctly.",
     "REGISTER_SUCCESS": "Registration successful! Please log in.",
     "REGISTER_ERROR": "Registration failed. Please try again."
-  }
+  },
+  "COMMENT_SECTION": {
 
+    "CONFIRM_CREATE_TITLE": "Confirm creating comment",
+    "CONFIRM_CREATE_MESSAGE": "Are you sure you want to post a comment with the content: \"{{content}}\"?",
+    "CONFIRM_CREATE_CONFIRM": "Post",
+    "CONFIRM_CREATE_CANCEL": "Cancel",
+
+    "SNACKBAR_CREATE_SUCCESS": "Comment created!",
+    "SNACKBAR_CREATE_ERROR": "Comment creation failed!",
+
+
+    "CONFIRM_DELETE_TITLE": "Confirm comment deletion",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete the comment of {{user}} with the content: '{{content}}'?",
+    "CONFIRM_DELETE_CONFIRM": "Delete",
+    "CONFIRM_DELETE_CANCEL": "Cancel",
+    "SNACKBAR_DELETE_SUCCESS": "Comment deleted!",
+    "SNACKBAR_DELETE_ERROR": "Comment deletion failed!",
+
+    "CONFIRM_EDIT_TITLE": "Confirm edit",
+    "CONFIRM_EDIT_MESSAGE": "Are you sure you want to update the comment to: {{content}}?",
+    "CONFIRM_EDIT_CONFIRM": "Update",
+    "CONFIRM_EDIT_CANCEL": "Cancel",
+
+    "CONFIRM_REPLY_TITLE": "Confirm Response",
+    "CONFIRM_REPLY_MESSAGE": "Are you sure you want to reply to {{user}} with the content: \"{{content}}\"?",
+    "CONFIRM_REPLY_CONFIRM": "Reply",
+    "CONFIRM_REPLY_CANCEL": "Cancel",
+    "SNACKBAR_REPLY_SUCCESS": "Reply created!",
+    "SNACKBAR_REPLY_ERROR": "Reply failed!",
+
+    "SNACKBAR_EDIT_SUCCESS": "Comment updated!",
+    "SNACKBAR_EDIT_ERROR": "Comment update failed!"
+  },
+  "COMMON": {
+    "CLOSE": "Close"
+  }
 }
