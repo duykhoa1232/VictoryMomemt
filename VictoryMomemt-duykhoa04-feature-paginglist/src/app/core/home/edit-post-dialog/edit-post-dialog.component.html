@@ -1,0 +1,143 @@
+
+
+
+<h2 mat-dialog-title>{{ 'EDIT_POST.TITLE' | translate }}</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="fill" class="full-width post-content-field">
+      <mat-label>{{ 'EDIT_POST.CONTENT_LABEL' | translate }}</mat-label>
+      <textarea matInput formControlName="content" rows="5" cols="100"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'EDIT_POST.LOCATION_LABEL' | translate }}</mat-label>
+      <input matInput formControlName="location" [placeholder]="'EDIT_POST.LOCATION_PLACEHOLDER' | translate">
+      <button mat-icon-button matSuffix type="button" (click)="getCurrentLocation()" aria-label="Lấy vị trí hiện tại">
+        <mat-icon>my_location</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>{{ 'EDIT_POST.PRIVACY_LABEL' | translate }}</mat-label>
+      <mat-select formControlName="privacy">
+        <mat-option value="PUBLIC">{{ 'EDIT_POST.PUBLIC' | translate }}</mat-option>
+        <mat-option value="PRIVATE">{{ 'EDIT_POST.PRIVATE' | translate }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="editForm.get('privacy')?.hasError('required') && editForm.get('privacy')?.touched">
+        {{ 'EDIT_POST.PRIVACY_REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="editForm.get('privacy')?.value === 'PRIVATE'" class="form-group">
+      <mat-label>{{ 'EDIT_POST.SHARE_WITH_LABEL' | translate }}</mat-label>
+      <mat-chip-listbox aria-label="Người dùng được phép xem" class="mb-2">
+        <mat-chip *ngFor="let user of selectedAllowedUsers" (removed)="removeAllowedUser(user)">
+          {{ user.name }}
+          <button matChipRemove [attr.aria-label]="'remove ' + user.name">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-listbox>
+      <button mat-stroked-button color="primary" type="button" (click)="openUserSelectionDialog()">
+        <mat-icon>person_add</mat-icon> {{ 'EDIT_POST.SHARE_USER_BUTTON' | translate }}
+      </button>
+      <mat-error *ngIf="editForm.get('allowedUserIds')?.hasError('required') && editForm.get('allowedUserIds')?.touched">
+        {{ 'EDIT_POST.SHARE_USER_REQUIRED' | translate }}
+      </mat-error>
+    </div>
+
+    <div *ngIf="data.post.imageUrls?.length || data.post.videoUrls?.length || data.post.audioUrls?.length" class="existing-media-preview">
+      <h3>{{ 'EDIT_POST.AVAILABLE_MEDIA' | translate }}</h3>
+      <div *ngIf="data.post.imageUrls?.length" class="media-list">
+        <div *ngFor="let url of data.post.imageUrls" class="media-item">
+          <img [src]="url" [alt]="'Image'" class="media-preview-image">
+          <button mat-icon-button (click)="removeOldMediaUrl(url, 'images')" color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="data.post.videoUrls?.length" class="media-list">
+        <div *ngFor="let url of data.post.videoUrls" class="media-item">
+          <video [src]="url" class="media-preview-video" controls></video>
+          <button mat-icon-button (click)="removeOldMediaUrl(url, 'videos')" color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="data.post.audioUrls?.length" class="media-list">
+        <div *ngFor="let url of data.post.audioUrls" class="media-item">
+          <audio [src]="url" class="media-preview-audio" controls></audio>
+          <button mat-icon-button (click)="removeOldMediaUrl(url, 'audios')" color="warn" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-to-post-section">
+      <span>{{ 'EDIT_POST.ADD_MEDIA_HINT' | translate }}</span>
+      <div class="media-upload-buttons">
+        <input
+          type="file"
+          #imageInput
+          hidden
+          accept="image/*"
+          multiple (change)="onFileSelected($event, 'images')"
+          (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()">
+        <button mat-icon-button (click)="imageInput.click()" class="media-button photo-button" type="button">
+          <mat-icon>photo_library</mat-icon>
+        </button>
+
+        <input
+          type="file"
+          #videoInput
+          hidden
+          accept="video/*"
+          multiple (change)="onFileSelected($event, 'videos')"
+          (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()">
+        <button mat-icon-button (click)="videoInput.click()" class="media-button video-button" type="button">
+          <mat-icon>videocam</mat-icon>
+        </button>
+
+        <input
+          type="file"
+          #audioInput
+          hidden
+          accept="audio/*"
+          multiple (change)="onFileSelected($event, 'audios')"
+          (keydown.enter)="$event.preventDefault()" (keydown.space)="$event.preventDefault()">
+        <button mat-icon-button (click)="audioInput.click()" class="media-button audio-button" type="button">
+          <mat-icon>audiotrack</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="selectedNewImages.length > 0 || selectedNewVideos.length > 0 || selectedNewAudios.length > 0" class="file-list-preview">
+      <h3>{{ 'EDIT_POST.NEW_MEDIA_TITLE' | translate }}</h3>
+      <div *ngFor="let file of selectedNewImages; let i = index" class="file-item">
+        <mat-icon>image</mat-icon> {{ file.name }}
+        <button mat-icon-button (click)="removeSelectedNewFile(i, 'images')" color="warn" type="button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div *ngFor="let file of selectedNewVideos; let i = index" class="file-item">
+        <mat-icon>videocam</mat-icon> {{ file.name }}
+        <button mat-icon-button (click)="removeSelectedNewFile(i, 'videos')" color="warn" type="button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div *ngFor="let file of selectedNewAudios; let i = index" class="file-item">
+        <mat-icon>mic</mat-icon> {{ file.name }}
+        <button mat-icon-button (click)="removeSelectedNewFile(i, 'audios')" color="warn" type="button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">{{ 'EDIT_POST.CANCEL' | translate }}</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="editForm.invalid">{{ 'EDIT_POST.SAVE' | translate }}</button>
+</mat-dialog-actions>

@@ -1,0 +1,201 @@
+
+
+<div class="post-list-container" >
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>{{ 'POST_LIST.LOADING' | translate }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">
+    <mat-icon>info</mat-icon>
+    <p>{{ 'POST_LIST.NO_POSTS' | translate }}</p>
+  </div>
+
+  <mat-card *ngFor="let post of posts; let isLast = last; trackBy: trackByPostId" class="post-card" [@fadeIn]>
+    <mat-card-header class="post-header">
+      <img mat-card-avatar [src]="post.author.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=#'" alt="User Avatar">
+
+      <div class="user-post-info">
+        <mat-card-title>{{ getUserName(post) }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ post.createdAt | date:'medium' }}
+          <span class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase()">
+  <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>
+  <span>{{ 'POST_LIST.VISIBILITY.' + post.visibilityStatus.toUpperCase() | translate }}</span>
+</span>
+
+        </mat-card-subtitle>
+      </div>
+      <div class="post-actions">
+        <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng" *ngIf="isMyPost(post)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #postMenu="matMenu" >
+          <button mat-menu-item (click)="editPost(post)">
+            <mat-icon>edit</mat-icon>
+            <span>{{ 'POST_LIST.EDIT' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="deletePost(post)" class="delete-button">
+            <mat-icon>delete</mat-icon>
+            <span>{{ 'POST_LIST.DELETE' | translate }}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-card-header>
+    <mat-card-content class="post-content">
+      <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>
+      <div *ngIf="post.location" class="post-location">
+        <mat-icon>location_on</mat-icon>
+        <span>{{ post.location }}</span>
+      </div>
+
+      <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">
+        <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">
+      </div>
+      <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">
+        <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">
+        <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">
+          Your browser does not support the audio tag.
+        </audio>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="post-stats">
+      <div class="stat-item" (click)="onLike(post)">
+        <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>
+      </div>
+      <div class="stat-item" (click)="toggleComments(post)">
+        <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ getTotalCommentsCount(post.comments) }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>
+      </div>
+      <div class="stat-item">
+        <mat-icon class="share-send-icon" >send</mat-icon> <span>{{ post.shareCount }}</span>
+<!--        (click)="openShareDialog(post)"-->
+      </div>
+    </mat-card-footer>
+
+
+    <app-comment-section
+      *ngIf="areCommentsShown(post.id)"
+      [post]="post"
+    >
+    </app-comment-section>
+
+
+    <div *ngIf="isLast && posts.length < totalPosts" #loadMoreTrigger class="scroll-trigger-sentinel"></div>
+
+  </mat-card>
+  <!-- Trigger vô hình theo dõi scroll -->
+
+  <div *ngIf="!isLoading && posts.length >= totalPosts && posts.length > 0" class="end-of-posts-message">
+    <mat-icon color="primary">check_circle</mat-icon>
+    <span>{{ 'POST_LIST.NO_MORE_POSTS' | translate }}</span>
+  </div>
+  <!-- Spinner khi đang loading -->
+  <div *ngIf="isLoading && posts.length > 0" class="footer-spinner">
+    <mat-spinner diameter="24"></mat-spinner>
+  </div>
+
+
+</div>
+
+
+
+
+<!--<div class="post-list-container">-->
+<!--  <div *ngIf="isLoading" class="loading-spinner">-->
+<!--    <mat-spinner diameter="50"></mat-spinner>-->
+<!--    <p>{{ 'POST_LIST.LOADING' | translate }}</p>-->
+<!--  </div>-->
+
+<!--  <div *ngIf="!isLoading && posts.length === 0" class="no-posts-message">-->
+<!--    <mat-icon>info</mat-icon>-->
+<!--    <p>{{ 'POST_LIST.NO_POSTS' | translate }}</p>-->
+<!--  </div>-->
+
+<!--  <ng-container *ngFor="let post of posts; let last = last">-->
+<!--    <mat-card class="post-card" [@fadeIn]>-->
+<!--      <mat-card-header class="post-header">-->
+<!--        <img mat-card-avatar [src]="post.author.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=#'" alt="User Avatar">-->
+
+<!--        <div class="user-post-info">-->
+<!--          <mat-card-title>{{ getUserName(post) }}</mat-card-title>-->
+<!--          <mat-card-subtitle>-->
+<!--            {{ post.createdAt | date:'medium' }}-->
+<!--            <span class="post-privacy-status" [class]="post.visibilityStatus.toLowerCase()">-->
+<!--              <mat-icon>{{ post.visibilityStatus.toLowerCase() === 'public' ? 'public' : 'lock' }}</mat-icon>-->
+<!--              <span>{{ 'POST_LIST.VISIBILITY.' + post.visibilityStatus.toUpperCase() | translate }}</span>-->
+<!--            </span>-->
+<!--          </mat-card-subtitle>-->
+<!--        </div>-->
+
+<!--        <div class="post-actions">-->
+<!--          <button mat-icon-button [matMenuTriggerFor]="postMenu" aria-label="Tùy chọn bài đăng" *ngIf="isMyPost(post)">-->
+<!--            <mat-icon>more_vert</mat-icon>-->
+<!--          </button>-->
+<!--          <mat-menu #postMenu="matMenu">-->
+<!--            <button mat-menu-item (click)="editPost(post)">-->
+<!--              <mat-icon>edit</mat-icon>-->
+<!--              <span>{{ 'POST_LIST.EDIT' | translate }}</span>-->
+<!--            </button>-->
+<!--            <button mat-menu-item (click)="deletePost(post)" class="delete-button">-->
+<!--              <mat-icon>delete</mat-icon>-->
+<!--              <span>{{ 'POST_LIST.DELETE' | translate }}</span>-->
+<!--            </button>-->
+<!--          </mat-menu>-->
+<!--        </div>-->
+<!--      </mat-card-header>-->
+
+<!--      <mat-card-content class="post-content">-->
+<!--        <p *ngIf="post.content && post.content.trim().length > 0">{{ post.content }}</p>-->
+<!--        <div *ngIf="post.location" class="post-location">-->
+<!--          <mat-icon>location_on</mat-icon>-->
+<!--          <span>{{ post.location }}</span>-->
+<!--        </div>-->
+
+<!--        <div *ngIf="post.imageUrls && post.imageUrls.length > 0" class="post-media-gallery">-->
+<!--          <img *ngFor="let imageUrl of post.imageUrls" [src]="imageUrl" [alt]="'Hình ảnh bài đăng từ ' + getUserName(post)">-->
+<!--        </div>-->
+<!--        <div *ngIf="post.videoUrls && post.videoUrls.length > 0" class="post-media-gallery">-->
+<!--          <video *ngFor="let videoUrl of post.videoUrls" controls [src]="videoUrl">-->
+<!--            Your browser does not support the video tag.-->
+<!--          </video>-->
+<!--        </div>-->
+<!--        <div *ngIf="post.audioUrls && post.audioUrls.length > 0" class="post-media-gallery">-->
+<!--          <audio *ngFor="let audioUrl of post.audioUrls" controls [src]="audioUrl">-->
+<!--            Your browser does not support the audio tag.-->
+<!--          </audio>-->
+<!--        </div>-->
+<!--      </mat-card-content>-->
+
+<!--      <mat-card-footer class="post-stats">-->
+<!--        <div class="stat-item" (click)="onLike(post)">-->
+<!--          <mat-icon class="like-icon">favorite</mat-icon> <span>{{ post.likeCount }}</span>-->
+<!--        </div>-->
+<!--        <div class="stat-item" (click)="toggleComments(post)">-->
+<!--          <mat-icon class="comment-icon">chat_bubble_outline</mat-icon> <span>{{ getTotalCommentsCount(post.comments) }}</span>-->
+<!--        </div>-->
+<!--        <div class="stat-item">-->
+<!--          <mat-icon class="share-repost-icon">cached</mat-icon> <span>{{ post.shareCount }}</span>-->
+<!--        </div>-->
+<!--        <div class="stat-item">-->
+<!--          <mat-icon class="share-send-icon">send</mat-icon> <span>{{ post.shareCount }}</span>-->
+<!--        </div>-->
+<!--      </mat-card-footer>-->
+
+<!--      <app-comment-section *ngIf="areCommentsShown(post.id)" [post]="post"></app-comment-section>-->
+<!--    </mat-card>-->
+
+<!--    <div *ngIf="last && posts.length < totalPosts" #loadMoreTrigger class="scroll-trigger-sentinel"></div>-->
+<!--  </ng-container>-->
+
+<!--  <div *ngIf="isLoading && posts.length > 0" class="footer-spinner">-->
+<!--    <mat-spinner diameter="24"></mat-spinner>-->
+<!--  </div>-->
+<!--</div>-->

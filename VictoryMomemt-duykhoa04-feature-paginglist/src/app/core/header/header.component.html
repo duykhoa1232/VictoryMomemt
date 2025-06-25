@@ -1,0 +1,218 @@
+
+
+
+<!--<mat-toolbar class="app-toolbar white-theme">-->
+<!--  <div class="left-section">-->
+<!--    <div class="logo-text">-->
+<!--      <img src="https://victorymoments.s3.ap-southeast-1.amazonaws.com/images/2b2f12b8-8188-4a66-a5e2-2938c94be811.png" alt="Pexels Logo">-->
+<!--      <a routerLink="/home">Victory Moments</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div-->
+<!--    class="search-container"-->
+<!--    [class.expanded]="isSearchExpanded"-->
+<!--    (click)="expandSearch()"-->
+<!--    #searchContainer-->
+<!--  >-->
+<!--    <mat-icon class="search-icon">search</mat-icon>-->
+
+<!--    <input-->
+<!--      type="text"-->
+<!--      placeholder="Tìm kiếm..."-->
+<!--      [formControl]="searchControl"-->
+<!--      (keyup.enter)="performSearch()"-->
+<!--      (focus)="expandSearch()"-->
+<!--      (blur)="collapseSearch()"-->
+<!--      #searchInput-->
+<!--    >-->
+<!--    <button-->
+<!--      mat-icon-button-->
+<!--      class="clear-search-button"-->
+<!--      *ngIf="isSearchExpanded && searchControl.value"-->
+<!--      (click)="clearSearch($event)"-->
+<!--    >-->
+<!--      <mat-icon>close</mat-icon>-->
+<!--    </button>-->
+
+<!--    <div *ngIf="isSearchExpanded && showSearchResults" class="search-results-dropdown">-->
+<!--      <mat-spinner *ngIf="isLoadingSearch" diameter="24"></mat-spinner>-->
+<!--      <div *ngIf="!isLoadingSearch && searchResults.length === 0 && searchControl.value && searchControl.value.trim().length > 0" class="no-results-message">-->
+<!--        Không tìm thấy người dùng nào.-->
+<!--      </div>-->
+<!--      <mat-list *ngIf="!isLoadingSearch && searchResults.length > 0">-->
+<!--        <mat-list-item *ngFor="let user of searchResults" (click)="goToUserProfile(user.email)">-->
+<!--          <img matListItemAvatar [src]="user.avatarUrl || 'assets/default-avatar.png'" alt="Avatar" class="search-result-avatar">-->
+<!--          <div matListItemTitle>{{ user.name }}</div>-->
+<!--          <div matListItemLine class="search-result-email">{{ user.email }}</div>-->
+<!--        </mat-list-item>-->
+<!--      </mat-list>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="main-nav-icons-section">-->
+<!--    <button mat-icon-button routerLink="/home" aria-label="Trang chủ">-->
+<!--      <mat-icon>home</mat-icon>-->
+<!--    </button>-->
+<!--    <button mat-icon-button routerLink="/daily-podcast" aria-label="Nhắn tin">-->
+<!--      <mat-icon>chat_bubble_outline</mat-icon>-->
+<!--    </button>-->
+<!--    <button mat-icon-button routerLink="/expert-interviews" aria-label="Bạn bè">-->
+<!--      <mat-icon>group</mat-icon>-->
+<!--    </button>-->
+<!--    <button mat-icon-button routerLink="/brian-ford" aria-label="Thông báo">-->
+<!--      <mat-icon>notifications</mat-icon>-->
+<!--    </button>-->
+<!--    <button mat-icon-button [matMenuTriggerFor]="exploreMenu" aria-label="Ứng dụng/Thêm">-->
+<!--      <mat-icon>apps</mat-icon>-->
+<!--    </button>-->
+<!--    <mat-menu #exploreMenu="matMenu">-->
+<!--      <a mat-menu-item routerLink="/share" *ngIf="authService.isUserLoggedIn()">Khám phá ảnh</a>-->
+<!--      <a mat-menu-item>Tìm kiếm phổ biến</a>-->
+<!--      <a mat-menu-item>Bảng xếp hạng</a>-->
+<!--      <a mat-menu-item>Thử thách</a>-->
+<!--      <a mat-menu-item>Video miễn phí</a>-->
+<!--      <a mat-menu-item>Blog Pexels</a>-->
+<!--    </mat-menu>-->
+<!--  </div>-->
+
+<!--  <div class="right-section">-->
+<!--    <div class="profile-dropdown-wrapper" *ngIf="authService.isUserLoggedIn()">-->
+<!--      <button mat-button class="language-button language-en">-->
+<!--        EN-->
+<!--      </button>-->
+<!--      <button mat-button class="language-button language-vn">-->
+<!--        VN-->
+<!--      </button>-->
+<!--      <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-menu-trigger">-->
+<!--        <img-->
+<!--         [src]="(authService.currentUser$ | async)?.avatarUrl || 'assets/default-avatar.png'"-->
+<!--          alt="Ảnh đại diện người dùng"-->
+<!--          class="toolbar-profile-picture"-->
+<!--        />-->
+<!--      </button>-->
+<!--      <mat-menu #profileMenu="matMenu">-->
+<!--        <a mat-menu-item routerLink="/profile">-->
+<!--          <mat-icon>person</mat-icon>-->
+<!--          <span>Trang cá nhân</span>-->
+<!--        </a>-->
+<!--        <mat-divider></mat-divider>-->
+<!--        <button mat-menu-item (click)="logout()">-->
+<!--          <mat-icon>logout</mat-icon>-->
+<!--          <span>Đăng xuất</span>-->
+<!--        </button>-->
+<!--      </mat-menu>-->
+<!--    </div>-->
+<!--    <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login" class="login-button">Đăng nhập</button>-->
+<!--  </div>-->
+<!--</mat-toolbar>-->
+
+
+
+<mat-toolbar class="app-toolbar white-theme">
+  <div class="left-section">
+    <div class="logo-text">
+      <img src="https://victorymoments.s3.ap-southeast-1.amazonaws.com/images/2b2f12b8-8188-4a66-a5e2-2938c94be811.png" alt="Pexels Logo">
+      <a routerLink="/home">Victory Moments</a>
+    </div>
+  </div>
+
+  <div
+    class="search-container"
+    [class.expanded]="isSearchExpanded"
+    (click)="expandSearch()"
+    #searchContainer
+  >
+    <mat-icon class="search-icon">search</mat-icon>
+
+    <input
+      type="text"
+      [placeholder]="'HEADER.SEARCH_PLACEHOLDER' | translate"
+      [formControl]="searchControl"
+      (keyup.enter)="performSearch()"
+      (focus)="expandSearch()"
+      (blur)="collapseSearch()"
+      #searchInput
+    >
+
+    <button
+      mat-icon-button
+      class="clear-search-button"
+      *ngIf="isSearchExpanded && searchControl.value"
+      (click)="clearSearch($event)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <div *ngIf="isSearchExpanded && showSearchResults" class="search-results-dropdown">
+      <mat-spinner *ngIf="isLoadingSearch" diameter="24"></mat-spinner>
+      <div
+        *ngIf="!isLoadingSearch && searchResults.length === 0 && searchControl.value && searchControl.value.trim().length > 0"
+        class="no-results-message"
+      >
+        {{ 'HEADER.NO_RESULTS' | translate }}
+      </div>
+      <mat-list *ngIf="!isLoadingSearch && searchResults.length > 0">
+        <mat-list-item *ngFor="let user of searchResults" (click)="goToUserProfile(user.email)">
+          <img matListItemAvatar [src]="user.avatarUrl || 'assets/default-avatar.png'" alt="Avatar" class="search-result-avatar" />
+          <div matListItemTitle>{{ user.name }}</div>
+          <div matListItemLine class="search-result-email">{{ user.email }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+
+  <div class="main-nav-icons-section">
+    <button mat-icon-button routerLink="/home" [attr.aria-label]="'HEADER.HOME' | translate">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/daily-podcast" [attr.aria-label]="'HEADER.CHAT' | translate">
+      <mat-icon>chat_bubble_outline</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/expert-interviews" [attr.aria-label]="'HEADER.FRIENDS' | translate">
+      <mat-icon>group</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/brian-ford" [attr.aria-label]="'HEADER.NOTIFICATION' | translate">
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="exploreMenu" [attr.aria-label]="'HEADER.MORE' | translate">
+      <mat-icon>apps</mat-icon>
+    </button>
+    <mat-menu #exploreMenu="matMenu">
+      <a mat-menu-item routerLink="/share" *ngIf="authService.isUserLoggedIn()">{{ 'HEADER.EXPLORE_IMAGES' | translate }}</a>
+      <a mat-menu-item>{{ 'HEADER.POPULAR_SEARCHES' | translate }}</a>
+      <a mat-menu-item>{{ 'HEADER.LEADERBOARD' | translate }}</a>
+      <a mat-menu-item>{{ 'HEADER.CHALLENGE' | translate }}</a>
+      <a mat-menu-item>{{ 'HEADER.FREE_VIDEO' | translate }}</a>
+      <a mat-menu-item>{{ 'HEADER.BLOG' | translate }}</a>
+    </mat-menu>
+  </div>
+
+  <div class="right-section">
+    <div class="profile-dropdown-wrapper" *ngIf="authService.isUserLoggedIn()">
+      <button mat-button (click)="switchLang('en')" class="language-button language-en">EN</button>
+      <button mat-button (click)="switchLang('vi')" class="language-button language-vn">VN</button>
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-menu-trigger">
+        <img
+          [src]="(authService.currentUser$ | async)?.avatarUrl || 'assets/default-avatar.png'"
+          alt="Ảnh đại diện người dùng"
+          class="toolbar-profile-picture"
+        />
+      </button>
+      <mat-menu #profileMenu="matMenu">
+        <a mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>{{ 'HEADER.PROFILE' | translate }}</span>
+        </a>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>{{ 'HEADER.LOGOUT' | translate }}</span>
+        </button>
+      </mat-menu>
+    </div>
+    <button mat-button *ngIf="!authService.isUserLoggedIn()" type="button" routerLink="/login" class="login-button">
+      {{ 'HEADER.LOGIN' | translate }}
+    </button>
+  </div>
+</mat-toolbar>

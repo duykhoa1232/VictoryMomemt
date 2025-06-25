@@ -1,0 +1,280 @@
+/*!* src/app/register/register.component.css *!*/
+
+/*!* ==== 1. WRAPPER VÀ CARD CHUNG (Có thể trùng với login.component.css) ==== *!*/
+/*.auth-wrapper {*/
+/*  min-height: calc(100vh - 64px); !* Trừ đi chiều cao của navbar *!*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  background: linear-gradient(135deg, #667eea, #764ba2);*/
+/*  padding: 1rem;*/
+/*}*/
+
+/*.auth-card {*/
+/*  width: 100%;*/
+/*  max-width: 400px;*/
+/*  padding: 2rem;*/
+/*  background: #fff;*/
+/*  border-radius: 10px;*/
+/*  box-shadow: 0 8px 16px rgba(0,0,0,0.2);*/
+/*  transform: translateY(-32px); !* Kéo thẻ lên một chút để căn giữa nhìn tốt hơn *!*/
+/*}*/
+
+/*!* ==== 2. TIÊU ĐỀ FORM ==== *!*/
+/*.auth-title {*/
+/*  text-align: center;*/
+/*  margin-bottom: 1.5rem;*/
+/*  font-weight: 700;*/
+/*  font-size: 1.8rem;*/
+/*  color: #3f51b5;*/
+/*}*/
+
+/*!* ==== 3. STYLE CHO mat-form-field ==== *!*/
+/*mat-form-field {*/
+/*  width: 100%;*/
+/*  margin-bottom: 1rem;*/
+/*}*/
+
+/*!* ==== 4. NÚT BẤM ==== *!*/
+/*button.mat-raised-button,*/
+/*button.mat-flat-button,*/
+/*button.mat-button {*/
+/*  width: 100%;*/
+/*  font-weight: 600;*/
+/*  font-size: 16px;*/
+/*  padding: 0.75rem;*/
+/*  transition: box-shadow 0.3s ease, background-color 0.3s ease;*/
+/*  box-sizing: border-box;*/
+/*  border-radius: 4px;*/
+/*}*/
+
+/*button.mat-raised-button:hover,*/
+/*button.mat-flat-button:hover {*/
+/*  box-shadow: 0 6px 12px rgba(0,0,0,0.25);*/
+/*}*/
+
+/*button.mat-raised-button:disabled,*/
+/*button.mat-flat-button:disabled,*/
+/*button.mat-button:disabled {*/
+/*  background-color: #cccccc !important;*/
+/*  color: #666666 !important;*/
+/*  cursor: not-allowed;*/
+/*  box-shadow: none !important;*/
+/*}*/
+
+/*!* ==== 5. THÔNG BÁO LỖI (NẾU CÓ TRONG FORM REGISTER) ==== *!*/
+/*.error-message {*/
+/*  color: #d32f2f;*/
+/*  font-weight: 600;*/
+/*  margin-top: 0.8rem;*/
+/*  text-align: center;*/
+/*  font-size: 0.95rem;*/
+/*}*/
+
+/*!* ==== 6. THÔNG BÁO THÀNH CÔNG (NẾU CÓ TRONG FORM REGISTER) ==== *!*/
+/*.success-message {*/
+/*  color: #388e3c;*/
+/*  font-weight: 600;*/
+/*  margin-top: 0.8rem;*/
+/*  text-align: center;*/
+/*  font-size: 0.95rem;*/
+/*}*/
+
+/*!* ==== 7. PHẦN FOOTER VỚI LINK CHUYỂN TRANG ==== *!*/
+/*.auth-footer {*/
+/*  margin-top: 1.5rem;*/
+/*  text-align: center;*/
+/*  font-size: 14px;*/
+/*}*/
+
+/*.auth-footer a {*/
+/*  color: #3f51b5;*/
+/*  font-weight: 600;*/
+/*  text-decoration: none;*/
+/*  transition: color 0.2s ease;*/
+/*}*/
+
+/*.auth-footer a:hover {*/
+/*  text-decoration: underline;*/
+/*  color: #303f9f;*/
+/*}*/
+
+/*!* RESPONSIVE CHO REGISTER CARD *!*/
+/*@media (max-width: 600px) {*/
+/*  .auth-card {*/
+/*    padding: 1.5rem;*/
+/*    margin: 1rem;*/
+/*    transform: translateY(-16px);*/
+/*  }*/
+/*  .auth-title {*/
+/*    font-size: 1.5rem;*/
+/*    margin-bottom: 1rem;*/
+/*  }*/
+/*  button.mat-raised-button {*/
+/*    padding: 0.6rem;*/
+/*    font-size: 15px;*/
+/*  }*/
+/*}*/
+
+/*@media (max-width: 400px) {*/
+/*  .auth-card {*/
+/*    padding: 1rem;*/
+/*  }*/
+/*  .auth-title {*/
+/*    font-size: 1.3rem;*/
+/*  }*/
+/*}*/
+
+/* src/app/register/register.component.css */
+
+/* ==== 1. WRAPPER VÀ CARD CHUNG ==== */
+.auth-wrapper {
+  min-height: calc(100vh - 64px); /* Trừ đi chiều cao của navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Thay đổi nền từ gradient màu đậm sang màu sáng */
+  background: #f5f5f5; /* Một màu xám nhạt tinh tế */
+  /* Hoặc chỉ đơn giản là background: #ffffff; nếu bạn muốn nền hoàn toàn trắng */
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: #fff; /* Nền thẻ vẫn là trắng */
+  border-radius: 10px;
+  /* Bóng đổ nhẹ nhàng hơn để nổi bật trên nền sáng */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Bóng đổ mềm mại hơn */
+  transform: translateY(-16px); /* Kéo thẻ lên một chút để căn giữa nhìn tốt hơn */
+  border: 1px solid #e0e0e0; /* Đường viền nhẹ nhàng */
+}
+
+/* ==== 2. TIÊU ĐỀ FORM ==== */
+.auth-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  /* Màu tiêu đề có thể là xám đậm hoặc màu thương hiệu nhẹ */
+  color: #333; /* Màu xám đậm */
+}
+
+/* ==== 3. STYLE CHO mat-form-field ==== */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Điều chỉnh màu label và border của Material form field khi focus */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #e0e0e0; /* Màu border mặc định */
+}
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #007bff; /* Màu accent khi focus, ví dụ: xanh dương tươi */
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #007bff; /* Màu label khi focus */
+}
+
+/* Màu chữ nhập vào */
+.mat-form-field-infix input {
+  color: #333;
+}
+
+
+/* ==== 4. NÚT BẤM ==== */
+button.mat-raised-button {
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0.75rem;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+  border-radius: 4px;
+  /* Màu nút chính, có thể là màu thương hiệu nhẹ */
+  background-color: #007bff; /* Xanh dương tươi */
+  color: #fff;
+}
+
+button.mat-raised-button:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Bóng đổ khi hover nhẹ hơn */
+  background-color: #0056b3; /* Xanh đậm hơn khi hover */
+}
+
+button.mat-raised-button:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+/* Icon trong nút */
+button.mat-raised-button mat-icon {
+  margin-left: 8px; /* Khoảng cách giữa chữ và icon */
+  vertical-align: middle;
+}
+
+/* ==== 5. THÔNG BÁO LỖI ==== */
+mat-error {
+  color: #d32f2f; /* Màu đỏ tiêu chuẩn cho lỗi */
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+/* ==== 6. ICON ẨN/HIỆN MẬT KHẨU ==== */
+.mat-icon-button {
+  color: #666; /* Màu icon mắt */
+}
+.mat-icon-button:hover {
+  color: #333;
+}
+
+
+/* ==== 7. PHẦN FOOTER VỚI LINK CHUYỂN TRANG ==== */
+.auth-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  color: #666; /* Màu chữ footer */
+}
+
+.auth-footer a {
+  color: #007bff; /* Màu link chuyển trang */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .auth-card {
+    padding: 1.5rem;
+    margin: 1rem;
+    transform: translateY(-16px);
+  }
+  .auth-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  button.mat-raised-button {
+    padding: 0.6rem;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .auth-card {
+    padding: 1rem;
+  }
+  .auth-title {
+    font-size: 1.3rem;
+  }
+}

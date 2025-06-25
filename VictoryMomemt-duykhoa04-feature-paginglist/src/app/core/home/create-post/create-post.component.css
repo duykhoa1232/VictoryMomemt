@@ -1,0 +1,130 @@
+
+.create-post-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card-header {
+  padding: 16px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.user-info-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.user-details .user-name {
+  font-weight: 500;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.post-content-field textarea {
+  resize: vertical;
+}
+
+.add-to-post-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.media-upload-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.media-button {
+  width: 40px;
+  height: 40px;
+}
+
+.file-list-preview {
+  margin-top: 16px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.media-preview-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.media-preview-video {
+  width: 100px;
+  height: 75px;
+  object-fit: cover;
+  margin-right: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+mat-card-actions {
+  margin-top: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+mat-chip {
+  margin: 4px;
+}
+
+.mb-2 {
+  margin-bottom: 16px;
+}
+.create-post-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card-header {
+  padding: 16px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+

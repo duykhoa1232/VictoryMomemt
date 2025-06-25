@@ -1,0 +1,223 @@
+<!--<div class="auth-wrapper">-->
+<!--  <mat-card class="auth-card register-card">-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title class="auth-title">Register new account</mat-card-title>-->
+<!--    </mat-card-header>-->
+
+<!--    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Full name</mat-label>-->
+<!--        <input matInput type="text" formControlName="name" />-->
+<!--        <mat-error *ngIf="f['name'].touched && f['name'].invalid">-->
+<!--          <span *ngIf="f['name'].errors?.['required']">Full name is required.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Email</mat-label>-->
+<!--        <input matInput type="email" formControlName="email" />-->
+<!--        <mat-error *ngIf="f['email'].touched && f['email'].invalid">-->
+<!--          <span *ngIf="f['email'].errors?.['required']">Email is required.</span>-->
+<!--          <span *ngIf="f['email'].errors?.['email']">Invalid email.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Phone number</mat-label>-->
+<!--        <input matInput type="text" formControlName="phoneNumber" />-->
+<!--        <mat-error *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid">-->
+<!--          <span *ngIf="f['phoneNumber'].errors?.['required']">Phone number is required.</span>-->
+<!--          <span *ngIf="f['phoneNumber'].errors?.['pattern']">Invalid phone number (10 numbers).</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Password</mat-label>-->
+<!--        <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName="password" />-->
+<!--        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">-->
+<!--          <mat-icon [ngClass]="{-->
+<!--            'bi-eye': fieldTextType,-->
+<!--            'bi-eye-slash': !fieldTextType-->
+<!--          }"></mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="f['password'].touched && f['password'].invalid">-->
+<!--          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>-->
+<!--          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters.</span>-->
+<!--          <span *ngIf="f['password'].errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Confirm Password</mat-label>-->
+<!--        <input matInput [type]="fieldTextType ? 'text' : 'password'"   formControlName="confirmPassword" />-->
+<!--        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">-->
+<!--          <mat-icon [ngClass]="{-->
+<!--            'bi-eye': fieldTextType,-->
+<!--            'bi-eye-slash': !fieldTextType-->
+<!--          }"></mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid">-->
+<!--          <span *ngIf="f['confirmPassword'].errors?.['required']">Password confirmation is required.</span>-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="registerForm.errors?.['mismatch'] && f['confirmPassword'].touched">-->
+<!--          Confirmation password does not match.-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <button mat-raised-button color="primary" type="submit">-->
+<!--        Register <mat-icon>arrow_forward</mat-icon>-->
+<!--      </button>-->
+<!--    </form>-->
+
+<!--    <p class="auth-footer">-->
+<!--      Already have an account? <a [routerLink]="['/login']">Login</a>-->
+<!--    </p>-->
+<!--  </mat-card>-->
+<!--</div>-->
+
+
+<!--<div class="auth-wrapper">-->
+<!--  <mat-card class="auth-card register-card">-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title class="auth-title">Register new account</mat-card-title>-->
+<!--    </mat-card-header>-->
+
+<!--    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">-->
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Full name</mat-label>-->
+<!--        <input matInput type="text" formControlName="name" />-->
+<!--        <mat-error *ngIf="f['name'].touched && f['name'].invalid">-->
+<!--          <span *ngIf="f['name'].errors?.['required']">Full name is required.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Email</mat-label>-->
+<!--        <input matInput type="email" formControlName="email" />-->
+<!--        <mat-error *ngIf="f['email'].touched && f['email'].invalid">-->
+<!--          <span *ngIf="f['email'].errors?.['required']">Email is required.</span>-->
+<!--          <span *ngIf="f['email'].errors?.['email']">Invalid email.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Phone number</mat-label>-->
+<!--        <input matInput type="text" formControlName="phoneNumber" />-->
+<!--        <mat-error *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid">-->
+<!--          <span *ngIf="f['phoneNumber'].errors?.['required']">Phone number is required.</span>-->
+<!--          <span *ngIf="f['phoneNumber'].errors?.['pattern']">Invalid phone number (10 numbers).</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Password</mat-label>-->
+<!--        <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName="password" />-->
+<!--        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">-->
+<!--          <mat-icon>{{ fieldTextType ? 'visibility' : 'visibility_off' }}</mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="f['password'].touched && f['password'].invalid">-->
+<!--          <span *ngIf="f['password'].errors?.['required']">Password is required.</span>-->
+<!--          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters.</span>-->
+<!--          <span *ngIf="f['password'].errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field appearance="outline">-->
+<!--        <mat-label>Confirm Password</mat-label>-->
+<!--        <input matInput [type]="fieldTextType ? 'text' : 'password'"   formControlName="confirmPassword" />-->
+<!--        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">-->
+<!--          <mat-icon>{{ fieldTextType ? 'visibility' : 'visibility_off' }}</mat-icon>-->
+<!--        </button>-->
+<!--        <mat-error *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid">-->
+<!--          <span *ngIf="f['confirmPassword'].errors?.['required']">Password confirmation is required.</span>-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="registerForm.errors?.['mismatch'] && f['confirmPassword'].touched">-->
+<!--          Confirmation password does not match.-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <button mat-raised-button color="primary" type="submit">-->
+<!--        Register <mat-icon>arrow_forward</mat-icon>-->
+<!--      </button>-->
+<!--    </form>-->
+
+<!--    <p class="auth-footer">-->
+<!--      Already have an account? <a [routerLink]="['/login']">Login</a>-->
+<!--    </p>-->
+<!--  </mat-card>-->
+<!--</div>-->
+
+
+<button mat-button (click)="switchLang('en')" class="language-button language-en">EN</button>
+<button mat-button (click)="switchLang('vi')" class="language-button language-vn">VN</button>
+<div class="auth-wrapper">
+  <mat-card class="auth-card register-card">
+    <mat-card-header>
+      <mat-card-title class="auth-title">{{ 'AUTH.REGISTER_TITLE' | translate }}</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'AUTH.FULL_NAME' | translate }}</mat-label>
+        <input matInput type="text" formControlName="name" />
+        <mat-error *ngIf="f['name'].touched && f['name'].invalid">
+          <span *ngIf="f['name'].errors?.['required']">{{ 'AUTH.FULL_NAME_REQUIRED' | translate }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'AUTH.EMAIL' | translate }}</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error *ngIf="f['email'].touched && f['email'].invalid">
+          <span *ngIf="f['email'].errors?.['required']">{{ 'AUTH.EMAIL_REQUIRED' | translate }}</span>
+          <span *ngIf="f['email'].errors?.['email']">{{ 'AUTH.EMAIL_INVALID' | translate }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'AUTH.PHONE' | translate }}</mat-label>
+        <input matInput type="text" formControlName="phoneNumber" />
+        <mat-error *ngIf="f['phoneNumber'].touched && f['phoneNumber'].invalid">
+          <span *ngIf="f['phoneNumber'].errors?.['required']">{{ 'AUTH.PHONE_REQUIRED' | translate }}</span>
+          <span *ngIf="f['phoneNumber'].errors?.['pattern']">{{ 'AUTH.PHONE_INVALID' | translate }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'AUTH.PASSWORD' | translate }}</mat-label>
+        <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName="password" />
+        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">
+          <mat-icon>{{ fieldTextType ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="f['password'].touched && f['password'].invalid">
+          <span *ngIf="f['password'].errors?.['required']">{{ 'AUTH.PASSWORD_REQUIRED' | translate }}</span>
+          <span *ngIf="f['password'].errors?.['minlength']">{{ 'AUTH.PASSWORD_MIN' | translate }}</span>
+          <span *ngIf="f['password'].errors?.['pattern']">{{ 'AUTH.PASSWORD_PATTERN' | translate }}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'AUTH.CONFIRM_PASSWORD' | translate }}</mat-label>
+        <input matInput [type]="fieldTextType ? 'text' : 'password'" formControlName="confirmPassword" />
+        <button mat-icon-button matSuffix (click)="toggleFieldTextType()" type="button">
+          <mat-icon>{{ fieldTextType ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">{{ 'AUTH.CONFIRM_PASSWORD_REQUIRED' | translate }}</span>
+        </mat-error>
+        <mat-error *ngIf="registerForm.errors?.['mismatch'] && f['confirmPassword'].touched">
+          {{ 'AUTH.PASSWORD_MISMATCH' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        {{ 'AUTH.REGISTER' | translate }} <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      {{ 'AUTH.HAVE_ACCOUNT' | translate }}
+      <a [routerLink]="['/login']">{{ 'AUTH.LOGIN' | translate }}</a>
+    </p>
+  </mat-card>
+</div>

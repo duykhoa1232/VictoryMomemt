@@ -1,0 +1,85 @@
+<!--<h2 mat-dialog-title>Select users to share with</h2>-->
+<!--<mat-dialog-content class="dialog-content">-->
+<!--  <mat-form-field appearance="outline" class="full-width search-field">-->
+<!--    <mat-label>Search for users</mat-label>-->
+<!--    <input matInput [formControl]="searchControl" placeholder="Enter name or email">-->
+<!--    <mat-icon matSuffix>search</mat-icon>-->
+<!--    <mat-spinner *ngIf="isLoading" matSuffix diameter="20"></mat-spinner>-->
+<!--  </mat-form-field>-->
+
+<!--  <mat-chip-listbox aria-label="Người dùng đã chọn" class="selected-users-chips">-->
+<!--    <mat-chip *ngFor="let user of selectedUsers" (removed)="removeSelectedUser(user)">-->
+<!--      {{user.name}} ({{user.email}})-->
+<!--      <button matChipRemove [attr.aria-label]="'remove ' + user.name">-->
+<!--        <mat-icon>cancel</mat-icon>-->
+<!--      </button>-->
+<!--    </mat-chip>-->
+<!--  </mat-chip-listbox>-->
+
+<!--  <mat-selection-list #usersList class="user-list">-->
+<!--    <mat-list-option *ngIf="filteredUsers.length === 0 && !isLoading">-->
+<!--      No users found.    </mat-list-option>-->
+<!--    <mat-list-option *ngFor="let user of filteredUsers"-->
+<!--                     [value]="user"-->
+<!--                     (click)="onUserCheckboxChange(user, {checked: !isUserSelected(user)})"-->
+<!--                     [selected]="isUserSelected(user)">-->
+<!--      <mat-checkbox [checked]="isUserSelected(user)" (change)="onUserCheckboxChange(user, $event)">-->
+<!--        <div class="user-info">-->
+<!--          <span class="user-name">{{ user.name }}</span>-->
+<!--          <span class="user-email">{{ user.email }}</span>-->
+<!--        </div>-->
+<!--      </mat-checkbox>-->
+<!--    </mat-list-option>-->
+<!--  </mat-selection-list>-->
+
+<!--</mat-dialog-content>-->
+<!--<mat-dialog-actions align="end">-->
+<!--  <button mat-button (click)="onCancel()">Cancel</button>-->
+<!--  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="selectedUsers.length === 0">Save</button>-->
+<!--</mat-dialog-actions>-->
+
+
+
+<h2 mat-dialog-title>{{ 'USER_SELECTION.TITLE' | translate }}</h2>
+
+<mat-dialog-content class="dialog-content">
+  <mat-form-field appearance="outline" class="full-width search-field">
+    <mat-label>{{ 'USER_SELECTION.SEARCH_PLACEHOLDER' | translate }}</mat-label>
+    <input matInput [formControl]="searchControl" [placeholder]="'USER_SELECTION.SEARCH_PLACEHOLDER' | translate">
+    <mat-icon matSuffix>search</mat-icon>
+    <mat-spinner *ngIf="isLoading" matSuffix diameter="20"></mat-spinner>
+  </mat-form-field>
+
+    <mat-chip-listbox aria-label="Người dùng đã chọn" class="selected-users-chips">
+    <mat-chip *ngFor="let user of selectedUsers" (removed)="removeSelectedUser(user)">
+      {{ user.name }} ({{ user.email }})
+            <button matChipRemove [attr.aria-label]="'remove ' + user.name">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-listbox>
+
+  <mat-selection-list #usersList class="user-list">
+    <mat-list-option *ngIf="filteredUsers.length === 0 && !isLoading">
+      {{ 'USER_SELECTION.NO_RESULTS' | translate }}
+    </mat-list-option>
+    <mat-list-option *ngFor="let user of filteredUsers"
+                     [value]="user"
+                     (click)="onUserCheckboxChange(user, {checked: !isUserSelected(user)})"
+                     [selected]="isUserSelected(user)">
+      <mat-checkbox [checked]="isUserSelected(user)" (change)="onUserCheckboxChange(user, $event)">
+        <div class="user-info">
+          <span class="user-name">{{ user.name }}</span>
+          <span class="user-email">{{ user.email }}</span>
+        </div>
+      </mat-checkbox>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">{{ 'USER_SELECTION.CANCEL' | translate }}</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="selectedUsers.length === 0">
+    {{ 'USER_SELECTION.SAVE' | translate }}
+  </button>
+</mat-dialog-actions>

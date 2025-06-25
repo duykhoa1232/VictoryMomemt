@@ -1,0 +1,90 @@
+<div class="comment-section-wrapper">
+  <div class="comment-input-form">
+    <mat-form-field appearance="outline" class="full-width-input">
+      <textarea matInput
+                [formControl]="commentControl"
+                placeholder="{{'POST_LIST.WRITE_COMMENT' | translate}}"
+                rows="2"></textarea>
+      <mat-error *ngIf="commentControl.invalid && commentControl.dirty">
+        {{ 'POST_LIST.NO_COMMENTS' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <div class="comment-action-buttons">
+      <button mat-flat-button color="primary" [disabled]="commentControl.invalid" (click)="createComment()">
+        {{ 'POST_LIST.COMMENT' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="comment-list">
+    <ng-template #commentTemplate let-comments="comments">
+      <mat-card *ngFor="let comment of comments" class="comment-card">
+        <div class="comment-header">
+          <img mat-card-avatar [src]="comment.userAvatar || 'https://i.pinimg.com/736x/79/25/77/792577693bccf32473271c5e48ee0374.jpg'" alt="User Avatar">
+          <div class="comment-info">
+            <span class="comment-author">{{ getCommentUserName(comment) }}</span>
+            <span class="comment-timestamp">{{ comment.createdAt | date:'short' }}</span>
+          </div>
+        </div>
+
+        <div class="comment-content">
+          <p *ngIf="!isEditingComment(comment.id)">{{ comment.content }}</p>
+          <div *ngIf="isEditingComment(comment.id)" class="edit-comment-form">
+            <mat-form-field appearance="outline" class="comment-input">
+              <textarea matInput [formControl]="getEditCommentFormControl(comment.id)" placeholder="{{ 'POST_LIST.EDIT_COMMENT' | translate }}"></textarea>
+              <mat-error *ngIf="getEditCommentFormControl(comment.id).invalid && getEditCommentFormControl(comment.id).dirty">
+                {{ 'POST_LIST.NO_COMMENT' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <div class="comment-actions">
+              <button mat-button color="warn" (click)="cancelEditingComment(comment.id)">{{ 'POST_LIST.CANCEL' | translate }}</button>
+              <button mat-flat-button color="primary" [disabled]="getEditCommentFormControl(comment.id).invalid" (click)="saveEditedComment(comment)">{{ 'POST_LIST.SAVE' | translate }}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="comment-footer">
+          <button mat-button (click)="toggleReplyForm(comment)">
+            <mat-icon>reply</mat-icon> {{ 'POST_LIST.REPLY' | translate }}
+          </button>
+          <ng-container *ngIf="isMyComment(comment)">
+            <button mat-button (click)="startEditingComment(comment)">
+              <mat-icon>edit</mat-icon> {{ 'POST_LIST.EDIT' | translate }}
+            </button>
+            <button mat-button class="delete-button" (click)="deleteComment(post, comment)">
+              <mat-icon>delete</mat-icon> {{ 'POST_LIST.DELETE' | translate }}
+            </button>
+          </ng-container>
+        </div>
+
+        <div *ngIf="isReplyFormShown(comment.id)" class="reply-form">
+          <mat-form-field appearance="outline" class="comment-input">
+            <textarea matInput [formControl]="getReplyFormControl(comment.id)" placeholder="{{ 'POST_LIST.WRITE_COMMENT' | translate }}"></textarea>
+            <mat-error *ngIf="getReplyFormControl(comment.id).invalid && getReplyFormControl(comment.id).dirty">
+              {{ 'POST_LIST.NO_REPLY' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <div class="comment-actions">
+            <button mat-button (click)="toggleReplyForm(comment)">{{ 'POST_LIST.CANCEL' | translate }}</button>
+            <button mat-flat-button color="primary"
+                    [disabled]="getReplyFormControl(comment.id).invalid"
+                    (click)="createReply(post, comment)">
+              {{ 'POST_LIST.SEND' | translate }}
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="comment.replies && comment.replies.length > 0" class="replies">
+          <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: comment.replies }"></ng-container>
+        </div>
+      </mat-card>
+    </ng-template>
+
+    <ng-container *ngTemplateOutlet="commentTemplate; context: { comments: post.comments || [] }"></ng-container>
+
+    <div *ngIf="!post.comments?.length" class="no-comments-message">
+      <mat-icon>info</mat-icon>
+      <p>{{ 'POST_LIST.NO_COMMENTS' | translate }}</p>
+    </div>
+  </div>
+</div>

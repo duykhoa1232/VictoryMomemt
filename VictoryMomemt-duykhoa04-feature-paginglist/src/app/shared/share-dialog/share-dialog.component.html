@@ -1,0 +1,52 @@
+<!--&lt;!&ndash; src/app/shared/share-dialog/share-dialog.component.html &ndash;&gt;-->
+<!--<h2 mat-dialog-title class="dialog-title">Chia sẻ bài đăng này</h2>-->
+
+<!--&lt;!&ndash; Form nhóm để nhập nội dung chia sẻ &ndash;&gt;-->
+<!--<mat-dialog-content [formGroup]="shareForm" class="dialog-content">-->
+<!--  &lt;!&ndash; Hiển thị một phần của bài đăng gốc để người dùng biết họ đang chia sẻ gì &ndash;&gt;-->
+<!--  <mat-card class="original-post-preview">-->
+<!--    <mat-card-header>-->
+<!--      &lt;!&ndash; Ảnh đại diện của tác giả bài đăng gốc &ndash;&gt;-->
+<!--      <img mat-card-avatar [src]="originalPost.author?.avatarUrl || 'https://placehold.co/40x40/cccccc/ffffff?text=AV'" alt="User Avatar">-->
+<!--      <mat-card-title class="post-author-name">-->
+<!--        &lt;!&ndash; Tên tác giả bài đăng gốc, hoặc 'Anonymous' nếu không có &ndash;&gt;-->
+<!--        {{ originalPost.author?.name || 'Anonymous' }}-->
+<!--      </mat-card-title>-->
+<!--      <mat-card-subtitle class="post-timestamp">-->
+<!--        &lt;!&ndash; Thời gian tạo bài đăng gốc, định dạng theo 'medium' &ndash;&gt;-->
+<!--        {{ originalPost.createdAt | date:'medium' }}-->
+<!--      </mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      &lt;!&ndash; Nội dung của bài đăng gốc. Hiển thị một phần nếu quá dài và thêm '...' &ndash;&gt;-->
+<!--      <p class="post-content-preview">-->
+<!--        {{ originalPost.content | slice:0:150 }}<span *ngIf="originalPost.content && originalPost.content.length > 150">...</span>-->
+<!--      </p>-->
+<!--      &lt;!&ndash; Hiển thị hình ảnh đầu tiên của bài đăng gốc nếu có &ndash;&gt;-->
+<!--      <div *ngIf="originalPost.imageUrls && originalPost.imageUrls.length > 0" class="image-preview-container">-->
+<!--        <img [src]="originalPost.imageUrls[0]" alt="Post Image" class="post-image-preview">-->
+<!--        &lt;!&ndash; Chỉ số nếu có nhiều hơn 1 ảnh &ndash;&gt;-->
+<!--        <span *ngIf="originalPost.imageUrls.length > 1" class="more-images-indicator">+{{ originalPost.imageUrls.length - 1 }} ảnh khác</span>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; Có thể thêm preview cho video/audio nếu muốn hiển thị các loại media khác &ndash;&gt;-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+
+<!--  &lt;!&ndash; Trường nhập liệu cho nội dung chia sẻ tùy chỉnh &ndash;&gt;-->
+<!--  <mat-form-field appearance="outline" class="full-width-input">-->
+<!--    <mat-label>Nội dung chia sẻ (tùy chọn)</mat-label>-->
+<!--    <textarea matInput formControlName="content" rows="4" placeholder="Bạn muốn nói gì về bài đăng này?"></textarea>-->
+<!--    &lt;!&ndash; Gợi ý về số ký tự đã nhập và giới hạn tối đa &ndash;&gt;-->
+<!--    <mat-hint align="end">{{ shareForm.get('content')?.value?.length || 0 }} / 500</mat-hint>-->
+<!--    &lt;!&ndash; Thông báo lỗi nếu nội dung vượt quá giới hạn ký tự &ndash;&gt;-->
+<!--    <mat-error *ngIf="shareForm.get('content')?.hasError('maxlength')">-->
+<!--      Nội dung không được vượt quá 500 ký tự.-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+<!--</mat-dialog-content>-->
+
+<!--&lt;!&ndash; Các nút hành động trong dialog (Hủy và Chia sẻ) &ndash;&gt;-->
+<!--<mat-dialog-actions align="end">-->
+<!--  <button mat-button (click)="onCancel()">Hủy</button>-->
+<!--  <button mat-flat-button color="primary" [disabled]="shareForm.invalid" (click)="onShare()">Chia sẻ</button>-->
+<!--</mat-dialog-actions>-->

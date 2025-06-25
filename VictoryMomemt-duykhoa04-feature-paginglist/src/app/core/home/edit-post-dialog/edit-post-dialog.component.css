@@ -1,0 +1,141 @@
+
+
+.dialog-content {
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.post-content-field {
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.add-to-post-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+.media-upload-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.media-button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: #f0f2f5;
+  color: #606060;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.media-button:hover {
+  background-color: #e0e2e5;
+}
+
+.file-list-preview, .existing-media-preview {
+  margin-top: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.file-list-preview h3, .existing-media-preview h3 {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 5px;
+}
+
+.file-item, .media-item {
+  display: flex;
+  align-items: center;
+  background-color: #e8f5e9; /* Light green for new files */
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #388e3c;
+}
+
+.existing-media-preview .media-item {
+  background-color: #e3f2fd; /* Light blue for existing files */
+  border-color: #bbdefb;
+  color: #1976d2;
+  align-items: center;
+  gap: 10px;
+}
+
+.media-preview-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.media-preview-video,
+.media-preview-audio {
+  width: 200px;
+  height: auto;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.file-item mat-icon, .media-item mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.file-item button, .media-item button {
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+}
+
+.file-item button mat-icon, .media-item button mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+
+
+
